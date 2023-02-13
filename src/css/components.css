@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&family=Solitreo&family=Ubuntu:wght@300;400&display=swap');
+/*variables*/
+:root{
+    --text-color:#020235;
+    --grey-color:#F1F4F9;
+    --purple-color:#8C8FFF;
+    --text-gray:#B8BDC9;
+}
+/*Navbar*/
+.navbar>.container{
+    background-color: white;
+    border-radius: 10px;
+}
+.container{
+    padding-left: 0;
+    padding-right: 0;
+    
+}
+.navTitle{
+    font-size: 20px;
+    font-weight:700;
+    color: var(--text-color);
+    font-family:'Roboto', sans-serif;
+    margin-left: 8%;
+}
+
+/*sidbar*/
+
+.sidebar{
+    background-color: white;
+    color: var(--text-color);
+    height: 100vh;
+    overflow-y: auto;
+    /* padding: 0% 1%; */
+    /* width: 21% !important; */
+
+}
+.sparkeLogo{
+    margin-right: 30%;
+}
+
+.topSection{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 4px 8px; */
+}
+.topSection h1{
+    display: flex;
+    /* padding: 4px 7px; */
+}
+.link{
+    color:var(--text-gray);
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    padding: 10px 10px;
+    gap: 10px;
+    
+}
+.link:hover,.menu:hover{
+    background-color: var(--grey-color);
+    transition: 0.2s;
+    color: #020235;
+}
+.active:hover,.activeMenuContainer:hover,.activeSubMenuContainer:hover{
+    background-color: var(--grey-color);
+    transition: 0.2s;
+    color: #020235;
+}
+.active{
+    background-color: var(--grey-color);
+    color:var(--text-gray);
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    padding: 5px 10px;
+    gap: 10px;
+
+}
+.activeMenuContainer{
+    background-color: white;
+    color:var(--text-color);
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    padding: 5px 10px;
+    gap: 10px;
+}
+.activeMenuContainer .icon{
+    color: #8C8FFF;
+    -webkit-box-shadow: 0px 0px 3px  #EEEEFF;
+    box-shadow: 0px 0px 3px  #EEEEFF
+}
+.main-container{
+    display: flex;
+    z-index: 0;
+    
+}
+main{
+    padding: 10px 20px;
+    width: 100%;
+    height: 100vh;
+    background-color: #F1F4F4;
+}
+
+.activeSidebar{
+    background: var(--grey-color);
+}
+.menu{
+    color: var(--text-gray);
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    padding: 8px 10px;
+    gap: 10px;
+    justify-content: space-between;
+    
+}
+.menuActive,.active{
+    color: var(--purple-color);
+    text-decoration: none;
+    background-color: #EEEEFF;
+    align-items: center;
+    display: flex;
+    padding: 5px 10px;
+    margin: 2% 0%;
+    gap: 10px;
+    justify-content: space-between;
+    border-radius: 10px;
+    font-size: medium;
+    font-weight:500;
+}
+.menuItem{
+    display: flex;
+    gap: 10px;
+    
+}
+.menuContainer{
+    display: flex;
+    flex-direction: column;
+}
+.menuContainer .link{
+    padding-left: 20px;
+    border-bottom: var(--grey-color) 0.5px solid;
+}
+.toggleSideBar{
+    position:initial;
+    z-index: 1;
+   
+    display: flex;
+    color: #8C8FFF;
+    width: 10rem;
+    
+}
+/* .toggleSideBarOn{
+    position: absolute;
+    z-index: 1;
+    right: 82.8%;
+    display: flex;
+    color: #8C8FFF;
+    width: 10rem;
+} */
+.logoSidebar{
+    width: 11rem;
+}
+#dropdown{
+    cursor: pointer;
+    border: 0px;
+    background: white;
+}
+#dropdownActive{
+    cursor: pointer;
+    border: 0px;
+    background: #EEEEFF;
+    color:var(--purple-color);
+}
+.linkTextactive{
+    background-color: #EEEEFF;
+    color: var(--purple-color);
+}
+.iconActive{
+    color: #8C8FFF;
+}
+/*subSubmenu*/
+.subMenu{
+    color: var(--text-gray);
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    padding: 8px 10px;
+    gap: 10px;
+    justify-content: space-between;
+    padding-left: 20px;
+}
+
+.submenuActive{
+    background-color: white;
+    color:var(--purple-color);
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    padding: 5px 10px;
+    gap: 10px;
+    padding-left: 20px;
+    
+}
+.activeSubMenuContainer{
+    background-color: white;
+    color:var(--text-color);
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    padding: 5px 10px 5px 30px;
+    gap: 10px;
+}
+.subMenuContainer{
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+}
+.subMenuContainer.link{
+    padding-left: 35px;
+    border-bottom: var(--grey-color) 0.5px solid;
+}
+
+/*responsive*/
+@media (max-width:1900px) {
+    
+}
