@@ -13,7 +13,7 @@ import Checkbox from "../CommonComponents/Checkbox";
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
-const Employee = () => {
+const SiteMaster = () => {
   const [search, setSearch] = useState("");
   const [item, setItem] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -373,21 +373,21 @@ const Employee = () => {
             />
           </InputGroup>
           <div className="checkFilterDiv">
-            <h5 className="checkHeader">Gender</h5>
+            <h5 className="checkHeader">Executives</h5>
             <div className="checkboxDiv">
               <div className="checkfilter">
-                <Checkbox
+                {/* <Checkbox
                   onClick={(e, ch) => {
                     checkboxValue(e, (ch = 1));
                   }}
-                />
-
-                {/* <input type='checkbox'
+                /> */}
+                
+                <input type='checkbox'
                 onClick={(e, ch) => {
                   checkboxValue(e, ch=1)
                 }}
-              /> */}
-                <p>Male</p>
+              />
+                <p>All</p>
               </div>
 
               <div className="checkfilter">
@@ -397,11 +397,29 @@ const Employee = () => {
                     checkboxValue(e, (ch = 2));
                   }}
                 />
-                <p>Female</p>
+                <p>Vikas Malap</p>
+              </div>
+              <div className="checkfilter">
+                <input
+                  type="checkbox"
+                  onClick={(e, ch) => {
+                    checkboxValue(e, (ch = 3));
+                  }}
+                />
+                <p>Nik Joshi</p>
+              </div>
+              <div className="checkfilter">
+                <input
+                  type="checkbox"
+                  onClick={(e, ch) => {
+                    checkboxValue(e, (ch = 4));
+                  }}
+                />
+                <p>Suraj Kadam</p>
               </div>
             </div>
 
-            <h5 className="checkHeader">Employee Status</h5>
+            {/* <h5 className="checkHeader">Employee Status</h5>
             <div className="checkboxDiv">
               <div className="checkfilter">
                 <input
@@ -473,7 +491,7 @@ const Employee = () => {
                 />
                 <p>Sr.Supervisor</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </Col>
         <Col md={10} className="colTable">
@@ -519,4 +537,4 @@ const Employee = () => {
   );
 };
 
-export default Employee;
+export default SiteMaster;
