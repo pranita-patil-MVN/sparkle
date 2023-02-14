@@ -12,6 +12,7 @@ import Customer from '../src/Components/customer';
 import Attendance from '../src/Components/attendance';
 import TableCompo from './CommonComponents/TableCompo';
 import ItemMaster from './Components/ItemMaster';
+import Checkbox from './CommonComponents/Checkbox';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
        <Route path='/masters/itemMaster' element={<ItemMaster/>}/>
        <Route path='/attendance' element={<Attendance/>}/>
        <Route path='/TableCompo' element={<TableCompo/>}/>
+       <Route path='/Checkbox' element={<Checkbox/>}/>
        </Routes>
        </SideBar>
        </Router>

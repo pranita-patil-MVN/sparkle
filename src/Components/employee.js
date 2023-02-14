@@ -9,6 +9,7 @@ import { CiSearch, CiImport, CiExport } from 'react-icons/ci'
 import { BiPlus } from 'react-icons/bi'
 import pdfImg from '../assets/Images/pdfImg.png'
 import TableCompo from "../CommonComponents/TableCompo"
+import Checkbox from '../CommonComponents/Checkbox';
 import '../css/pages.css'
 import '../css/dataTable.css'
 import '../css/commonCss.css'
@@ -404,14 +405,21 @@ const Employee = () => {
 
           </InputGroup>
           <div className='checkFilterDiv'>
+        
           <h5 className='checkHeader'>Gender</h5>
           <div className='checkboxDiv'>
             <div className='checkfilter'>
-              <input type='checkbox'
+       
+           <Checkbox 
+           onClick={(e, ch) => {
+                  checkboxValue(e, ch=1)
+                }}/>
+
+              {/* <input type='checkbox'
                 onClick={(e, ch) => {
                   checkboxValue(e, ch=1)
                 }}
-              />
+              /> */}
               <p>Male</p>
             </div>
 
@@ -419,7 +427,6 @@ const Employee = () => {
             <div className='checkfilter'>
               <input type='checkbox'
                 onClick={(e, ch) => {
-
                   checkboxValue(e, ch=2)
                 }}
               />
@@ -432,6 +439,7 @@ const Employee = () => {
           <div className='checkboxDiv' >
 
             <div className='checkfilter'>
+             
               <input type='checkbox'
                 onClick={(e, ch) => {
                   checkboxValue(e,ch=3)
