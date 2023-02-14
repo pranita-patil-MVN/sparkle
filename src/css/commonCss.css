@@ -1,0 +1,8 @@
+.titleDiv{
+    display: flex;
+    margin: 5px 0px;
+    gap: 0.5%;
+}
+.titleDiv img{
+    height: 20px;
+}

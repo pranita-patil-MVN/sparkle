@@ -13,6 +13,8 @@ import nextArrowBtnBlue from "../assets/Images/nextArrowBtnBlue.png";
 import previousArrowBtnBlue from "../assets/Images/previousArrowBtnBlue.png";
 import nextArrowBtnWhite from "../assets/Images/nextArrowBtnWhite.png";
 import '../css/pages.css'
+import '../css/dataTable.css'
+import '../css/commonCss.css'
 const Employee = () => {
   const [search, setSearch] = useState("");
   const [item, setItem] = useState([]);
