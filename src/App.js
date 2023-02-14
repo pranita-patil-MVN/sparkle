@@ -12,7 +12,7 @@ import Customer from '../src/Components/customer';
 import Attendance from '../src/Components/attendance';
 import TableCompo from './CommonComponents/TableCompo';
 import Checkbox from './CommonComponents/Checkbox';
-
+import Vendor from './Components/Vendor';
 function App() {
   return (
     <div className="App">
@@ -27,6 +27,7 @@ function App() {
        <Route path='/attendance' element={<Attendance/>}/>
        <Route path='/TableCompo' element={<TableCompo/>}/>
        <Route path='/Checkbox' element={<Checkbox/>}/>
+       <Route path='/masters/vendor' element={<Vendor/>}/>
        </Routes>
        </SideBar>
        </Router>
