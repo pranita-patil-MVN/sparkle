@@ -10,51 +10,101 @@ import {
   FaClipboardCheck,
 } from "react-icons/fa";
 
-import { BiRadioCircleMarked } from "react-icons/bi";
-import { MdDashboard, MdOutlineBusiness } from "react-icons/md";
-import "../css/components.css";
-import SparkleLogo from "../assets/Images/sparklelogo.png";
-import SidebarMenu from "../navigation/sidebarMenu";
-const routes = [
-  {
-    path: "/",
-    name: "Dashboard",
-    icon: <MdDashboard />,
-  },
-  {
-    path: "/masters",
-    name: "Masters",
-    icon: <FaRegAddressCard />,
-    subRoutes: [
-      {
-        path: "/masters/employee",
-        name: "Employee",
-        icon: <BiRadioCircleMarked />,
-      },
-      {
-        path: "/masters/Ra",
-        name: "Role Access",
-        icon: <BiRadioCircleMarked />,
-      },
-      {
-        path: "/masters/customer",
-        name: "Customer",
-        icon: <BiRadioCircleMarked />,
-        subSubRoutes: [
-          {
-            path: "/masters/customer/SiteMaster",
-            name: "Site",
-            icon: <BiRadioCircleMarked />,
-          },
-        ],
-      },
-      {
-        path: "/masters/activity",
-        name: "Activity",
-        icon: <BiRadioCircleMarked />,
-      },
-    ],
-  },
+import {BiRadioCircleMarked} from 'react-icons/bi'
+import {MdDashboard,MdOutlineBusiness} from 'react-icons/md'
+import '../css/components.css'
+import SparkleLogo from '../assets/Images/sparklelogo.png'
+import SidebarMenu from '../navigation/sidebarMenu';
+const routes =[
+    {
+        path:'/',
+        name:'Dashboard',
+        icon:<MdDashboard/> 
+    },
+    {
+        path:'/masters',
+        name:'Masters',
+        icon:<FaRegAddressCard/>,
+        subRoutes:[
+            {
+                path:'/masters/employee',
+                name:'Employee',
+                icon:<BiRadioCircleMarked/>
+                
+            },
+            {
+                path:'/masters/Ra',
+                name:'Role Access',
+                icon:<BiRadioCircleMarked/>
+                
+            },
+            {
+              path: "/masters/customer",
+              name: "Customer",
+              icon: <BiRadioCircleMarked />,
+              subSubRoutes: [
+                {
+                  path: "/masters/customer/SiteMaster",
+                  name: "Site",
+                  icon: <BiRadioCircleMarked />,
+                },
+              ],
+            },
+            {
+                path:'/masters/activity',
+                name:'Activity',
+                icon:<BiRadioCircleMarked/>
+                
+            },
+            {
+                path:'/masters/itemMaster',
+                name:'Item',
+                icon:<BiRadioCircleMarked/>
+                
+            },
+        ]
+    },
+
+        {
+        path:'/attendance',
+        name:'Attendance',
+        icon:<FaCalendarCheck/>,
+        subRoutes:[
+            {
+                path:'/attendance/Employee',
+                name:'Employee',
+                icon:<BiRadioCircleMarked/>
+                
+            },
+            {
+                path:'/attendance/Ra',
+                name:'Role Access',
+                icon:<BiRadioCircleMarked/>,
+                subSubRoutes:[
+                    {
+                        path:'/attendance/Ra/Employee',
+                        name:'Employee',
+                        icon:<BiRadioCircleMarked/>
+                        
+                    },
+                    {
+                        path:'/attendance/Ra/Edit',
+                        name:'Edit',
+                        icon:<BiRadioCircleMarked/>
+                        
+                    },
+                ]
+                
+            },
+        ]
+        },
+        {
+            path:'/inventory',
+            name:'Inventory',
+            icon:<FaClipboardCheck/>
+        },
+    
+   
 
   {
     path: "/attendance",
