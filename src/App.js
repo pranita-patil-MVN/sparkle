@@ -10,7 +10,7 @@ import '../src/css/pages.css'
 import Dashboard from '../src/Components/Dashboard';
 import Customer from '../src/Components/customer';
 import Attendance from '../src/Components/attendance';
-import TableCompo from './Components/CommonComponents/TableCompo';
+import TableCompo from './CommonComponents/TableCompo';
 
 function App() {
   return (

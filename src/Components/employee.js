@@ -8,7 +8,7 @@ import editImg from '../assets/Images/editImg.png'
 import { CiSearch, CiImport, CiExport } from 'react-icons/ci'
 import { BiPlus } from 'react-icons/bi'
 import pdfImg from '../assets/Images/pdfImg.png'
-import TableCompo from "../Components/CommonComponents/TableCompo"
+import TableCompo from "../CommonComponents/TableCompo"
 import '../css/pages.css'
 const Employee = () => {
   const [search, setSearch] = useState("");

@@ -12,7 +12,7 @@ import { BiPlus } from 'react-icons/bi'
 import PDF from '../assets/Images/pdfImg.png'
 import moment, { Moment } from 'moment/moment';
 import '../css/pages.css'
-import TableCompo from './CommonComponents/TableCompo';
+import TableCompo from '../CommonComponents/TableCompo';
 
 const Customer = () => {
     const [item,setItem] =useState([]);

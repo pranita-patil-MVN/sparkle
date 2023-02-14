@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { BiPlus } from "react-icons/bi";
 import { CiSearch, CiImport, CiExport } from "react-icons/ci";
 import DataTable from "react-data-table-component";
-import previousArrowBtnWhite from "../../assets/Images/previousArrowBtnWhite.png";
-import nextArrowBtnBlue from "../../assets/Images/nextArrowBtnBlue.png";
-import previousArrowBtnBlue from "../../assets/Images/previousArrowBtnBlue.png";
-import nextArrowBtnWhite from "../../assets/Images/nextArrowBtnWhite.png";
+import previousArrowBtnWhite from "../assets/Images/previousArrowBtnWhite.png";
+import nextArrowBtnBlue from "../assets/Images/nextArrowBtnBlue.png";
+import previousArrowBtnBlue from "../assets/Images/previousArrowBtnBlue.png";
+import nextArrowBtnWhite from "../assets/Images/nextArrowBtnWhite.png";
 export default function TableCompo(props) {
   //     useEffect(()=>{
   // alert(JSON.stringify(props))
