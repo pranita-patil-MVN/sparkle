@@ -8,10 +8,7 @@ import editImg from '../assets/Images/editImg.png'
 import { CiSearch, CiImport, CiExport } from 'react-icons/ci'
 import { BiPlus } from 'react-icons/bi'
 import pdfImg from '../assets/Images/pdfImg.png'
-import previousArrowBtnWhite from "../assets/Images/previousArrowBtnWhite.png";
-import nextArrowBtnBlue from "../assets/Images/nextArrowBtnBlue.png";
-import previousArrowBtnBlue from "../assets/Images/previousArrowBtnBlue.png";
-import nextArrowBtnWhite from "../assets/Images/nextArrowBtnWhite.png";
+import TableCompo from "../CommonComponents/TableCompo"
 import '../css/pages.css'
 import '../css/dataTable.css'
 import '../css/commonCss.css'
@@ -378,99 +375,6 @@ const Employee = () => {
     }
   }, [search])
 
-//Pagination Code
-  const customPagination = ({
-    rowsPerPage,
-    rowCount,
-    onChangePage,
-    currentPage,
-  }) => {
-    const handleBackButtonClick = () => {
-      onChangePage(currentPage - 1);
-    };
-
-    const handleNextButtonClick = () => {
-      onChangePage(currentPage + 1);
-    };
-
-    const handlePageNumber = (e) => {
-      onChangePage(Number(e.target.value));
-    };
-    const toPages = () => {
-      const results = [];
-  
-      // for (let i = 1; i < pages; i++) {
-      //   results.push(i);
-      // }
-      for (
-        let i = 1;
-        i <= Math.ceil(item.length / 4);
-        i++
-      ) {
-        results.push(i);
-      }
-  
-      return results;
-    };
-    // const pages = getNumberOfPages(rowCount, rowsPerPage);
-    const pageItems = toPages();
-    const nextDisabled = currentPage === pageItems.length;
-    const previosDisabled = currentPage === 1;
-
- 
-    return (
-      <nav>
-        <ul className="pagination">
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={handleBackButtonClick}
-              disabled={previosDisabled}
-              aria-disabled={previosDisabled}
-              aria-label="previous page"
-            >
-              {previosDisabled ? (
-                <img src={previousArrowBtnWhite} />
-              ) : (
-                <img src={previousArrowBtnBlue} />
-              )}
-            </button>
-          </li>
-          {pageItems.map((page) => {
-            const className =
-              page === currentPage ? "page-item active" : "page-item";
-
-            return (
-              <li key={page} className={className}>
-                <button
-                  className="page-link"
-                  onClick={handlePageNumber}
-                  value={page}
-                >
-                  {page}
-                </button>
-              </li>
-            );
-          })}
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={handleNextButtonClick}
-              disabled={nextDisabled}
-              aria-disabled={nextDisabled}
-              aria-label="next page"
-            >
-              {nextDisabled ? (
-                <img src={nextArrowBtnWhite} />
-              ) : (
-                <img src={nextArrowBtnBlue} />
-              )}
-            </button>
-          </li>
-        </ul>
-      </nav>
-    );
-  };
 
 
   return (
@@ -608,7 +512,10 @@ const Employee = () => {
         </Col>
         <Col md={10} className='colTable'>
           <div className='divTable'>
-            <DataTable
+            <TableCompo data={[columns,checkedItem.length > 0 ?
+                checkedItem :
+                filteredItems]}/>
+            {/* <DataTable
               columns={columns}
               data={checkedItem.length > 0 ?
                 checkedItem :
@@ -635,7 +542,7 @@ const Employee = () => {
 
               subHeaderAlign='right'
 
-            />
+            /> */}
           </div>
         </Col>
       </Row>

@@ -14,6 +14,8 @@ import moment, { Moment } from 'moment/moment';
 import '../css/pages.css'
 import '../css/dataTable.css'
 import '../css/commonCss.css'
+import TableCompo from '../CommonComponents/TableCompo';
+
 const Customer = () => {
     const [item,setItem] =useState([]);
     const [filteredItems, setFilteredItems] = useState([]);
@@ -465,7 +467,11 @@ const Customer = () => {
              </Col>
         <Col md={10} className='colTable'>
           <div className='divTable'>
-            <DataTable
+
+            <TableCompo data={[columns,checkedItem.length > 0 ?
+                checkedItem :
+                filteredItems]}/>
+            {/* <DataTable
               columns={columns}
               data={checkedItem.length > 0 ?
                 checkedItem :
@@ -489,7 +495,7 @@ const Customer = () => {
 
               subHeaderAlign='right'
 
-            />
+            /> */}
           </div>
         </Col>
       </Row>
