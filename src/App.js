@@ -11,6 +11,7 @@ import Dashboard from '../src/Components/Dashboard';
 import Customer from '../src/Components/customer';
 import Attendance from '../src/Components/attendance';
 import TableCompo from './CommonComponents/TableCompo';
+import Shift from './Components/Shift';
 import ItemMaster from './Components/ItemMaster';
 import Checkbox from './CommonComponents/Checkbox';
 import SiteMaster from './Components/SiteMaster';
@@ -29,6 +30,7 @@ function App() {
        <Route path='/masters/itemMaster' element={<ItemMaster/>}/>
        <Route path='/attendance' element={<Attendance/>}/>
        <Route path='/TableCompo' element={<TableCompo/>}/>
+       <Route path='/masters/shift' element={<Shift/>}/>
        <Route path='/Checkbox' element={<Checkbox/>}/>
        <Route path='/masters/customer/SiteMaster' element={<SiteMaster/>}/>
        <Route path='/masters/vendor' element={<Vendor/>}/>
