@@ -10,6 +10,7 @@ import '../src/css/pages.css'
 import Dashboard from '../src/Components/Dashboard';
 import Customer from '../src/Components/customer';
 import Attendance from '../src/Components/attendance';
+import TableCompo from './Components/CommonComponents/TableCompo';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
        <Route path='/masters' element={<Masters/>}/>
        <Route path='/masters/customer' element={<Customer/>}/>
        <Route path='/attendance' element={<Attendance/>}/>
+       <Route path='/TableCompo' element={<TableCompo/>}/>
        </Routes>
        </SideBar>
        </Router>
