@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { BiPlus } from "react-icons/bi";
-import { CiSearch, CiImport, CiExport } from "react-icons/ci";
 import DataTable from "react-data-table-component";
 import previousArrowBtnWhite from "../assets/Images/previousArrowBtnWhite.png";
 import nextArrowBtnBlue from "../assets/Images/nextArrowBtnBlue.png";
 import previousArrowBtnBlue from "../assets/Images/previousArrowBtnBlue.png";
 import nextArrowBtnWhite from "../assets/Images/nextArrowBtnWhite.png";
+import ButtonGroup from "./ButtonGroup";
 export default function TableCompo(props) {
   //     useEffect(()=>{
   // alert(JSON.stringify(props))
@@ -113,18 +112,7 @@ export default function TableCompo(props) {
         subHeaderComponent={
           <div className="subHeader">
             <div className="btnHeader">
-              <button className="btnTable btn">
-                <BiPlus size={20} />
-                New
-              </button>
-              <button className=" btnTable btn">
-                <CiExport size={20} />
-                Excel
-              </button>
-              <button className="btnTable btn">
-                <CiImport size={20} id="import " />
-                Import
-              </button>
+             <ButtonGroup/>
             </div>
           </div>
         }
