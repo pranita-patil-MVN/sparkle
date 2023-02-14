@@ -44,6 +44,11 @@ const routes =[
                 icon:<BiRadioCircleMarked/>
                 
             },
+            {
+                path:'/masters/shift',
+                name:'Shift',
+                icon:<BiRadioCircleMarked/>
+            }
         ]
     },
 

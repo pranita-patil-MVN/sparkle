@@ -11,6 +11,7 @@ import Dashboard from '../src/Components/Dashboard';
 import Customer from '../src/Components/customer';
 import Attendance from '../src/Components/attendance';
 import TableCompo from './CommonComponents/TableCompo';
+import Shift from './Components/Shift';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
        <Route path='/masters/customer' element={<Customer/>}/>
        <Route path='/attendance' element={<Attendance/>}/>
        <Route path='/TableCompo' element={<TableCompo/>}/>
+       <Route path='/masters/shift' element={<Shift/>}/>
        </Routes>
        </SideBar>
        </Router>
