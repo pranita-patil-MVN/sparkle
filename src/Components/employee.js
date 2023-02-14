@@ -425,7 +425,6 @@ const Employee = () => {
             <div className='checkfilter'>
               <input type='checkbox'
                 onClick={(e, ch) => {
-
                   checkboxValue(e, ch=2)
                 }}
               />
