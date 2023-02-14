@@ -1,0 +1,48 @@
+{
+    "Data": [
+      {
+        "company": "Movinture india pvt.ltd",
+        "id": "1",
+        "contact person":"Amar lokhande",
+        "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
+        "mobile":"9697989900"
+      },
+      {
+        "company": "Infosys ltd.",
+        "id": "2",
+        "contact person":"Rahul kinikar",
+        "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
+        "mobile":"9192939495"
+      },
+      {
+        "company": "Tcs ltd.",
+        "id": "3",
+        "contact person":"Suraj gane",
+        "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
+        "mobile":"9193969899"
+      },
+      {
+        "company": "Wipro ltd.",
+        "id": "4",
+        "contact person":"Martin langston",
+        "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
+        "mobile":"9194569899"
+      },
+      {
+        "company": "Workday ltd.",
+        "id": "5",
+        "contact person":"Amar chavan",
+        "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
+        "mobile":"9193969376"
+      },
+      {
+        "company": "honeywell ltd.",
+        "id": "6",
+        "contact person":"Nikhil kumbhar",
+        "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
+        "mobile":"9196778599"
+      }
+      
+
+    ]
+  }
