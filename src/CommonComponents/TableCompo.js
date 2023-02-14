@@ -99,7 +99,7 @@ export default function TableCompo(props) {
   };
 
   return (
-    <div>
+    <div className="outer-data-table">
       <DataTable
         columns={props.data[0]}
         data={props.data[1]}

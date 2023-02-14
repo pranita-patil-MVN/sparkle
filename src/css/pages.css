@@ -23,43 +23,7 @@
 }
 
 
-  .filter{
-    background-color: white;
-    height: 79vh;
-    /* border-radius-top-left: 15px; */
-    border-top-left-radius: 15px;
-    border: 1px solid var(--grey-color);
-    overflow-y: scroll;
-    padding-top: 1%;
-    }
-    .filter .colHeader{
-        color: #8C8FFF;
-    font-family:Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    }
-    .colTable{
-        height: 70vh;
-        
-        
-    }
-
-    .form-control{
-        background: var(--grey-color);
-        color: darkgray;
-        font-size: 12px;
-        font-family: Arial, Helvetica, sans-serif;
-        border: 0px;
-
-
-    }
-    .form-control:focus{
-        outline: none;
-        border: 0px;
-    }
-    #searchIcon{
-        background: var(--grey-color);
-        border: 0px;
-    }
+ 
     #import{
         width: 10%;
     }
