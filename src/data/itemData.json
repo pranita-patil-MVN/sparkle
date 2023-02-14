@@ -1,0 +1,69 @@
+{
+    "Data": [
+      {
+        "item": "Karvenagar",
+        "category": "411052",
+        "make":"Local",
+        "rate":5,
+        "status":"available"
+      },
+      {
+        "item": "Karvenagar",
+        "category": "411052",
+        "make":"Galalio",
+        "rate":15,
+        "status":"available"
+      },
+      {
+        "item": "Karvenagar",
+        "category": "411052",
+        "make":"Local",
+        "rate":35,
+        "status":"unavailable"
+      },
+      {
+        "item": "Karvenagar",
+        "category": "411052",
+        "make":"Local",
+        "rate":55,
+        "status":"unavailable"
+      },
+      {
+        "item": "Karvenagar",
+        "category": "411052",
+        "make":"Gala",
+        "rate":51,
+        "status":"available"
+      },
+      {
+        "item": "Karvenagar",
+        "category": "411052",
+        "make":"Galalio",
+        "rate":50,
+        "status":"available"
+      },
+      {
+        "item": "Karvenagar",
+        "category": "411052",
+        "make":"Kleenal",
+        "rate":5,
+        "status":"available"
+      },
+      {
+        "item": "Karvenagar",
+        "category": "411052",
+        "make":"Kleenal",
+        "rate":25,
+        "status":"available"
+      },
+      {
+        "item": "Karvenagar",
+        "category": "411052",
+        "make":"Galalio",
+        "rate":65,
+        "status":"available"
+      }
+
+    ]
+  }
+  

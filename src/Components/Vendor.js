@@ -11,6 +11,7 @@ import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import pdfImg from '../assets/Images/pdfImg.png'
 import TableCompo from "../CommonComponents/TableCompo"
 import Select from 'react-select';
+import VendorJson from "../data/vendorData.json"
 import Checkbox from '../CommonComponents/Checkbox';
 import '../css/pages.css'
 import '../css/dataTable.css'
@@ -34,10 +35,10 @@ const Vendor = () => {
   
   const getEmployeeList = async () => {
     try {
-      const response = await axios.get('https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce');
-      setItem(response.data);
-      alert(JSON.stringify(response.data))
-      setFilteredItems(response.data);
+      // const response = await axios.get('https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce');
+      setItem(VendorJson.Data);
+      // alert(JSON.stringify(VendorJson.Data))
+      setFilteredItems(VendorJson.Data);
     } catch (error) {
       console.log(error);
     }
@@ -45,31 +46,31 @@ const Vendor = () => {
 
   const columns = [
     {
-      name: "Name",
-      selector: (row) => row.Name,
+      name: "Id",
+      selector: (row) => row.company,
       sortable: true,
       id: 'name',
 
 
     },
     {
-      name: "Code",
+      name: "Company",
       selector: (row) => row.Code,
       sortable: true
     },
     {
-      name: "Joining date",
+      name: "Contact person",
       selector: (row) => row.Joining_date,
 
       sortable: true
     },
     {
-      name: "Gender",
+      name: "Address",
       selector: (row) => row.Gender,
       sortable: true
     },
     {
-      name: "Designation",
+      name: "Mobile",
       selector: (row) => row.Designation,
       sortable: true
     },
