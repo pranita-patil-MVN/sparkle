@@ -44,6 +44,12 @@ const routes =[
                 icon:<BiRadioCircleMarked/>
                 
             },
+            {
+                path:'/masters/itemMaster',
+                name:'Item',
+                icon:<BiRadioCircleMarked/>
+                
+            },
         ]
     },
 
