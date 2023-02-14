@@ -12,6 +12,8 @@ import { BiPlus } from 'react-icons/bi'
 import PDF from '../assets/Images/pdfImg.png'
 import moment, { Moment } from 'moment/moment';
 import '../css/pages.css'
+import '../css/dataTable.css'
+import '../css/commonCss.css'
 import TableCompo from '../CommonComponents/TableCompo';
 
 const Customer = () => {
@@ -27,7 +29,7 @@ const Customer = () => {
     const getItem = async () => {
         try {
           const response = await axios.get('https://mocki.io/v1/d1f404a4-9af0-450e-99b6-111ac045377a');
-          setItem(response.data);
+           setItem(response.data);
           setFilteredItems(response.data);
         } catch (error) {
           console.log(error);

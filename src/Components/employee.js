@@ -11,6 +11,8 @@ import pdfImg from '../assets/Images/pdfImg.png'
 import TableCompo from "../CommonComponents/TableCompo"
 import Checkbox from '../CommonComponents/Checkbox';
 import '../css/pages.css'
+import '../css/dataTable.css'
+import '../css/commonCss.css'
 const Employee = () => {
   const [search, setSearch] = useState("");
   const [item, setItem] = useState([]);

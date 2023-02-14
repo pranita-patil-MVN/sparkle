@@ -1,0 +1,48 @@
+.titleDiv{
+    display: flex;
+    margin: 5px 0px;
+    gap: 0.5%;
+}
+.titleDiv img{
+    height: 20px;
+}
+/* side filter */
+.filter{
+    background-color: white;
+    height: 79vh;
+    border-top-left-radius: 15px;
+    border: 1px solid var(--grey-color);
+    overflow-y: scroll;
+    padding-top: 1%;
+    }
+   
+    .filter .colHeader{
+        color: #8C8FFF;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: start;
+    }
+    .colTable{
+        height: 70vh; 
+    }
+    .form-control{
+        background: var(--grey-color);
+        color: darkgray;
+        font-size: 12px;
+        font-family: Arial, Helvetica, sans-serif;
+        border: 0px;
+    }
+    .form-control:focus{
+        outline: none;
+        border: 0px;
+    }
+    #searchIcon{
+        background: var(--grey-color);
+        border: 0px;
+    }
+    @media only screen and (min-width: 1300px) and (max-width: 1460px) {
+        .filter {
+            height: 84.7vh;
+            overflow-y: auto;
+        }
+    }
