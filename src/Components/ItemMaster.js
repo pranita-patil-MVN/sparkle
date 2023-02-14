@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import axios from "axios";
+import _ from "underscore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Button, InputGroup, Form } from "react-bootstrap";
 import profileImg from "../assets/Images/profileImg.png";
@@ -15,7 +16,7 @@ import "../css/dataTable.css";
 import "../css/commonCss.css";
 const ItemMaster = () => {
   const [search, setSearch] = useState("");
-  const [item, setItem] = useState([]);
+  const [itemData, setItemData] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [checkedItem, setCheckedItem] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
@@ -28,7 +29,7 @@ const ItemMaster = () => {
       // const response = await axios.get(
       //   "https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce"
       // );
-      setItem(itemJson.Data);
+      setItemData(itemJson.Data);
       setFilteredItems(itemJson.Data);
     } catch (error) {
       console.log(error);
@@ -37,7 +38,7 @@ const ItemMaster = () => {
   const columns = [
     {
       name: "Item",
-      selector: (row) => row.item,
+      selector: (row) => row.items,
       sortable: true,
       id: "name",
     },
@@ -68,7 +69,25 @@ const ItemMaster = () => {
       ),
     },
   ];
-
+ 
+  const onSearch=(data)=>{
+    if (checkedItem.length > 0) {
+      
+      const result = checkedItem.filter(item => {
+        return  item.items.toLowerCase().match(data) ||
+        item.items.match(data) ;
+      });
+      setCheckedItem(result)
+    }
+    else {
+      const result = itemData.filter(item => {
+        return  item.items.toLowerCase().match(data) ||
+        item.items.match(data) 
+      });
+      setFilteredItems(result)
+    }
+  }
+  var arr=[];
   const checkboxValue = (e, ch) => {
     if (checkedItem.length > 0) {
       switch (ch) {
@@ -281,19 +300,25 @@ const ItemMaster = () => {
               placeholder="search"
               aria-label="Username"
               aria-describedby="basic-addon1"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              // value={search}
+              onChange={(e) => onSearch(e.target.value)}
             />
           </InputGroup>
           <div className="checkFilterDiv">
             <h5 className="checkHeader">Item Category</h5>
             <div className="checkboxDiv">
               <div className="checkfilter">
-                <select>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                </select>
+                <Form.Select className="filter-dropdown">
+                <option  disabled selected>All</option>
+                  <option>Accessories</option>
+                  <option>Chemicals</option>
+                  <option>Consumables</option>
+                  <option>Shoes</option>
+                  <option>Spares</option>
+                  <option>Stationery</option>
+                  <option>Toiletories</option>
+                  <option>Uniform</option>
+                </Form.Select>
               </div>
             </div>
             <h5 className="checkHeader">Make</h5>
