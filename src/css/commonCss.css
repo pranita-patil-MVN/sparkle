@@ -40,9 +40,18 @@
         background: var(--grey-color);
         border: 0px;
     }
+    .filter-dropdown{
+        background-color: #F1F4FA;
+        width: 100%;
+        border: 0px;
+        padding: 5px 0px;
+        border-radius: 5px;
+        outline: none;
+    }
     @media only screen and (min-width: 1300px) and (max-width: 1460px) {
         .filter {
             height: 84.7vh;
             overflow-y: auto;
+            
         }
     }
