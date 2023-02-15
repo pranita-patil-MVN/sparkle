@@ -119,24 +119,9 @@ const Vendor = () => {
           }
           break;
 
+        
+
         case 3:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Employee_status.match("Active");
-            });
-
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            if (e.target.checked) {
-              setCheckedItem(filteredList);
-            } else {
-              setCheckedItem(filteredItems);
-            }
-          }
-          break;
-
-        case 4:
           if (e.target.checked) {
             const result = checkedItem.filter((i) => {
               return i.Employee_status.match("Inactive");
@@ -151,198 +136,64 @@ const Vendor = () => {
             }
           }
           break;
-
-        case 5:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Employee_status.match("Suspended");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            if (e.target.checked) {
-              setCheckedItem(filteredList);
-            } else {
-              setCheckedItem(filteredItems);
-            }
-          }
-          break;
-
-        case 6:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Designation.match("Janitor");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            setCheckedItem(filteredList);
-          }
-          break;
-
-        case 7:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Designation.match("Sr.Janitor");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            setCheckedItem(filteredList);
-          }
-          break;
-
-        case 8:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Designation.match("Supervisor");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            setCheckedItem(filteredList);
-          }
-          break;
-
-        case 9:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Designation.match("Sr.Supervisor");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            setCheckedItem(filteredList);
-          }
-          break;
-      }
-    } else {
-      switch (ch) {
-        case 1:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Gender.match("Male");
-            });
-
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 2:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Gender.match("Female");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 3:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Employee_status.match("Active");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
         case 4:
           if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Employee_status.match("Inactive");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 5:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Employee_status.match("Suspended");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 6:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Designation.match("Janitor");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 7:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Designation.match("Sr.Janitor");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 8:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Designation.match("Supervisor");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 9:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
+            const result = checkedItem.filter((i) => {
               return i.Designation.match("Sr.Supervisor");
             });
+            setFilteredList(checkedItem);
             setCheckedItem(result);
-            setFlag(1);
           } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
+            setCheckedItem(filteredList);
           }
           break;
+          case 6:
+            if (e.target.checked) {
+              const result = filteredItems.filter((i) => {
+                return i.status.match("unavailable");
+              });
+              setFilteredList(checkedItem);
+              setCheckedItem(result);
+            } else {
+              setCheckedItem(filteredList);
+            }
+            break;
       }
-    }
+    } 
+   
   };
 
   useEffect(() => {
     getEmployeeList();
   }, []);
 
+  const onSearch=(data)=>{
+    // alert(data)
+    if (checkedItem.length > 0) {
+      // alert("hi")
+      const result = checkedItem.filter(item => {
+        return  item.company.toLowerCase().match(data) ||
+        item.company.match(data) ;
+      });
+      setCheckedItem(result)
+    }
+    else {
+      // alert("by")
+      const result = item.filter(item => {
+        return  item.company.toLowerCase().match(data) ||
+          item.contact_person.toLowerCase().match(data) ||
+        item.company.match(data) 
+      });
+      setFilteredItems(result)
+    }
+  }
+
+  const onChangeState = (e) => {
+alert(JSON.stringify(e))
+  }
+  const onChangeCity = (e) => {
+    alert(e)
+      }
   // useEffect(() => {
   //   if (checkedItem.length > 0) {
   //     setFilteredList(checkedItem);
@@ -362,7 +213,7 @@ const Vendor = () => {
     <div>
       <div className="titleDiv">
         <img src={profileImg} alt="owner"></img>
-        <h5 className="title">Employee</h5>
+        <h5 className="title">Vendor</h5>
       </div>
 
       <Row className="rowTable">
@@ -376,41 +227,51 @@ const Vendor = () => {
               placeholder="search"
               aria-label="Username"
               aria-describedby="basic-addon1"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              // value={search}
+              onChange={(e) => onSearch(e.target.value)}
             />
           </InputGroup>
           <div className="checkFilterDiv">
             <h5 className="checkHeader">State</h5>
             <div className="checkboxDiv">
               <div className="checkfilter">
-              <select>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                </select>
+              <Form.Select className="filter-dropdown" onChange={(e) => {
+                      onChangeState(e)
+                    }} >
+                <option  disabled selected></option>
+                <option>Maharashtra</option>
+                  <option>Karnataka</option>
+                  <option>Andhra Pradesh</option>
+                </Form.Select>
                 
               </div>
 
-              <h5 className="checkHeader">City</h5>
+              <h5 className="checkHeaderCity">City</h5>
               <div className="checkboxDiv">
                 <div className="checkfilter">
-                <select>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                </select>
+                <Form.Select className="filter-dropdown" onChange={(e) => {
+                      onChangeCity(e)
+                    }}>
+                <option  disabled selected></option>
+                  <option>Pune</option>
+                  <option>Mumbai</option>
+                  <option>Bengaluru</option>
+                  
+                </Form.Select>
                 </div>
               </div>
 
               <h5 className="checkHeader">Location</h5>
               <div className="checkboxDiv">
                 <div className="checkfilter">
-                <select>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                </select>
+                <Form.Select className="filter-dropdown">
+                <option  disabled selected></option>
+                  <option>Pimpri</option>
+                  <option>Chinchwad</option>
+                  <option>Aundh</option>
+                  <option>Kothrud</option>
+                  
+                </Form.Select>
                 </div>
               </div>
 

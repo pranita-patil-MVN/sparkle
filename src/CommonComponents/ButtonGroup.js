@@ -22,15 +22,9 @@ export default function ButtonGroup() {
         <CiImport size={20} id="import " />
         Import
       </button>
-<<<<<<< HEAD
       <button className=" btnTable btn">
         <CiExport size={20} />
         Pdf
-=======
-      <button className={location.pathname==="/masters/employee"?"d-none":"btnTable btn"}>
-        <CiImport size={20} id="import " />
-        PDF
->>>>>>> ee0bbf88e2984107c51f9657579c5aeefde1b041
       </button>
     </>
   );
