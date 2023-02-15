@@ -16,6 +16,10 @@ export default function ButtonGroup() {
         <CiImport size={20} id="import " />
         Import
       </button>
+      <button className=" btnTable btn">
+        <CiExport size={20} />
+        Pdf
+      </button>
     </>
   );
 }
