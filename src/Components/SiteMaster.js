@@ -10,6 +10,7 @@ import { BiPlus } from "react-icons/bi";
 import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
 import Checkbox from "../CommonComponents/Checkbox";
+import siteData from "../data/SiteData.json"
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
@@ -21,16 +22,17 @@ const SiteMaster = () => {
   const [filteredList, setFilteredList] = useState([]);
   const [flag, setFlag] = useState();
   const getEmployeeList = async () => {
-    try {
-      const response = await axios.get(
-        "https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce"
-      );
-      setItem(response.data);
+    // try {
+      // const response = await axios.get(
+      //   "https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce"
+      // );
+      alert(JSON.stringify(siteData.Data))
+      setItem(siteData.Data);
       // alert(response.data.length)
-      setFilteredItems(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+      setFilteredItems(siteData.Data);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const columns = [
@@ -47,18 +49,8 @@ const SiteMaster = () => {
     },
     {
       name: "Joining date",
-      selector: (row) => row.Joining_date,
+      selector: (row) => row.Joining_Date,
 
-      sortable: true,
-    },
-    {
-      name: "Gender",
-      selector: (row) => row.Gender,
-      sortable: true,
-    },
-    {
-      name: "Designation",
-      selector: (row) => row.Designation,
       sortable: true,
     },
     {
@@ -354,7 +346,7 @@ const SiteMaster = () => {
     <div>
       <div className="titleDiv">
         <img src={profileImg} alt="owner"></img>
-        <h5 className="title">Employee</h5>
+        <h5 className="title">Site</h5>
       </div>
 
       <Row className="rowTable">
@@ -499,7 +491,7 @@ const SiteMaster = () => {
             <TableCompo
               data={[
                 columns,
-                checkedItem.length > 0 ? checkedItem : filteredItems,
+                checkedItem.length > 0 ? checkedItem : siteData.Data,
               ]}
             />
             {/* <DataTable

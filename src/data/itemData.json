@@ -1,64 +1,64 @@
 {
     "Data": [
       {
-        "item": "Karvenagar",
+        "items": "data1",
         "category": "411052",
         "make":"Local",
         "rate":5,
         "status":"available"
       },
       {
-        "item": "Karvenagar",
-        "category": "411052",
+        "items": "abc",
+        "category": "Accessories",
         "make":"Galalio",
         "rate":15,
         "status":"available"
       },
       {
-        "item": "Karvenagar",
+        "items": "Karvenagar",
         "category": "411052",
         "make":"Local",
         "rate":35,
         "status":"unavailable"
       },
       {
-        "item": "Karvenagar",
-        "category": "411052",
+        "items": "miraj",
+        "category": "Accessories",
         "make":"Local",
         "rate":55,
         "status":"unavailable"
       },
       {
-        "item": "Karvenagar",
-        "category": "411052",
+        "items": "miraj",
+        "category": "Chemicals",
         "make":"Gala",
         "rate":51,
         "status":"available"
       },
       {
-        "item": "Karvenagar",
-        "category": "411052",
+        "items": "pune",
+        "category": "Consumbles",
         "make":"Galalio",
         "rate":50,
         "status":"available"
       },
       {
-        "item": "Karvenagar",
-        "category": "411052",
+        "items": "pune",
+        "category": "Shoes",
         "make":"Kleenal",
         "rate":5,
         "status":"available"
       },
       {
-        "item": "Karvenagar",
-        "category": "411052",
+        "items": "sangli",
+        "category": "Spares",
         "make":"Kleenal",
         "rate":25,
         "status":"available"
       },
       {
-        "item": "Karvenagar",
-        "category": "411052",
+        "items": "sangli",
+        "category": "Stationery",
         "make":"Galalio",
         "rate":65,
         "status":"available"
