@@ -1,36 +1,40 @@
 {
     "Data": [
       {
-        "Code": "0202785T",
-        "Name": "Nik Joshi",
-        "Joining_Date":"01/01/2023"
+        "Site": "Forbes Marshall Pvt. Ltd. Kasarwadi",
+        "Supervisor": "Sandesh Malap",
+        "Site_Budget":"180000",
+        "Status":"Active",
+        "Location":"Pune"
       },
       {
-        "Code": "0202795T",
-        "Name": "Suraj Kadam",
-        "Joining_Date":"01/01/2023"
+        "Site": "Huf India Pvt. Ltd.",
+        "Supervisor": "Nik Joshi",
+        "Site_Budget":"150000",
+        "Status":"Inactive",
+        "Location":"Pune"
       },
       {
-        "Code": "0202785T",
-        "Name": "Nik Joshi",
-        "Joining_Date":"10/02/2023"
+        "Site": "Kalyani TechnoForge Ltd.",
+        "Supervisor": "Suraj Kadam",
+        "Site_Budget":"130000",
+        "Status":"Active",
+        "Location":"Mumbai"
       },
       {
-        "Code": "0202815T",
-        "Name": "Vikas Malap",
-        "Joining_Date":"01/02/2023"
+        "Site": "Mubea Automotive India Pvt. Ltd.",
+        "Supervisor": "Pritesh Kale",
+        "Site_Budget":"150000",
+        "Status":"Active",
+        "Location":"Kolhapur"
       },
       {
-        "Code": "0202783T",
-        "Name": "Pritesh Kale",
-        "Joining_Date":"01/01/2023"
-      },
-      {
-        "Code": "0202785T",
-        "Name": "Rahul Joshi",
-        "Joining_Date":"11/02/2023"
+        "Site": "Tenneco Clean Air India Pvt. Ltd.",
+        "Supervisor": "Rahul Joshi",
+        "Site_Budget":"100000",
+        "Status":"Inactive",
+        "Location":"Nashik"
       }
-     
       
     ]
   }
