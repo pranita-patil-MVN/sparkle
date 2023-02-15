@@ -10,7 +10,7 @@ import { BiPlus } from "react-icons/bi";
 import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
 import Checkbox from "../CommonComponents/Checkbox";
-import siteData from "../data/SiteData.json"
+import siteJson from "../data/SiteData.json"
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
@@ -21,15 +21,16 @@ const SiteMaster = () => {
   const [checkedItem, setCheckedItem] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [flag, setFlag] = useState();
+  const [siteData, setSiteData] = useState([]);
   const getEmployeeList = async () => {
     // try {
       // const response = await axios.get(
       //   "https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce"
       // );
       alert(JSON.stringify(siteData.Data))
-      setItem(siteData.Data);
+      setSiteData(siteJson.Data);
       // alert(response.data.length)
-      setFilteredItems(siteData.Data);
+      setFilteredItems(siteJson.Data);
     // } catch (error) {
     //   console.log(error);
     // }
@@ -37,19 +38,30 @@ const SiteMaster = () => {
 
   const columns = [
     {
-      name: "Name",
-      selector: (row) => row.Name,
+      name: "Site",
+      selector: (row) => row.Site,
       sortable: true,
       id: "name",
     },
     {
-      name: "Code",
-      selector: (row) => row.Code,
+      name: "Supervisor",
+      selector: (row) => row.Supervisor,
       sortable: true,
     },
     {
-      name: "Joining date",
-      selector: (row) => row.Joining_Date,
+      name: "Location",
+      selector: (row) => row.Location,
+      sortable: true,
+    },
+    {
+      name: "Site Budget",
+      selector: (row) => row.Site_Budget,
+
+      sortable: true,
+    },
+    {
+      name: "Status",
+      selector: (row) => row.Status,
 
       sortable: true,
     },
@@ -327,20 +339,45 @@ const SiteMaster = () => {
     getEmployeeList();
   }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   if (checkedItem.length > 0) {
+  //     setFilteredList(checkedItem);
+  //     const result = checkedItem.filter((i) => {
+  //       return i.Name.toLowerCase().match(search.toLowerCase());
+  //     });
+  //     setCheckedItem(result);
+  //   } else {
+  //     const result = item.filter((i) => {
+  //       return i.Name.toLowerCase().match(search.toLowerCase());
+  //     });
+  //     setFilteredItems(result);
+  //   }
+  // }, [search]);
+
+
+  // search functionality
+  const onSearch=(data)=>{
     if (checkedItem.length > 0) {
-      setFilteredList(checkedItem);
-      const result = checkedItem.filter((i) => {
-        return i.Name.toLowerCase().match(search.toLowerCase());
+      
+      const result = checkedItem.filter(item => {
+        return  item.Site.toLowerCase().match(data) ||
+
+        item.Site.match(data) ;
       });
-      setCheckedItem(result);
-    } else {
-      const result = item.filter((i) => {
-        return i.Name.toLowerCase().match(search.toLowerCase());
-      });
-      setFilteredItems(result);
+      setCheckedItem(result)
     }
-  }, [search]);
+    else {
+      const result = siteData.filter(item => {
+        return  item.Site.toLowerCase().match(data) ||
+        item.Supervisor.toLowerCase().match(data) ||
+        item.Location.toLowerCase().match(data) ||
+
+        item.Site.match(data) 
+      });
+      setFilteredItems(result)
+    }
+  }
+
 
   return (
     <div>
@@ -360,19 +397,19 @@ const SiteMaster = () => {
               placeholder="search"
               aria-label="Username"
               aria-describedby="basic-addon1"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              // value={search}
+              onChange={(e) => onSearch(e.target.value)}
             />
           </InputGroup>
           <div className="checkFilterDiv">
             <h5 className="checkHeader">Executives</h5>
             <div className="checkboxDiv">
-              <div className="checkfilter">
-                {/* <Checkbox
+              {/* <div className="checkfilter">
+                <Checkbox
                   onClick={(e, ch) => {
                     checkboxValue(e, (ch = 1));
                   }}
-                /> */}
+                />
                 
                 <input type='checkbox'
                 onClick={(e, ch) => {
@@ -380,7 +417,7 @@ const SiteMaster = () => {
                 }}
               />
                 <p>All</p>
-              </div>
+              </div> */}
 
               <div className="checkfilter">
                 <input
@@ -485,13 +522,27 @@ const SiteMaster = () => {
               </div>
             </div> */}
           </div>
+          {/* <h5 className="checkHeader">Location</h5>
+            <div className="checkboxDiv">
+              <div className="checkfilter">
+                <Form.Select className="filter-dropdown">
+                <option  disabled selected>All</option>
+                  <option>Pune</option>
+                  <option>Mumbai</option>
+                  <option>Pune</option>
+                  <option>Kolhapur</option>
+                  <option>Nashik</option>
+                  
+                </Form.Select>
+              </div>
+            </div> */}
         </Col>
         <Col md={10} className="colTable">
           <div className="divTable">
             <TableCompo
               data={[
                 columns,
-                checkedItem.length > 0 ? checkedItem : siteData.Data,
+                checkedItem.length > 0 ? checkedItem : filteredItems,
               ]}
             />
             {/* <DataTable
