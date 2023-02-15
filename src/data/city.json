@@ -1,0 +1,29 @@
+{  
+   "city":[  
+      {  
+         "district":"Pune",
+         "city":[  
+            "Kothrud",
+            "Karvenagar",
+            "Warje",
+            "Pimpri chinchwad"
+            
+            
+         ]
+      },
+      {  
+        "district":"Sangli",
+        "city":[  
+            "Shirala" ,
+            "Palus", 
+            "Kadegaon" ,
+            "Khanapur" ,
+            "Atpadi" ,
+            "Tasgaon" ,
+            "Miraj" 
+           
+           
+        ]
+     }
+    ]
+    }

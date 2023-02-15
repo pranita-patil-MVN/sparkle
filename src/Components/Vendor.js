@@ -3,6 +3,7 @@ import DataTable from "react-data-table-component";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Button, InputGroup, Form } from "react-bootstrap";
+import _ from "underscore";
 import profileImg from "../assets/Images/profileImg.png";
 import editImg from "../assets/Images/editImg.png";
 import { CiSearch, CiImport, CiExport } from "react-icons/ci";
@@ -12,10 +13,13 @@ import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
 import Select from "react-select";
 import vendorJson from "../data/vendorData.json";
+import stateData from "../data/state.json";
+import cityData from "../data/city.json";
 import Checkbox from "../CommonComponents/Checkbox";
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
+import { findWhere } from "underscore";
 const Vendor = () => {
   const [search, setSearch] = useState("");
   const [item, setItem] = useState([]);
@@ -25,22 +29,34 @@ const Vendor = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [flag, setFlag] = useState();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [state, setState] = useState();
+  const [district, setDistrict] = useState();
+  const [city, setCity] = useState();
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const options = [
     { value: "Maharashtra", label: "Maharashtra" },
     { value: "Karnataka", label: "Karnataka" },
     { value: "Andhra Pradesh", label: "Andhra Pradesh" },
   ];
-
+  const ArrState = [];
+  const ArrCity = [];
   const getEmployeeList = async () => {
-    // try {
-      // const response = await axios.get('https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce');
-      setItem(vendorJson.Data);
-      // alert(JSON.stringify(vendorJson.Data))
-      setFilteredItems(vendorJson.Data);
-    // } catch (error) {
-    //   console.log(error);
+    setItem(vendorJson.Data);
+    // alert(JSON.stringify(cityData.city))
+    // for ( let i=0 ; i< cityData.city.length;i++){
+    //   var data = cityData.city[i]["district"]
+    //   ArrCity.push(data)
+    //   console.log(data)
+
     // }
+    // setCity(ArrCity)
+    for (let i = 0; i < stateData.states.length; i++) {
+      var data = stateData.states[i]["state"];
+      ArrState.push(data);
+      // console.log(data)
+    }
+    setState(ArrState);
+    setFilteredItems(vendorJson.Data);
   };
 
   const columns = [
@@ -48,8 +64,7 @@ const Vendor = () => {
       name: "Id",
       selector: (row) => row.id,
       sortable: true,
-     
-      // id: "name",
+      id: "name",
     },
     {
       name: "Company",
@@ -80,7 +95,6 @@ const Vendor = () => {
           <button className="btn btn-default update" type="button">
             <img src={editImg} alt="edit" />
           </button>
-          
         </div>
       ),
     },
@@ -121,8 +135,6 @@ const Vendor = () => {
           }
           break;
 
-        
-
         case 3:
           if (e.target.checked) {
             const result = checkedItem.filter((i) => {
@@ -149,53 +161,90 @@ const Vendor = () => {
             setCheckedItem(filteredList);
           }
           break;
-          case 6:
-            if (e.target.checked) {
-              const result = filteredItems.filter((i) => {
-                return i.status.match("unavailable");
-              });
-              setFilteredList(checkedItem);
-              setCheckedItem(result);
-            } else {
-              setCheckedItem(filteredList);
-            }
-            break;
+        case 6:
+          if (e.target.checked) {
+            const result = filteredItems.filter((i) => {
+              return i.status.match("unavailable");
+            });
+            setFilteredList(checkedItem);
+            setCheckedItem(result);
+          } else {
+            setCheckedItem(filteredList);
+          }
+          break;
       }
-    } 
-   
+    }
   };
 
   useEffect(() => {
     getEmployeeList();
   }, []);
 
-  const onSearch=(data)=>{
-    // alert(data)
-    if (checkedItem.length > 0) {
-      // alert("hi")
-      const result = checkedItem.filter(item => {
-        return  item.company.toLowerCase().match(data) ||
-        item.company.match(data) ;
-      });
-      setCheckedItem(result)
-    }
-    else {
-      // alert("by")
-      const result = item.filter(item => {
-        return  item.company.toLowerCase().match(data) ||
-          item.contact_person.toLowerCase().match(data) ||
-        item.company.match(data) 
-      });
-      setFilteredItems(result)
-    }
-  }
+  const onSearch = (e, data) => {
+    // alert("e=>"+data)
+    var cityValue = e;
 
-  const onChangeState = (e) => {
-alert(JSON.stringify(e))
-  }
-  const onChangeCity = (e) => {
-    alert(e)
-      }
+    if (data == "city" && checkedItem.length == 0) {
+      // alert("by")
+      const result = item.filter((item) => {
+        return (
+          item.city.toLowerCase().match(cityValue) || item.city.match(cityValue)
+        );
+      });
+      // alert(JSON.stringify(result))
+      setFilteredItems(result);
+    } else if (data == "search" &&   checkedItem.length == 0) {
+      // alert("by")
+      const result = item.filter((item) => {
+        return (
+          item.company.toLowerCase().match(cityValue) ||
+          item.contact_person.toLowerCase().match(cityValue) ||
+          item.company.match(cityValue)
+        );
+      });
+      setFilteredItems(result);
+    } else if (checkedItem.length > 0) {
+      // alert("hi")
+      const result = checkedItem.filter((item) => {
+        return (
+          item.company.toLowerCase().match(cityValue) ||
+          item.company.match(cityValue)
+        );
+      });
+      setCheckedItem(result);
+    }
+  };
+
+  const onChangeState = (event) => {
+    // console.log(e);
+    const value = event.target.value;
+    // alert(JSON.stringify(stateData.states))
+    var singleState = _.findWhere(stateData.states, { state: value });
+    // alert(JSON.stringify(singleState.districts))
+    setDistrict(singleState.districts);
+  };
+
+  const onChangeDistrict = (event) => {
+    var districtValue = event.target.value;
+    var singleDistrict = _.findWhere(cityData.city, {
+      district: districtValue,
+    });
+    // alert(JSON.stringify(singleState.city))
+    setCity(singleDistrict.city);
+  };
+  const onChangeCity = (event) => {
+    var cityValue = event.target.value;
+    const result = item.filter((item) => {
+      return (
+        item.city.toLowerCase().match(cityValue) || item.city.match(cityValue)
+      );
+    });
+    // alert(JSON.stringify(result))
+    setFilteredItems(result);
+
+    console.log(event.target.value);
+  };
+
   // useEffect(() => {
   //   if (checkedItem.length > 0) {
   //     setFilteredList(checkedItem);
@@ -230,117 +279,62 @@ alert(JSON.stringify(e))
               aria-label="Username"
               aria-describedby="basic-addon1"
               // value={search}
-              onChange={(e) => onSearch(e.target.value)}
+              onChange={(e) => onSearch(e.target.value, "search")}
             />
           </InputGroup>
           <div className="checkFilterDiv">
             <h5 className="checkHeader">State</h5>
             <div className="checkboxDiv">
               <div className="checkfilter">
-              <Form.Select className="filter-dropdown" onChange={(e) => {
-                      onChangeState(e)
-                    }} >
-                <option  disabled selected></option>
-                <option>Maharashtra</option>
-                  <option>Karnataka</option>
-                  <option>Andhra Pradesh</option>
+                <Form.Select
+                  className="filter-dropdown"
+                  onChange={onChangeState}
+                >
+                  <option disabled selected></option>
+                  {state &&
+                    state.map((item) => {
+                      return <option>{item}</option>;
+                    })}
+                  {/* <option  disabled selected></option>
+                <option>{state}</option> */}
+                  {/* <option>Karnataka</option>
+                  <option>Andhra Pradesh</option> */}
                 </Form.Select>
-                
               </div>
 
               <h5 className="checkHeaderCity">City</h5>
               <div className="checkboxDiv">
                 <div className="checkfilter">
-                <Form.Select className="filter-dropdown" onChange={(e) => {
-                      onChangeCity(e)
-                    }}>
-                <option  disabled selected></option>
-                  <option>Pune</option>
-                  <option>Mumbai</option>
-                  <option>Bengaluru</option>
-                  
-                </Form.Select>
+                  <Form.Select
+                    className="filter-dropdown"
+                    onChange={onChangeDistrict}
+                  >
+                    <option disabled selected></option>
+                    {district &&
+                      district.map((item) => {
+                        return <option>{item}</option>;
+                      })}
+                  </Form.Select>
                 </div>
               </div>
 
               <h5 className="checkHeader">Location</h5>
               <div className="checkboxDiv">
                 <div className="checkfilter">
-                <Form.Select className="filter-dropdown">
-                <option  disabled selected></option>
-                  <option>Pimpri</option>
-                  <option>Chinchwad</option>
-                  <option>Aundh</option>
-                  <option>Kothrud</option>
-                  
-                </Form.Select>
+                  <Form.Select
+                    className="filter-dropdown"
+                    onChange={(e) => onSearch(e.target.value, "city")}
+                  >
+                    <option disabled selected></option>
+                    {city &&
+                      city.map((item) => {
+                        return <option>{item}</option>;
+                      })}
+                  </Form.Select>
                 </div>
               </div>
 
-              <h5 className="checkHeader">Contact person</h5>
-              <div className="checkboxDiv">
-                <div className="checkfilter">
-                  <input
-                    type="checkbox"
-                    onClick={(e, ch) => {
-                      checkboxValue(e, (ch = 3));
-                    }}
-                  />
-                  <p>Suresh kumar</p>
-                </div>
-
-                <div className="checkfilter">
-                  <input
-                    type="checkbox"
-                    onClick={(e, ch) => {
-                      checkboxValue(e, (ch = 4));
-                    }}
-                  />
-                  <p>Amol karav</p>
-                </div>
-                <div className="checkfilter">
-                  <input
-                    type="checkbox"
-                    onClick={(e, ch) => {
-                      checkboxValue(e, (ch = 5));
-                    }}
-                  />
-                  <p>Rahul vaidya</p>
-                </div>
-                {isMenuOpen ? (
-                  <div
-                    className="menuActive"
-                    onClick={() => {
-                      toggleMenu();
-                    }}
-                  >
-                    <div className="menuItem">
-                      <div className="linkTextactive">Show More</div>
-                    </div>
-                    <button
-                      id="dropdownActive"
-                      type="button"
-                      onClick={toggleMenu}
-                    >
-                      <FaAngleUp />
-                    </button>
-                  </div>
-                ) : (
-                  <div
-                    className="menu"
-                    onClick={() => {
-                      toggleMenu();
-                    }}
-                  >
-                    <div className="menuItem">
-                      <div className="linkText">Show More</div>
-                    </div>
-                    <button id="dropdown" onClick={toggleMenu}>
-                      <FaAngleDown />
-                    </button>
-                  </div>
-                )}
-              </div>
+              
             </div>
           </div>
         </Col>

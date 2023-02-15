@@ -13,16 +13,16 @@ export default function ButtonGroup() {
         <BiPlus size={20} />
         New
       </button>
-      <button className=" btnTable btn">
+      <button className={ location.pathname==="/masters/shift"?"d-none":"btnTable btn"}>
         <CiExport size={20} />
         Excel
       </button>
       
-      <button className={location.pathname==="/masters/itemMaster"?"d-none":"btnTable btn"}>
+      <button className={location.pathname==="/masters/itemMaster" || location.pathname==="/masters/shift"?"d-none":"btnTable btn"}>
         <CiImport size={20} id="import " />
         Import
       </button>
-      <button className={location.pathname==="/masters/employee" || location.pathname==="/masters/customer/SiteMaster"?"d-none":"btnTable btn"}>
+      <button className={location.pathname==="/masters/employee" || location.pathname==="/masters/customer/SiteMaster" || location.pathname==="/masters/shift"?"d-none":"btnTable btn"}>
         <CiImport size={20} id="import " />
         PDF
       </button>

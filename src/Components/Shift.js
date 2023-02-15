@@ -30,8 +30,13 @@ export default function Shift() {
   // const [searchLoc, setSearchLoc] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   // const [date, setDate] = useState('')
+  const [selectedValue, setSelectedValue] = useState();
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
   const [listData, setListData] = useState();
+  const [dropdownValue, setSelectedDropdownValue] = useState([]);
+  const [flag, setFlag] = useState(false);
+  const [searchFlag, setSearchFlag] = useState(false);
+  var selectedDropdownValue;
   useEffect(() => {
     getItem();
   }, [])
@@ -85,10 +90,10 @@ export default function Shift() {
 
       const result = checkedItem.filter(item => {
         return item.shift.toLowerCase().match(data) ||
-        item.shift_start_time.toLowerCase().match(data) ||
-        item.short_break_1.toLowerCase().match(data) ||
-        item.long_break.toLowerCase().match(data) ||
-        item.short_break_2.toLowerCase().match(data) ||
+          item.shift_start_time.toLowerCase().match(data) ||
+          item.short_break_1.toLowerCase().match(data) ||
+          item.long_break.toLowerCase().match(data) ||
+          item.short_break_2.toLowerCase().match(data) ||
           item.shift.match(data);
       });
       setCheckedItem(result)
@@ -96,15 +101,52 @@ export default function Shift() {
     else {
       const result = item.filter(item => {
         return item.shift.toLowerCase().match(data) ||
-        item.shift_start_time.toLowerCase().match(data) ||
-        item.short_break_1.toLowerCase().match(data) ||
-        item.long_break.toLowerCase().match(data) ||
-        item.short_break_2.toLowerCase().match(data) ||
+          item.shift_start_time.toLowerCase().match(data) ||
+          item.short_break_1.toLowerCase().match(data) ||
+          item.long_break.toLowerCase().match(data) ||
+          item.short_break_2.toLowerCase().match(data) ||
           item.shift.match(data)
       });
       setFilteredItems(result)
     }
   }
+
+  const onChangeSite = (e) => {
+    // alert(JSON.stringify(e))
+  }
+
+  const onChangeShift = (e) => {
+    // alert(JSON.stringify(e))
+  }
+
+  // Dropdown functionality for shift
+  const getDropdownValue = (e) => {
+    setSelectedValue(e.target.value)
+    if (checkedItem.length === 0) {
+      selectedDropdownValue = filteredItems.filter((i) => {
+        return i.shift.match(e.target.value);
+      });
+      setSelectedDropdownValue(selectedDropdownValue)
+      setCheckedItem(selectedDropdownValue);
+      setFlag(true);
+    } else if (searchFlag === false) {
+      selectedDropdownValue = filteredItems.filter((i) => {
+        return i.shift.match(e.target.value);
+      });
+      setSelectedDropdownValue(selectedDropdownValue)
+      setCheckedItem(selectedDropdownValue);
+    }
+    else {
+      selectedDropdownValue = checkedItem.filter((i) => {
+        return i.shift.match(e.target.value);
+      });
+      setSelectedDropdownValue(selectedDropdownValue)
+      setCheckedItem(selectedDropdownValue);
+      setFlag(true);
+    }
+    // }
+  }
+
 
   return (
 
@@ -130,13 +172,47 @@ export default function Shift() {
               onChange={(e) => onSearch(e.target.value)}
             />
           </InputGroup>
-          <div>
+
+          <div className="checkFilterDiv">
+
+            <h5 className="checkHeader">Site</h5>
+            <div className="checkboxDiv">
+
+              <div className="checkfilter">
+                <Form.Select className="filter-dropdown"
+                  onChange={(e) => { getDropdownValue(e) }}
+                >
+                  <option disabled selected></option>
+                  <option>Audi Showroom - Goa.</option>
+                  <option>Garden Silk Mills Pvt. Ltd.</option>
+                </Form.Select>
+
+              </div>
+
+              <h5 className="checkHeaderCity">Shift</h5>
+              <div className="checkboxDiv">
+                <div className="checkfilter">
+                  <Form.Select className="filter-dropdown"
+                    onChange={(e) => { getDropdownValue(e) }}
+                  >
+                    <option disabled selected></option>
+                    <option>S1</option>
+                    <option>S2</option>
+                  </Form.Select>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div className="checkFilterDiv">
             <p className='dropdown-title'>Site</p>
             <Form.Select className='site-dropdown'>
               <option disabled selected>--Select--</option>
               <option value="1">Audi Showroom - Goa.</option>
               <option value="2">Garden Silk Mills Pvt. Ltd.</option>
             </Form.Select>
+            </div>
+
+            <div>
             <p className='dropdown-title'>Shift</p>
             <Form.Select className='shift-dropdown'>
               <option disabled selected>--Select--</option>
@@ -144,7 +220,7 @@ export default function Shift() {
               <option value="1">S2</option>
             </Form.Select>
 
-          </div>
+          </div> */}
 
         </Col>
 
