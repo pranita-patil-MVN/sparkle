@@ -14,6 +14,7 @@ import siteJson from "../data/SiteData.json"
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
+import _ from "underscore";
 const SiteMaster = () => {
   const [search, setSearch] = useState("");
   const [item, setItem] = useState([]);
@@ -22,6 +23,7 @@ const SiteMaster = () => {
   const [filteredList, setFilteredList] = useState([]);
   const [flag, setFlag] = useState();
   const [siteData, setSiteData] = useState([]);
+
   const getEmployeeList = async () => {
     // try {
       // const response = await axios.get(
@@ -80,258 +82,281 @@ const SiteMaster = () => {
       ),
     },
   ];
-  const checkboxValue = (e, ch) => {
-    if (checkedItem.length > 0) {
-      switch (ch) {
-        case 1:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Gender.match("Male");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            if (e.target.checked) {
-              setCheckedItem(filteredList);
-            } else {
-              setCheckedItem(filteredItems);
-            }
-          }
-          break;
+  // const checkboxValue = (e, ch) => {
+  //   if (checkedItem.length > 0) {
+  //     switch (ch) {
+  //       case 1:
+  //         if (e.target.checked) {
+  //           const result = checkedItem.filter((i) => {
+  //             return i.Gender.match("Male");
+  //           });
+  //           setFilteredList(checkedItem);
+  //           setCheckedItem(result);
+  //         } else {
+  //           if (e.target.checked) {
+  //             setCheckedItem(filteredList);
+  //           } else {
+  //             setCheckedItem(filteredItems);
+  //           }
+  //         }
+  //         break;
 
-        case 2:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Gender.match("Female");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            if (e.target.checked) {
-              setCheckedItem(filteredList);
-            } else {
-              setCheckedItem(filteredItems);
-            }
-          }
-          break;
+  //       case 2:
+  //         if (e.target.checked) {
+  //           const result = checkedItem.filter((i) => {
+  //             return i.Gender.match("Female");
+  //           });
+  //           setFilteredList(checkedItem);
+  //           setCheckedItem(result);
+  //         } else {
+  //           if (e.target.checked) {
+  //             setCheckedItem(filteredList);
+  //           } else {
+  //             setCheckedItem(filteredItems);
+  //           }
+  //         }
+  //         break;
 
-        case 3:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Employee_status.match("Active");
-            });
+  //       case 3:
+  //         if (e.target.checked) {
+  //           const result = checkedItem.filter((i) => {
+  //             return i.Employee_status.match("Active");
+  //           });
 
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            if (e.target.checked) {
-              setCheckedItem(filteredList);
-            } else {
-              setCheckedItem(filteredItems);
-            }
-          }
-          break;
+  //           setFilteredList(checkedItem);
+  //           setCheckedItem(result);
+  //         } else {
+  //           if (e.target.checked) {
+  //             setCheckedItem(filteredList);
+  //           } else {
+  //             setCheckedItem(filteredItems);
+  //           }
+  //         }
+  //         break;
 
-        case 4:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Employee_status.match("Inactive");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            if (e.target.checked) {
-              setCheckedItem(filteredList);
-            } else {
-              setCheckedItem(filteredItems);
-            }
-          }
-          break;
+  //       case 4:
+  //         if (e.target.checked) {
+  //           const result = checkedItem.filter((i) => {
+  //             return i.Employee_status.match("Inactive");
+  //           });
+  //           setFilteredList(checkedItem);
+  //           setCheckedItem(result);
+  //         } else {
+  //           if (e.target.checked) {
+  //             setCheckedItem(filteredList);
+  //           } else {
+  //             setCheckedItem(filteredItems);
+  //           }
+  //         }
+  //         break;
 
-        case 5:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Employee_status.match("Suspended");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            if (e.target.checked) {
-              setCheckedItem(filteredList);
-            } else {
-              setCheckedItem(filteredItems);
-            }
-          }
-          break;
+  //       case 5:
+  //         if (e.target.checked) {
+  //           const result = checkedItem.filter((i) => {
+  //             return i.Employee_status.match("Suspended");
+  //           });
+  //           setFilteredList(checkedItem);
+  //           setCheckedItem(result);
+  //         } else {
+  //           if (e.target.checked) {
+  //             setCheckedItem(filteredList);
+  //           } else {
+  //             setCheckedItem(filteredItems);
+  //           }
+  //         }
+  //         break;
 
-        case 6:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Designation.match("Janitor");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            setCheckedItem(filteredList);
-          }
-          break;
+  //       case 6:
+  //         if (e.target.checked) {
+  //           const result = checkedItem.filter((i) => {
+  //             return i.Designation.match("Janitor");
+  //           });
+  //           setFilteredList(checkedItem);
+  //           setCheckedItem(result);
+  //         } else {
+  //           setCheckedItem(filteredList);
+  //         }
+  //         break;
 
-        case 7:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Designation.match("Sr.Janitor");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            setCheckedItem(filteredList);
-          }
-          break;
+  //       case 7:
+  //         if (e.target.checked) {
+  //           const result = checkedItem.filter((i) => {
+  //             return i.Designation.match("Sr.Janitor");
+  //           });
+  //           setFilteredList(checkedItem);
+  //           setCheckedItem(result);
+  //         } else {
+  //           setCheckedItem(filteredList);
+  //         }
+  //         break;
 
-        case 8:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Designation.match("Supervisor");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            setCheckedItem(filteredList);
-          }
-          break;
+  //       case 8:
+  //         if (e.target.checked) {
+  //           const result = checkedItem.filter((i) => {
+  //             return i.Designation.match("Supervisor");
+  //           });
+  //           setFilteredList(checkedItem);
+  //           setCheckedItem(result);
+  //         } else {
+  //           setCheckedItem(filteredList);
+  //         }
+  //         break;
 
-        case 9:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Designation.match("Sr.Supervisor");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            setCheckedItem(filteredList);
-          }
-          break;
-      }
+  //       case 9:
+  //         if (e.target.checked) {
+  //           const result = checkedItem.filter((i) => {
+  //             return i.Designation.match("Sr.Supervisor");
+  //           });
+  //           setFilteredList(checkedItem);
+  //           setCheckedItem(result);
+  //         } else {
+  //           setCheckedItem(filteredList);
+  //         }
+  //         break;
+  //     }
+  //   } else {
+  //     switch (ch) {
+  //       case 1:
+  //         if (e.target.checked) {
+  //           const result = filteredItems.filter((i) => {
+  //             return i.Gender.match("Male");
+  //           });
+
+  //           setCheckedItem(result);
+  //           setFlag(1);
+  //         } else {
+  //           setCheckedItem(filteredItems);
+  //           setFlag(0);
+  //         }
+  //         break;
+
+  //       case 2:
+  //         if (e.target.checked) {
+  //           const result = filteredItems.filter((i) => {
+  //             return i.Gender.match("Female");
+  //           });
+  //           setCheckedItem(result);
+  //           setFlag(1);
+  //         } else {
+  //           setCheckedItem(filteredItems);
+  //           setFlag(0);
+  //         }
+  //         break;
+
+  //       case 3:
+  //         if (e.target.checked) {
+  //           const result = filteredItems.filter((i) => {
+  //             return i.Employee_status.match("Active");
+  //           });
+  //           setCheckedItem(result);
+  //           setFlag(1);
+  //         } else {
+  //           setCheckedItem(filteredItems);
+  //           setFlag(0);
+  //         }
+  //         break;
+
+  //       case 4:
+  //         if (e.target.checked) {
+  //           const result = filteredItems.filter((i) => {
+  //             return i.Employee_status.match("Inactive");
+  //           });
+  //           setCheckedItem(result);
+  //           setFlag(1);
+  //         } else {
+  //           setCheckedItem(filteredItems);
+  //           setFlag(0);
+  //         }
+  //         break;
+
+  //       case 5:
+  //         if (e.target.checked) {
+  //           const result = filteredItems.filter((i) => {
+  //             return i.Employee_status.match("Suspended");
+  //           });
+  //           setCheckedItem(result);
+  //           setFlag(1);
+  //         } else {
+  //           setCheckedItem(filteredItems);
+  //           setFlag(0);
+  //         }
+  //         break;
+
+  //       case 6:
+  //         if (e.target.checked) {
+  //           const result = filteredItems.filter((i) => {
+  //             return i.Designation.match("Janitor");
+  //           });
+  //           setCheckedItem(result);
+  //           setFlag(1);
+  //         } else {
+  //           setCheckedItem(filteredItems);
+  //           setFlag(0);
+  //         }
+  //         break;
+
+  //       case 7:
+  //         if (e.target.checked) {
+  //           const result = filteredItems.filter((i) => {
+  //             return i.Designation.match("Sr.Janitor");
+  //           });
+  //           setCheckedItem(result);
+  //           setFlag(1);
+  //         } else {
+  //           setCheckedItem(filteredItems);
+  //           setFlag(0);
+  //         }
+  //         break;
+
+  //       case 8:
+  //         if (e.target.checked) {
+  //           const result = filteredItems.filter((i) => {
+  //             return i.Designation.match("Supervisor");
+  //           });
+  //           setCheckedItem(result);
+  //           setFlag(1);
+  //         } else {
+  //           setCheckedItem(filteredItems);
+  //           setFlag(0);
+  //         }
+  //         break;
+
+  //       case 9:
+  //         if (e.target.checked) {
+  //           const result = filteredItems.filter((i) => {
+  //             return i.Designation.match("Sr.Supervisor");
+  //           });
+  //           setCheckedItem(result);
+  //           setFlag(1);
+  //         } else {
+  //           setCheckedItem(filteredItems);
+  //           setFlag(0);
+  //         }
+  //         break;
+  //     }
+  //   }
+  // };
+
+  const checkboxValue = (e, data) => {
+    // alert(e.target.checked);
+    var filteredListData;
+    var concatData;
+    var concatAreaData;
+    var filteredAreaListArr = []
+    
+    // concatAreaData = checkedAreaNameArr.concat(data);
+    // setCheckedData(concatAreaData);
+    if (e.target.checked) {
+      filteredListData = _.where(filteredItems, {
+        Executive: data,
+      });
+      concatData = filteredAreaListArr.concat(filteredListData);
+      setCheckedItem(concatData);
     } else {
-      switch (ch) {
-        case 1:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Gender.match("Male");
-            });
-
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 2:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Gender.match("Female");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 3:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Employee_status.match("Active");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 4:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Employee_status.match("Inactive");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 5:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Employee_status.match("Suspended");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 6:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Designation.match("Janitor");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 7:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Designation.match("Sr.Janitor");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 8:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Designation.match("Supervisor");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-
-        case 9:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.Designation.match("Sr.Supervisor");
-            });
-            setCheckedItem(result);
-            setFlag(1);
-          } else {
-            setCheckedItem(filteredItems);
-            setFlag(0);
-          }
-          break;
-      }
+      var removedData = filteredItems.filter((e) => {
+        return e.Executive !== data;
+      });
+      setCheckedItem(removedData);
     }
   };
 
@@ -378,6 +403,7 @@ const SiteMaster = () => {
     }
   }
 
+  const makeList=["Vikas Malap","Suraj Kadam","Nik Joshi","Pritesh Kale"]
 
   return (
     <div>
@@ -403,139 +429,27 @@ const SiteMaster = () => {
           </InputGroup>
           <div className="checkFilterDiv">
             <h5 className="checkHeader">Executives</h5>
+           
+
             <div className="checkboxDiv">
-              {/* <div className="checkfilter">
-                <Checkbox
-                  onClick={(e, ch) => {
-                    checkboxValue(e, (ch = 1));
-                  }}
-                />
-                
-                <input type='checkbox'
-                onClick={(e, ch) => {
-                  checkboxValue(e, ch=1)
-                }}
-              />
-                <p>All</p>
-              </div> */}
-
-              <div className="checkfilter">
-                <input
-                  type="checkbox"
-                  onClick={(e, ch) => {
-                    checkboxValue(e, (ch = 2));
-                  }}
-                />
-                <p>Vikas Malap</p>
-              </div>
-              <div className="checkfilter">
-                <input
-                  type="checkbox"
-                  onClick={(e, ch) => {
-                    checkboxValue(e, (ch = 3));
-                  }}
-                />
-                <p>Nik Joshi</p>
-              </div>
-              <div className="checkfilter">
-                <input
-                  type="checkbox"
-                  onClick={(e, ch) => {
-                    checkboxValue(e, (ch = 4));
-                  }}
-                />
-                <p>Suraj Kadam</p>
-              </div>
-            </div>
-
-            {/* <h5 className="checkHeader">Employee Status</h5>
-            <div className="checkboxDiv">
-              <div className="checkfilter">
-                <input
-                  type="checkbox"
-                  onClick={(e, ch) => {
-                    checkboxValue(e, (ch = 3));
-                  }}
-                />
-                <p>Active</p>
-              </div>
-
-              <div className="checkfilter">
-                <input
-                  type="checkbox"
-                  onClick={(e, ch) => {
-                    checkboxValue(e, (ch = 4));
-                  }}
-                />
-                <p>Inactive</p>
-              </div>
-              <div className="checkfilter">
-                <input
-                  type="checkbox"
-                  onClick={(e, ch) => {
-                    checkboxValue(e, (ch = 5));
-                  }}
-                />
-                <p>Suspended</p>
-              </div>
-            </div>
-            <h5 className="checkHeader">Designation</h5>
-            <div className="checkboxDiv">
-              <div className="checkfilter">
-                <input
-                  type="checkbox"
-                  onClick={(e, ch) => {
-                    checkboxValue(e, (ch = 6));
-                  }}
-                />
-                <p>Janitor</p>
-              </div>
-
-              <div className="checkfilter">
-                <input
-                  type="checkbox"
-                  onClick={(e, ch) => {
-                    checkboxValue(e, (ch = 7));
-                  }}
-                />
-                <p>Sr.Janitor</p>
-              </div>
-              <div className="checkfilter">
-                <div className="box">
-                  <input
-                    type="checkbox"
-                    onClick={(e, ch) => {
-                      checkboxValue(e, (ch = 8));
-                    }}
-                  />
-                </div>
-                <p>Supervisor</p>
-              </div>
-              <div className="checkfilter">
-                <input
-                  type="checkbox"
-                  onClick={(e, ch) => {
-                    checkboxValue(e, (ch = 9));
-                  }}
-                />
-                <p>Sr.Supervisor</p>
-              </div>
-            </div> */}
+            {makeList &&
+                      makeList.map((data, index) => {
+                          return (
+                            <div className="checkfilter">
+                              <input
+                                type="checkbox"
+                                onClick={(e) => {
+                                  checkboxValue(e, data);
+                                }}
+                              />
+                              <p className="checkbox_label">{data}</p>
+                            </div>
+                          );
+                        })}
+                        </div>
+         
           </div>
-          {/* <h5 className="checkHeader">Location</h5>
-            <div className="checkboxDiv">
-              <div className="checkfilter">
-                <Form.Select className="filter-dropdown">
-                <option  disabled selected>All</option>
-                  <option>Pune</option>
-                  <option>Mumbai</option>
-                  <option>Pune</option>
-                  <option>Kolhapur</option>
-                  <option>Nashik</option>
-                  
-                </Form.Select>
-              </div>
-            </div> */}
+        
         </Col>
         <Col md={10} className="colTable">
           <div className="divTable">
@@ -545,34 +459,7 @@ const SiteMaster = () => {
                 checkedItem.length > 0 ? checkedItem : filteredItems,
               ]}
             />
-            {/* <DataTable
-              columns={columns}
-              data={checkedItem.length > 0 ?
-                checkedItem :
-                filteredItems}
-
-              fixedHeader
-              fixedHeaderScrollHeight='70vh'
-
-              // selectableRows
-              highlightOnHover
-              pagination
-              paginationPerPage={6}
-              paginationComponent={customPagination}
-
-              subHeader
-              subHeaderComponent={<div className='subHeader'>
-
-                <div className='btnHeader'>
-                  <button className="btnTable btn"><BiPlus size={20} />New</button>
-                  <button className=" btnTable btn"><CiExport size={20} />Excel</button>
-                  <button className="btnTable btn"><CiImport size={20} id='import ' />Import</button>
-                </div>
-              </div>}
-
-              subHeaderAlign='right'
-
-            /> */}
+         
           </div>
         </Col>
       </Row>

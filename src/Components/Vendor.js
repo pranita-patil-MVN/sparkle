@@ -48,12 +48,14 @@ const Vendor = () => {
       name: "Id",
       selector: (row) => row.id,
       sortable: true,
+     
       // id: "name",
     },
     {
       name: "Company",
       selector: (row) => row.company,
       sortable: true,
+      // className:"companyColumn"
     },
     {
       name: "Contact person",

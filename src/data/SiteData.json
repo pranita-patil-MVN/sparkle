@@ -5,35 +5,40 @@
         "Supervisor": "Sandesh Malap",
         "Site_Budget":"180000",
         "Status":"Active",
-        "Location":"Pune"
+        "Location":"Pune",
+        "Executive":"Nik Joshi"
       },
       {
         "Site": "Huf India Pvt. Ltd.",
-        "Supervisor": "Nik Joshi",
+        "Supervisor": "Nikhil Joshi",
         "Site_Budget":"150000",
         "Status":"Inactive",
-        "Location":"Pune"
+        "Location":"Pune",
+        "Executive":"Pritesh Kale"
       },
       {
         "Site": "Kalyani TechnoForge Ltd.",
-        "Supervisor": "Suraj Kadam",
+        "Supervisor": "Suraj D Kadam",
         "Site_Budget":"130000",
         "Status":"Active",
-        "Location":"Mumbai"
+        "Location":"Mumbai",
+        "Executive":"Nik Joshi"
       },
       {
         "Site": "Mubea Automotive India Pvt. Ltd.",
         "Supervisor": "Pritesh Kale",
         "Site_Budget":"150000",
         "Status":"Active",
-        "Location":"Kolhapur"
+        "Location":"Kolhapur",
+        "Executive":"Suraj Kadam"
       },
       {
         "Site": "Tenneco Clean Air India Pvt. Ltd.",
         "Supervisor": "Rahul Joshi",
         "Site_Budget":"100000",
         "Status":"Inactive",
-        "Location":"Nashik"
+        "Location":"Nashik",
+        "Executive":"Vikas Malap"
       }
       
     ]
