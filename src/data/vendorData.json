@@ -3,44 +3,56 @@
       {
         "company": "Movinture india pvt.ltd",
         "id": "1",
-        "contact person":"Amar lokhande",
+        "contact_person":"Amar lokhande",
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
-        "mobile":"9697989900"
+        "mobile":"9697989900",
+        "state":"Maharashtra",
+        "city":"Miraj"
       },
       {
         "company": "Infosys ltd.",
         "id": "2",
-        "contact person":"Rahul kinikar",
+        "contact_person":"Rahul kinikar",
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
-        "mobile":"9192939495"
+        "mobile":"9192939495",
+        "state":"Maharashtra",
+        "city":"Warje"
       },
       {
         "company": "Tcs ltd.",
         "id": "3",
-        "contact person":"Suraj gane",
+        "contact_person":"Suraj gane",
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
-        "mobile":"9193969899"
+        "mobile":"9193969899",
+        "state":"Karnataka",
+        "city":"Karvenagar"
       },
       {
         "company": "Wipro ltd.",
         "id": "4",
-        "contact person":"Martin langston",
+        "contact_person":"Martin langston",
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
-        "mobile":"9194569899"
+        "mobile":"9194569899",
+        "state":"Maharashtra",
+        "city":"Miraj"
       },
       {
         "company": "Workday ltd.",
         "id": "5",
-        "contact person":"Amar chavan",
+        "contact_person":"Amar chavan",
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
-        "mobile":"9193969376"
+        "mobile":"9193969376",
+        "state":"Maharashtra",
+        "city":"Kothrud"
       },
       {
-        "company": "honeywell ltd.",
+        "company": "Honeywell ltd.",
         "id": "6",
-        "contact person":"Nikhil kumbhar",
+        "contact_person":"Nikhil kumbhar",
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
-        "mobile":"9196778599"
+        "mobile":"9196778599",
+        "state":"Karnataka",
+        "city":"Kothrud"
       }
       
 

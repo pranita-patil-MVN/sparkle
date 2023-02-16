@@ -5,14 +5,16 @@
             "shift_start_time":"07:00 AM",
             "short_break_1":"10:30 AM",
             "long_break":"1:00 PM",
-            "short_break_2":"4:00 PM"
+            "short_break_2":"4:00 PM",
+            "site":"Audi Showroom - Goa"
         },
         {
             "shift":"S2",
             "shift_start_time":"08:00 AM",
             "short_break_1":"11:30 AM",
             "long_break":"2:00 PM",
-            "short_break_2":"5:00 PM"
+            "short_break_2":"5:00 PM",
+            "site":"Garden Silk Mills Pvt. Ltd"
         }
         
     ]

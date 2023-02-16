@@ -6,6 +6,9 @@
 .titleDiv img{
     height: 20px;
 }
+/* .rdt_TableCol:nth-of-type(1) {
+    left: 20px !important;
+} */
 /* side filter */
 .filter{
     background-color: white;
@@ -25,13 +28,13 @@
     .colTable{
         height: 70vh; 
     }
-    .form-control{
+    /* .form-control{
         background: var(--grey-color);
         color: darkgray;
         font-size: 12px;
         font-family: Arial, Helvetica, sans-serif;
         border: 0px;
-    }
+    } */
     .form-control:focus{
         outline: none;
         border: 0px;
@@ -44,7 +47,7 @@
         background-color: #F1F4FA;
         width: 100%;
         border: 0px;
-        padding: 5px 0px;
+        padding: 5px 5px;
         border-radius: 5px;
         outline: none;
     }
@@ -55,3 +58,4 @@
             
         }
     }
+    
