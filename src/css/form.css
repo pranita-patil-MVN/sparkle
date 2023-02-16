@@ -1,0 +1,10 @@
+.mandatoryField{
+    color: red;
+}
+
+.cardHeader{
+    background-color: #f1f4f4;
+    color: var(--purple-color);
+    font-weight: 500;
+}
+ 

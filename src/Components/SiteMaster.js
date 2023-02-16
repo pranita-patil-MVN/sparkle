@@ -10,7 +10,7 @@ import { BiPlus,BiUser } from "react-icons/bi";
 import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
 import Checkbox from "../CommonComponents/Checkbox";
-import siteJson from "../data/SiteData.json"
+import siteJson from "../data/SiteData.json";
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
@@ -26,13 +26,13 @@ const SiteMaster = () => {
 
   const getEmployeeList = async () => {
     // try {
-      // const response = await axios.get(
-      //   "https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce"
-      // );
-      // alert(JSON.stringify(siteData.Data))
-      setSiteData(siteJson.Data);
-      // alert(response.data.length)
-      setFilteredItems(siteJson.Data);
+    // const response = await axios.get(
+    //   "https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce"
+    // );
+    alert(JSON.stringify(siteData.Data));
+    setSiteData(siteJson.Data);
+    // alert(response.data.length)
+    setFilteredItems(siteJson.Data);
     // } catch (error) {
     //   console.log(error);
     // }
@@ -110,27 +110,24 @@ const SiteMaster = () => {
   // Search functionality
   const onSearch=(data)=>{
     if (checkedItem.length > 0) {
-      
-      const result = checkedItem.filter(item => {
-        return  item.Site.toLowerCase().match(data) ||
-
-        item.Site.match(data) ;
+      const result = checkedItem.filter((item) => {
+        return item.Site.toLowerCase().match(data) || item.Site.match(data);
       });
-      setCheckedItem(result)
-    }
-    else {
-      const result = siteData.filter(item => {
-        return  item.Site.toLowerCase().match(data) ||
-        item.Supervisor.toLowerCase().match(data) ||
-        item.Location.toLowerCase().match(data) ||
-
-        item.Site.match(data) 
+      setCheckedItem(result);
+    } else {
+      const result = siteData.filter((item) => {
+        return (
+          item.Site.toLowerCase().match(data) ||
+          item.Supervisor.toLowerCase().match(data) ||
+          item.Location.toLowerCase().match(data) ||
+          item.Site.match(data)
+        );
       });
-      setFilteredItems(result)
+      setFilteredItems(result);
     }
-  }
+  };
 
-  const makeList=["Vikas Malap","Suraj Kadam","Nik Joshi","Pritesh Kale"]
+  const makeList = ["Vikas Malap", "Suraj Kadam", "Nik Joshi", "Pritesh Kale"];
 
   return (
     <div>
@@ -183,7 +180,6 @@ const SiteMaster = () => {
                 checkedItem.length > 0 ? checkedItem : filteredItems,
               ]}
             />
-         
           </div>
         </Col>
       </Row>
