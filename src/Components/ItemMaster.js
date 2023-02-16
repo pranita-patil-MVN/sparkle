@@ -573,6 +573,7 @@ const getData=(search,dropdownValue,checkBoxStatusValue,makeCheckboxValue,checkB
               data={[
                 columns,
                 checkedItem.length > 0 ? checkedItem : filteredItems,
+                "itemMaster"
               ]}
             />
           </div>
