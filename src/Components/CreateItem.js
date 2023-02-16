@@ -90,41 +90,40 @@ const dropdownMeasurementUnitsOptions = [
 const DivOne = ({ onButtonClick }) => {
     const handleOnChange=(value)=>{};
 
-  const [validateDivOne, setValidateDivOne] = useState(false);
+  const [itemValue, setItemValue] = useState();
+  const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
+  const [invalidItem, setInvalidItem] = useState(true);
+//   const [aadhar_number, setAadharNumber] = useState();
 
-  const [txt_aadhar_number_error_message, setTxtAadharNumberErrorMessage] =
-    useState("");
-  const [invalidAdhar, setInvalidAdhar] = useState(true);
-  const [aadhar_number, setAadharNumber] = useState();
+//   const [txt_salutation_error_message, setTxtSalutationErrorMessage] =
+//     useState("");
+//   const [invalidSalutation, setInvalidSalutation] = useState(true);
+//   const [salutation, setSalutation] = useState();
 
-  const [txt_salutation_error_message, setTxtSalutationErrorMessage] =
-    useState("");
-  const [invalidSalutation, setInvalidSalutation] = useState(true);
-  const [salutation, setSalutation] = useState();
-
-  const [date_of_birth, setDateOfBirth] = useState();
+//   const [date_of_birth, setDateOfBirth] = useState();
 
   const validateForm = (fieldName, value) => {
     switch (fieldName) {
       case "txt_item":
-        if (value === undefined) {
-          setInvalidSalutation(true);
-          setTxtSalutationErrorMessage("Invalid Salutation.");
+        if (value === "" ||value === undefined) {
+            setInvalidItem(true);
+          setTxtItemNameErrorMessage("Invalid Item.");
         } else {
-          setInvalidSalutation(false);
-          setTxtSalutationErrorMessage("");
-          setValidateDivOne(true);
+            setItemValue(value)
+            setInvalidItem(false);
+            setTxtItemNameErrorMessage("");
+        //   setValidateDivOne(true);
         }
         break;
-      case "txt_aadhar_number":
-        if (value === undefined || value.length < 12) {
-          setInvalidAdhar(true);
-          setTxtAadharNumberErrorMessage("Invalid Aadhar Number.");
-        } else {
-          setInvalidAdhar(false);
-          setTxtAadharNumberErrorMessage("");
-        }
-        break;
+    //   case "txt_aadhar_number":
+    //     if (value === undefined || value.length < 12) {
+    //       setInvalidAdhar(true);
+    //       setTxtAadharNumberErrorMessage("Invalid Aadhar Number.");
+    //     } else {
+    //       setInvalidAdhar(false);
+    //       setTxtAadharNumberErrorMessage("");
+    //     }
+    //     break;
       default:
         break;
     }
@@ -147,6 +146,13 @@ const DivOne = ({ onButtonClick }) => {
                   validateForm("txt_item", inputValue);
                 }}
               />
+               {invalidItem === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {itemNameErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
             <Col>
               <Input
@@ -299,16 +305,13 @@ const DivOne = ({ onButtonClick }) => {
             type="button"
             className="alignRight"
             onClick={() => {
-              if (validateDivOne === true) {
-                alert("hii")
-                // onButtonClick("divTwo");
-              } else {
-                validateForm("txt_salutation", salutation);
-                validateForm("txt_first_name");
-                validateForm("txt_middle_name");
-                validateForm("txt_last_name");
-                validateForm("txt_aadhar_number", aadhar_number);
-              }
+             
+                validateForm("txt_item", itemValue);
+                // validateForm("txt_first_name");
+                // validateForm("txt_middle_name");
+                // validateForm("txt_last_name");
+                // validateForm("txt_aadhar_number", aadhar_number);
+              
             }}
           >
             Save

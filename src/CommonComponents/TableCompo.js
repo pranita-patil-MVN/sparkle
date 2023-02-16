@@ -105,6 +105,9 @@ const openForm=(value)=>{
   if(value==='itemMaster'){
     navigate('/masters/itemMaster/createItem')
   }
+  // else if(value==='siteMaster'){
+  //   navigate('/masters/customer/SiteMaster/createSite')
+  // }
 }
   return (
     <div className="outer-data-table">
