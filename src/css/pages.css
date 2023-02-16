@@ -112,3 +112,13 @@ text-align:left;
 .nav-tabs{
 --bs-nav-tabs-link-active-color: var(--purple-color);
 }
+
+.step-progress-bar-div{
+    background-color: white;
+    height: 100vh;
+    padding: 10px 30px;
+}
+
+ .alignRight{
+    float: right;
+ }

@@ -10,7 +10,7 @@ import { CiSearch, CiImport, CiExport } from "react-icons/ci";
 import { BiPlus } from "react-icons/bi";
 import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
-import itemJson from "../data/itemData.json"
+import itemJson from "../data/itemData.json";
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
@@ -69,25 +69,21 @@ const ItemMaster = () => {
       ),
     },
   ];
- 
-  const onSearch=(data)=>{
+
+  const onSearch = (data) => {
     if (checkedItem.length > 0) {
-      
-      const result = checkedItem.filter(item => {
-        return  item.items.toLowerCase().match(data) ||
-        item.items.match(data) ;
+      const result = checkedItem.filter((item) => {
+        return item.items.toLowerCase().match(data) || item.items.match(data);
       });
-      setCheckedItem(result)
-    }
-    else {
-      const result = itemData.filter(item => {
-        return  item.items.toLowerCase().match(data) ||
-        item.items.match(data) 
+      setCheckedItem(result);
+    } else {
+      const result = itemData.filter((item) => {
+        return item.items.toLowerCase().match(data) || item.items.match(data);
       });
-      setFilteredItems(result)
+      setFilteredItems(result);
     }
-  }
-  var arr=[];
+  };
+  var arr = [];
   const checkboxValue = (e, ch) => {
     if (checkedItem.length > 0) {
       switch (ch) {
@@ -309,7 +305,9 @@ const ItemMaster = () => {
             <div className="checkboxDiv">
               <div className="checkfilter">
                 <Form.Select className="filter-dropdown">
-                <option  disabled selected>All</option>
+                  <option disabled selected>
+                    All
+                  </option>
                   <option>Accessories</option>
                   <option>Chemicals</option>
                   <option>Consumables</option>

@@ -28,13 +28,13 @@
     .colTable{
         height: 70vh; 
     }
-    .form-control{
+    /* .form-control{
         background: var(--grey-color);
         color: darkgray;
         font-size: 12px;
         font-family: Arial, Helvetica, sans-serif;
         border: 0px;
-    }
+    } */
     .form-control:focus{
         outline: none;
         border: 0px;
