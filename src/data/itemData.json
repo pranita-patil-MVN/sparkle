@@ -1,67 +1,88 @@
 {
     "Data": [
       {
-        "items": "data1",
-        "category": "411052",
+        "items": "miraj",
+        "category": "Consumables",
         "make":"Local",
         "rate":5,
-        "status":"available"
+        "status":"Available"
       },
       {
         "items": "abc",
         "category": "Accessories",
         "make":"Galalio",
         "rate":15,
-        "status":"available"
+        "status":"Available"
       },
       {
         "items": "Karvenagar",
-        "category": "411052",
+        "category": "Consumables",
         "make":"Local",
         "rate":35,
-        "status":"unavailable"
+        "status":"Unavailable"
       },
       {
         "items": "miraj",
         "category": "Accessories",
         "make":"Local",
         "rate":55,
-        "status":"unavailable"
+        "status":"Available"
+      },
+      {
+        "items": "miraj",
+        "category": "Accessories",
+        "make":"Local",
+        "rate":55,
+        "status":"Unavailable"
+      },
+      {
+        "items": "miraj",
+        "category": "Accessories",
+        "make":"Galalio",
+        "rate":55,
+        "status":"Unavailable"
+      },
+      {
+        "items": "miraj",
+        "category": "Accessories",
+        "make":"Local",
+        "rate":55,
+        "status":"Unavailable"
       },
       {
         "items": "miraj",
         "category": "Chemicals",
-        "make":"Gala",
+        "make":"Kleenal",
         "rate":51,
-        "status":"available"
+        "status":"Available"
       },
       {
         "items": "pune",
-        "category": "Consumbles",
+        "category": "Consumables",
         "make":"Galalio",
         "rate":50,
-        "status":"available"
+        "status":"Available"
       },
       {
         "items": "pune",
         "category": "Shoes",
         "make":"Kleenal",
         "rate":5,
-        "status":"available"
+        "status":"Available"
       },
       {
         "items": "sangli",
         "category": "Spares",
         "make":"Kleenal",
         "rate":25,
-        "status":"available"
+        "status":"Available"
       },
       {
         "items": "sangli",
         "category": "Stationery",
         "make":"Galalio",
         "rate":65,
-        "status":"available"
+        "status":"Available"
       }
 
     ]
