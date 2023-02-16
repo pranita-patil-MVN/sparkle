@@ -6,7 +6,7 @@ import { Row, Col, Button, InputGroup, Form } from "react-bootstrap";
 import profileImg from "../assets/Images/profileImg.png";
 import editImg from "../assets/Images/editImg.png";
 import { CiSearch, CiImport, CiExport } from "react-icons/ci";
-import { BiPlus } from "react-icons/bi";
+import { BiPlus,BiUser } from "react-icons/bi";
 import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
 import Checkbox from "../CommonComponents/Checkbox";
@@ -29,7 +29,7 @@ const SiteMaster = () => {
       // const response = await axios.get(
       //   "https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce"
       // );
-      alert(JSON.stringify(siteData.Data))
+      // alert(JSON.stringify(siteData.Data))
       setSiteData(siteJson.Data);
       // alert(response.data.length)
       setFilteredItems(siteJson.Data);
@@ -82,270 +82,13 @@ const SiteMaster = () => {
       ),
     },
   ];
-  // const checkboxValue = (e, ch) => {
-  //   if (checkedItem.length > 0) {
-  //     switch (ch) {
-  //       case 1:
-  //         if (e.target.checked) {
-  //           const result = checkedItem.filter((i) => {
-  //             return i.Gender.match("Male");
-  //           });
-  //           setFilteredList(checkedItem);
-  //           setCheckedItem(result);
-  //         } else {
-  //           if (e.target.checked) {
-  //             setCheckedItem(filteredList);
-  //           } else {
-  //             setCheckedItem(filteredItems);
-  //           }
-  //         }
-  //         break;
-
-  //       case 2:
-  //         if (e.target.checked) {
-  //           const result = checkedItem.filter((i) => {
-  //             return i.Gender.match("Female");
-  //           });
-  //           setFilteredList(checkedItem);
-  //           setCheckedItem(result);
-  //         } else {
-  //           if (e.target.checked) {
-  //             setCheckedItem(filteredList);
-  //           } else {
-  //             setCheckedItem(filteredItems);
-  //           }
-  //         }
-  //         break;
-
-  //       case 3:
-  //         if (e.target.checked) {
-  //           const result = checkedItem.filter((i) => {
-  //             return i.Employee_status.match("Active");
-  //           });
-
-  //           setFilteredList(checkedItem);
-  //           setCheckedItem(result);
-  //         } else {
-  //           if (e.target.checked) {
-  //             setCheckedItem(filteredList);
-  //           } else {
-  //             setCheckedItem(filteredItems);
-  //           }
-  //         }
-  //         break;
-
-  //       case 4:
-  //         if (e.target.checked) {
-  //           const result = checkedItem.filter((i) => {
-  //             return i.Employee_status.match("Inactive");
-  //           });
-  //           setFilteredList(checkedItem);
-  //           setCheckedItem(result);
-  //         } else {
-  //           if (e.target.checked) {
-  //             setCheckedItem(filteredList);
-  //           } else {
-  //             setCheckedItem(filteredItems);
-  //           }
-  //         }
-  //         break;
-
-  //       case 5:
-  //         if (e.target.checked) {
-  //           const result = checkedItem.filter((i) => {
-  //             return i.Employee_status.match("Suspended");
-  //           });
-  //           setFilteredList(checkedItem);
-  //           setCheckedItem(result);
-  //         } else {
-  //           if (e.target.checked) {
-  //             setCheckedItem(filteredList);
-  //           } else {
-  //             setCheckedItem(filteredItems);
-  //           }
-  //         }
-  //         break;
-
-  //       case 6:
-  //         if (e.target.checked) {
-  //           const result = checkedItem.filter((i) => {
-  //             return i.Designation.match("Janitor");
-  //           });
-  //           setFilteredList(checkedItem);
-  //           setCheckedItem(result);
-  //         } else {
-  //           setCheckedItem(filteredList);
-  //         }
-  //         break;
-
-  //       case 7:
-  //         if (e.target.checked) {
-  //           const result = checkedItem.filter((i) => {
-  //             return i.Designation.match("Sr.Janitor");
-  //           });
-  //           setFilteredList(checkedItem);
-  //           setCheckedItem(result);
-  //         } else {
-  //           setCheckedItem(filteredList);
-  //         }
-  //         break;
-
-  //       case 8:
-  //         if (e.target.checked) {
-  //           const result = checkedItem.filter((i) => {
-  //             return i.Designation.match("Supervisor");
-  //           });
-  //           setFilteredList(checkedItem);
-  //           setCheckedItem(result);
-  //         } else {
-  //           setCheckedItem(filteredList);
-  //         }
-  //         break;
-
-  //       case 9:
-  //         if (e.target.checked) {
-  //           const result = checkedItem.filter((i) => {
-  //             return i.Designation.match("Sr.Supervisor");
-  //           });
-  //           setFilteredList(checkedItem);
-  //           setCheckedItem(result);
-  //         } else {
-  //           setCheckedItem(filteredList);
-  //         }
-  //         break;
-  //     }
-  //   } else {
-  //     switch (ch) {
-  //       case 1:
-  //         if (e.target.checked) {
-  //           const result = filteredItems.filter((i) => {
-  //             return i.Gender.match("Male");
-  //           });
-
-  //           setCheckedItem(result);
-  //           setFlag(1);
-  //         } else {
-  //           setCheckedItem(filteredItems);
-  //           setFlag(0);
-  //         }
-  //         break;
-
-  //       case 2:
-  //         if (e.target.checked) {
-  //           const result = filteredItems.filter((i) => {
-  //             return i.Gender.match("Female");
-  //           });
-  //           setCheckedItem(result);
-  //           setFlag(1);
-  //         } else {
-  //           setCheckedItem(filteredItems);
-  //           setFlag(0);
-  //         }
-  //         break;
-
-  //       case 3:
-  //         if (e.target.checked) {
-  //           const result = filteredItems.filter((i) => {
-  //             return i.Employee_status.match("Active");
-  //           });
-  //           setCheckedItem(result);
-  //           setFlag(1);
-  //         } else {
-  //           setCheckedItem(filteredItems);
-  //           setFlag(0);
-  //         }
-  //         break;
-
-  //       case 4:
-  //         if (e.target.checked) {
-  //           const result = filteredItems.filter((i) => {
-  //             return i.Employee_status.match("Inactive");
-  //           });
-  //           setCheckedItem(result);
-  //           setFlag(1);
-  //         } else {
-  //           setCheckedItem(filteredItems);
-  //           setFlag(0);
-  //         }
-  //         break;
-
-  //       case 5:
-  //         if (e.target.checked) {
-  //           const result = filteredItems.filter((i) => {
-  //             return i.Employee_status.match("Suspended");
-  //           });
-  //           setCheckedItem(result);
-  //           setFlag(1);
-  //         } else {
-  //           setCheckedItem(filteredItems);
-  //           setFlag(0);
-  //         }
-  //         break;
-
-  //       case 6:
-  //         if (e.target.checked) {
-  //           const result = filteredItems.filter((i) => {
-  //             return i.Designation.match("Janitor");
-  //           });
-  //           setCheckedItem(result);
-  //           setFlag(1);
-  //         } else {
-  //           setCheckedItem(filteredItems);
-  //           setFlag(0);
-  //         }
-  //         break;
-
-  //       case 7:
-  //         if (e.target.checked) {
-  //           const result = filteredItems.filter((i) => {
-  //             return i.Designation.match("Sr.Janitor");
-  //           });
-  //           setCheckedItem(result);
-  //           setFlag(1);
-  //         } else {
-  //           setCheckedItem(filteredItems);
-  //           setFlag(0);
-  //         }
-  //         break;
-
-  //       case 8:
-  //         if (e.target.checked) {
-  //           const result = filteredItems.filter((i) => {
-  //             return i.Designation.match("Supervisor");
-  //           });
-  //           setCheckedItem(result);
-  //           setFlag(1);
-  //         } else {
-  //           setCheckedItem(filteredItems);
-  //           setFlag(0);
-  //         }
-  //         break;
-
-  //       case 9:
-  //         if (e.target.checked) {
-  //           const result = filteredItems.filter((i) => {
-  //             return i.Designation.match("Sr.Supervisor");
-  //           });
-  //           setCheckedItem(result);
-  //           setFlag(1);
-  //         } else {
-  //           setCheckedItem(filteredItems);
-  //           setFlag(0);
-  //         }
-  //         break;
-  //     }
-  //   }
-  // };
-
+  
   const checkboxValue = (e, data) => {
     // alert(e.target.checked);
     var filteredListData;
     var concatData;
-    var concatAreaData;
+   
     var filteredAreaListArr = []
-    
-    // concatAreaData = checkedAreaNameArr.concat(data);
-    // setCheckedData(concatAreaData);
     if (e.target.checked) {
       filteredListData = _.where(filteredItems, {
         Executive: data,
@@ -364,23 +107,7 @@ const SiteMaster = () => {
     getEmployeeList();
   }, []);
 
-  // useEffect(() => {
-  //   if (checkedItem.length > 0) {
-  //     setFilteredList(checkedItem);
-  //     const result = checkedItem.filter((i) => {
-  //       return i.Name.toLowerCase().match(search.toLowerCase());
-  //     });
-  //     setCheckedItem(result);
-  //   } else {
-  //     const result = item.filter((i) => {
-  //       return i.Name.toLowerCase().match(search.toLowerCase());
-  //     });
-  //     setFilteredItems(result);
-  //   }
-  // }, [search]);
-
-
-  // search functionality
+  // Search functionality
   const onSearch=(data)=>{
     if (checkedItem.length > 0) {
       
@@ -408,7 +135,8 @@ const SiteMaster = () => {
   return (
     <div>
       <div className="titleDiv">
-        <img src={profileImg} alt="owner"></img>
+        {/* <img src={profileImg} alt="owner"></img> */}
+        <BiUser size={20} color={"var(--purple-color"} />
         <h5 className="title">Site</h5>
       </div>
 
@@ -429,8 +157,6 @@ const SiteMaster = () => {
           </InputGroup>
           <div className="checkFilterDiv">
             <h5 className="checkHeader">Executives</h5>
-           
-
             <div className="checkboxDiv">
             {makeList &&
                       makeList.map((data, index) => {
@@ -447,9 +173,7 @@ const SiteMaster = () => {
                           );
                         })}
                         </div>
-         
           </div>
-        
         </Col>
         <Col md={10} className="colTable">
           <div className="divTable">

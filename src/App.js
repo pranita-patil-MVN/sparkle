@@ -16,6 +16,7 @@ import ItemMaster from './Components/ItemMaster';
 import Checkbox from './CommonComponents/Checkbox';
 import SiteMaster from './Components/SiteMaster';
 import Vendor from './Components/Vendor';
+import Dropdown from './Utils/Dropdown';
 function App() {
   return (
     <div className="App">
@@ -34,15 +35,11 @@ function App() {
        <Route path='/Checkbox' element={<Checkbox/>}/>
        <Route path='/masters/customer/SiteMaster' element={<SiteMaster/>}/>
        <Route path='/masters/vendor' element={<Vendor/>}/>
+       <Route path='/src/Utils/Dropdown.js' element={<Dropdown/>}/>
        </Routes>
        </SideBar>
        </Router>
-    
-     
-    
-     
-   
-      
+       
      </div>
   );
 }
