@@ -14,6 +14,7 @@ import Input from "../CommonComponents/Input";
 import RadioButton from "../CommonComponents/RadioButtons";
 import SingleDatePicker from "../CommonComponents/DatePicker";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
+import TextArea from "../CommonComponents/TextArea";
 
 import placeholder from "../assets/Images/Placeholder.png";
 
@@ -420,14 +421,20 @@ const DivOne = ({ onButtonClick }) => {
                 options={genderArr}
               />
             </Col> */}
-            <Col>
-              <Input
+ <Col>
+              <TextArea
+                // required
                 controlId="txt_remark"
-                label="Remark"
+                label="Remarks"
                 type="text"
-                onChangeInputHandler={(inputValue) => {}}
+                onChangeInputHandler={(inputValue) => {
+                    handleOnChange("txt_remark", inputValue);
+                }}
               />
             </Col>
+
+
+           
             <Col>
               <RadioButton
                 controlId=""
@@ -502,8 +509,8 @@ const DivOne = ({ onButtonClick }) => {
               } else {
                 validateForm("rad_workingdays");
                 validateForm("txt_budget");
-                validateForm("txt_status");
-                validateForm("txt_type");
+                validateForm("drp_Status");
+                validateForm("drp_type");
                 validateForm("txt_salaryProcessing");
               }
             }}

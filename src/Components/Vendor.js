@@ -100,82 +100,6 @@ const Vendor = () => {
     },
   ];
 
-  const checkboxValue = (e, ch) => {
-    if (checkedItem.length > 0) {
-      switch (ch) {
-        case 1:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Gender.match("Male");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            if (e.target.checked) {
-              setCheckedItem(filteredList);
-            } else {
-              setCheckedItem(filteredItems);
-            }
-          }
-          break;
-
-        case 2:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Gender.match("Female");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            if (e.target.checked) {
-              setCheckedItem(filteredList);
-            } else {
-              setCheckedItem(filteredItems);
-            }
-          }
-          break;
-
-        case 3:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Employee_status.match("Inactive");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            if (e.target.checked) {
-              setCheckedItem(filteredList);
-            } else {
-              setCheckedItem(filteredItems);
-            }
-          }
-          break;
-        case 4:
-          if (e.target.checked) {
-            const result = checkedItem.filter((i) => {
-              return i.Designation.match("Sr.Supervisor");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            setCheckedItem(filteredList);
-          }
-          break;
-        case 6:
-          if (e.target.checked) {
-            const result = filteredItems.filter((i) => {
-              return i.status.match("unavailable");
-            });
-            setFilteredList(checkedItem);
-            setCheckedItem(result);
-          } else {
-            setCheckedItem(filteredList);
-          }
-          break;
-      }
-    }
-  };
-
   useEffect(() => {
     getEmployeeList();
   }, []);
@@ -245,20 +169,7 @@ const Vendor = () => {
     console.log(event.target.value);
   };
 
-  // useEffect(() => {
-  //   if (checkedItem.length > 0) {
-  //     setFilteredList(checkedItem);
-  //     const result = checkedItem.filter((i) => {
-  //       return i.Name.toLowerCase().match(search.toLowerCase());
-  //     });
-  //     setCheckedItem(result);
-  //   } else {
-  //     const result = item.filter((i) => {
-  //       return i.Name.toLowerCase().match(search.toLowerCase());
-  //     });
-  //     setFilteredItems(result);
-  //   }
-  // }, [search]);
+  
 
   return (
     <div>
@@ -343,38 +254,11 @@ const Vendor = () => {
             <TableCompo
               data={[
                 columns,
-                checkedItem.length > 0 ? checkedItem : filteredItems,
+                filteredItems,
+                "vendorMaster"
               ]}
-              // data={item}
             />
-            {/* <DataTable
-              columns={columns}
-              data={checkedItem.length > 0 ?
-                checkedItem :
-                filteredItems}
-
-              fixedHeader
-              fixedHeaderScrollHeight='70vh'
-
-              // selectableRows
-              highlightOnHover
-              pagination
-              paginationPerPage={6}
-              paginationComponent={customPagination}
-
-              subHeader
-              subHeaderComponent={<div className='subHeader'>
-
-                <div className='btnHeader'>
-                  <button className="btnTable btn"><BiPlus size={20} />New</button>
-                  <button className=" btnTable btn"><CiExport size={20} />Excel</button>
-                  <button className="btnTable btn"><CiImport size={20} id='import ' />Import</button>
-                </div>
-              </div>}
-
-              subHeaderAlign='right'
-
-            /> */}
+           
           </div>
         </Col>
       </Row>
