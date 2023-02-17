@@ -7,7 +7,7 @@ import _ from "underscore";
 import profileImg from "../assets/Images/profileImg.png";
 import editImg from "../assets/Images/editImg.png";
 import { CiSearch, CiImport, CiExport } from "react-icons/ci";
-import { BiPlus } from "react-icons/bi";
+import { BiPlus,BiUser } from "react-icons/bi";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
@@ -263,7 +263,7 @@ const Vendor = () => {
   return (
     <div>
       <div className="titleDiv">
-        <img src={profileImg} alt="owner"></img>
+      <BiUser size={20} color={"var(--purple-color"} />
         <h5 className="title">Vendor</h5>
       </div>
 
