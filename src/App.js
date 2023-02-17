@@ -42,11 +42,11 @@ function App() {
             <Route path="/TableCompo" element={<TableCompo />} />
             <Route path="/masters/shift" element={<Shift />} />
             <Route path="/Checkbox" element={<Checkbox />} />
-            {/* <Route
+          <Route
               path="/masters/customer/SiteMaster"
-              element={<SiteMaster />}
-            /> */}
-            <Route path="/masters/customer/SiteMaster" element={<CreateSite />} />
+              element={<SiteMaster />}  
+            />
+            <Route path="/masters/customer/SiteMaster/createSite" element={<CreateSite />} />
             <Route path="/masters/vendor" element={<Vendor />} />
           </Routes>
         </SideBar>
