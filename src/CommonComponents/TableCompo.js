@@ -105,6 +105,8 @@ const openForm=(value)=>{
   if(value==='itemMaster'){
     navigate('/masters/itemMaster/createItem')
   }
+  else if (value === 'vendorMaster')
+  navigate('CreateVendor')
   // else if(value==='siteMaster'){
   //   navigate('/masters/customer/SiteMaster/createSite')
   // }
