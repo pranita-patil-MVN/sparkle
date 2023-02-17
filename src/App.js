@@ -17,6 +17,7 @@ import SiteMaster from "./Components/SiteMaster";
 import Vendor from "./Components/Vendor";
 import CreateEmployee from "./Components/CreateEmployee";
 import CreateSite from "./Components/CreateSite";
+import CreateCustomer from "./Components/CreateCustomer";
 import CreateItem from "./Components/CreateItem";
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/masters" element={<Masters />} />
             <Route path="/masters" element={<Masters />} />
             <Route path="/masters/customer" element={<Customer />} />
+            <Route path="/masters/customer/createCustomer" element={<CreateCustomer />} />
             <Route path="/masters/itemMaster" element={<ItemMaster />} />
             <Route path="/masters/itemMaster/createItem" element={ <CreateItem/>} />
             <Route path="/attendance" element={<Attendance />} />
