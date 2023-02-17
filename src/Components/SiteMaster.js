@@ -178,6 +178,7 @@ const SiteMaster = () => {
               data={[
                 columns,
                 checkedItem.length > 0 ? checkedItem : filteredItems,
+                "siteMaster"
               ]}
             />
           </div>

@@ -93,8 +93,9 @@ const DivOne = ({ onButtonClick }) => {
   const [formData, setFormData] = useState([]);
 
   // for item name
+  const [itemValue, setItemValue] = useState("");
   const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
-  const [invalidItem, setInvalidItem] = useState(true);
+  const [invalidItem, setInvalidItem] = useState(false);
 
   // for category dropdown
   const [categoryDropdownErrorMessage, setCategoryDropdownErrorMessage] =
@@ -114,33 +115,49 @@ const DivOne = ({ onButtonClick }) => {
   const [itemRateErrorMessage, setItemRateErrorMessage] = useState("");
   const [invalidRate, setInvalidRate] = useState(true);
 
+
   const addFieldsValues = (fieldName, value) => {
-    setFormData({ ...formData, [fieldName]: value });
+    setFormData({
+       ...formData,
+       [fieldName]: value
+       });
   };
   const validateForm = (fieldName, value) => {
+   
     switch (fieldName) {
       case "txt_item":
         if (value === "" || value === undefined) {
           setInvalidItem(true);
           setTxtItemNameErrorMessage("Invalid Item");
         } else {
-          addFieldsValues(fieldName, value);
           setInvalidItem(false);
           setTxtItemNameErrorMessage("");
+          setFormData({
+            ...formData,
+            [fieldName]: value
+            });
+          // setItemValue(value)
           //   setValidateDivOne(true);
         }
         break;
       case "txt_code":
-        addFieldsValues(fieldName, value);
+        setFormData({
+          ...formData,
+          [fieldName]: value
+          });
         break;
       case "drp_category":
         if (value === "" || value === undefined) {
           setInvalidCategory(true);
           setCategoryDropdownErrorMessage("Select category");
         } else {
-          addFieldsValues(fieldName, value);
+         
           setInvalidCategory(false);
           setCategoryDropdownErrorMessage("");
+          setFormData({
+            ...formData,
+            [fieldName]: value
+            });
         }
         break;
       case "drp_status":
@@ -148,62 +165,102 @@ const DivOne = ({ onButtonClick }) => {
           setInvalidStatus(true);
           setStatusDropdownErrorMessage("Select status");
         } else {
-          addFieldsValues(fieldName, value);
+          
           setInvalidStatus(false);
           setStatusDropdownErrorMessage("");
+          setFormData({
+            ...formData,
+            [fieldName]: value
+            });
         }
         break;
       case "rad_deduction_status":
-        addFieldsValues(fieldName, value);
+        setFormData({
+          ...formData,
+          [fieldName]: value
+          });
         break;
       case "drp_measurement_unit":
         if (value === "" || value === undefined) {
           setInvalidUnit(true);
           setUnitErrorMessage("Select unit");
         } else {
-          addFieldsValues(fieldName, value);
+     
           setInvalidUnit(false);
           setUnitErrorMessage("");
+          setFormData({
+            ...formData,
+            [fieldName]: value
+            });
         }
         break;
       case "txt_make":
-        addFieldsValues(fieldName, value);
+        setFormData({
+          ...formData,
+          [fieldName]: value
+          });
         break;
 
-      case "text_rate":
+      case "txt_rate":
         if (value === "" || value === undefined) {
           setInvalidRate(true);
-          setItemRateErrorMessage("Select unit");
+          setItemRateErrorMessage("Invalid rate");
         } else {
-          addFieldsValues(fieldName, value);
+          setFormData({
+            ...formData,
+            [fieldName]: value
+            });
           setInvalidRate(false);
           setItemRateErrorMessage("");
         }
         break;
 
-      case "txt_cgst":
-        addFieldsValues(fieldName, value);
+      case "text_cg":
+     if(value !=undefined){
+      setFormData({
+        ...formData,
+        [fieldName]: value
+        });
+     }
         break;
-      case "txt_sgst":
-        addFieldsValues(fieldName, value);
+      case "text_sgst":
+        setFormData({
+          ...formData,
+          [fieldName]: value
+          });
         break;
-      case "txt_igst":
-        addFieldsValues(fieldName, value);
+      case "text_igst":
+        setFormData({
+          ...formData,
+          [fieldName]: value
+          });
         break;
-      case "text_hsn/sac":
-        addFieldsValues(fieldName, value);
+      case "text_hsn":
+        setFormData({
+          ...formData,
+          [fieldName]: value
+          });
         break;
       case "txt_remark":
-        addFieldsValues(fieldName, value);
+        setFormData({
+          ...formData,
+          [fieldName]: value
+          });
         break;
       case "txt_information":
-        addFieldsValues(fieldName, value);
+        setFormData({
+          ...formData,
+          [fieldName]: value
+          });
         break;
       default:
         break;
     }
   };
 
+  const getData=()=>{
+    alert("FormData==>" + JSON.stringify(formData))
+  }
   return (
     <>
       {" "}
@@ -236,7 +293,7 @@ const DivOne = ({ onButtonClick }) => {
                 label="Code"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_code", inputValue);
+                  validateForm("txt_code", inputValue.currentTarget.value);
                 }}
               />
             </Col>
@@ -314,17 +371,17 @@ const DivOne = ({ onButtonClick }) => {
                 label="Make"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_make", inputValue);
+                  validateForm("txt_make", inputValue.currentTarget.value);
                 }}
               />
             </Col>
           </Row>
-
+         
           <Row className="mb-3">
-            <Col>
+          <Col>
               <Input
                 required
-                controlId="text_rate"
+                controlId="txt_rate"
                 label="Rate(₹)"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
@@ -342,12 +399,15 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Row>
                 <Col xl={4} lg={4} md={4}>
+                
                   <Input
                     // required
-                    controlId="text_cgst"
+                    controlId="text_cg"
                     label="CGST(%)"
                     type="text"
-                    onChangeInputHandler={(inputValue) => {}}
+                    onChangeInputHandler={(inputValue) => {
+                      validateForm("text_cg", inputValue.currentTarget.value);
+                    }}
                   />
                 </Col>
                 <Col xl={4} lg={4} md={4}>
@@ -356,7 +416,9 @@ const DivOne = ({ onButtonClick }) => {
                     controlId="text_sgst"
                     label="SGST(%)"
                     type="text"
-                    onChangeInputHandler={(inputValue) => {}}
+                    onChangeInputHandler={(inputValue) => {
+                      validateForm("text_sgst", inputValue.currentTarget.value);
+                    }}
                   />
                 </Col>
                 <Col xl={4} lg={4} md={4}>
@@ -365,7 +427,9 @@ const DivOne = ({ onButtonClick }) => {
                     controlId="text_igst"
                     label="IGST(%)"
                     type="text"
-                    onChangeInputHandler={(inputValue) => {}}
+                    onChangeInputHandler={(inputValue) => {
+                      validateForm("text_igst", inputValue.currentTarget.value);
+                    }}
                   />
                 </Col>
               </Row>
@@ -374,15 +438,18 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 // required
-                controlId="text_hsn/sac"
+                controlId="text_hsn"
                 label="HSN/SAC"
                 type="email"
-                onChangeInputHandler={(inputValue) => {}}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("text_hsn", inputValue.currentTarget.value);
+                }}
               />
             </Col>
             <Col></Col>
           </Row>
           <Row className="mb-3">
+            
             <Col>
               <TextArea
                 // required
@@ -390,7 +457,7 @@ const DivOne = ({ onButtonClick }) => {
                 label="Remarks"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  handleOnChange("txt_remark", inputValue);
+                  validateForm("txt_remark", inputValue.currentTarget.value);
                 }}
               />
             </Col>
@@ -401,7 +468,7 @@ const DivOne = ({ onButtonClick }) => {
                 label="Information"
                 type="textArea"
                 onChangeInputHandler={(inputValue) => {
-                  handleOnChange("txt_information", inputValue);
+                  validateForm("txt_information", inputValue.currentTarget.value);
                 }}
               />
             </Col>
@@ -413,10 +480,12 @@ const DivOne = ({ onButtonClick }) => {
             type="button"
             className="alignRight"
             onClick={() => {
+           
               validateForm("txt_item", formData.txt_item);
               validateForm("txt_code", formData.txt_code);
               validateForm("drp_category", formData.drp_category);
               validateForm("drp_status", formData.drp_status);
+              validateForm("rad_deduction_status", formData.rad_deduction_status);
               validateForm(
                 "drp_measurement_unit",
                 formData.drp_measurement_unit
@@ -426,7 +495,7 @@ const DivOne = ({ onButtonClick }) => {
               validateForm("txt_cgst", formData.txt_cgst);
               validateForm("txt_sgst", formData.txt_sgst);
               validateForm("txt_igst", formData.txt_igst);
-              validateForm("text_hsn/sac", formData.text_hsn);
+              validateForm("text_hsn", formData.text_hsn);
               validateForm("txt_remark", formData.txt_remark);
               validateForm("txt_information", formData.txt_information);
 
@@ -434,6 +503,10 @@ const DivOne = ({ onButtonClick }) => {
           >
             Save
           </Button>
+          <button   onClick={() => 
+              getData()}>
+click
+          </button>
         </Card.Body>
       </Card>
     </>
