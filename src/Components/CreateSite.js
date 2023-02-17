@@ -98,7 +98,7 @@ const dropdownOptionsZone = [
   {
     id: 4,
     value: "West",
-  }
+  },
 ];
 const dropdownOptionsStatus = [
   {
@@ -112,8 +112,7 @@ const dropdownOptionsStatus = [
   {
     id: 3,
     value: "Suspended",
-  }
- 
+  },
 ];
 const dropdownOptionsType = [
   {
@@ -123,7 +122,7 @@ const dropdownOptionsType = [
   {
     id: 2,
     value: "Non-ESIC",
-  }
+  },
 ];
 const dropdownOptionsCustomer = [
   {
@@ -149,7 +148,7 @@ const dropdownOptionsCustomer = [
   {
     id: 6,
     value: "GTT Communication",
-  }
+  },
 ];
 
 const DivOne = ({ onButtonClick }) => {
@@ -158,11 +157,50 @@ const DivOne = ({ onButtonClick }) => {
   const genderArr = ["Male", "Female", "Other"];
   const maritalStatusArr = ["Married", "Unmarried"];
 
+  const [formData, setFormData] = useState([]);
+  
+
   const [validateDivOne, setValidateDivOne] = useState(false);
 
-  const [txt_aadhar_number_error_message, setTxtAadharNumberErrorMessage] =
+  // For state dropdown
+  const [dropdownStateErrorMessage, setDropdownStateErrorMessage] =
     useState("");
-  const [invalidAdhar, setInvalidAdhar] = useState(true);
+  const [invalidState, setInvalidState] = useState(true);
+
+  // For City Dropdown
+  const [dropdownCityErrorMessage, setDropdownCityErrorMessage] = useState("");
+  const [invalidCity, setInvalidCity] = useState(true);
+
+  // For City Zone
+  const [dropdownZoneErrorMessage, setDropdownZoneErrorMessage] = useState("");
+  const [invalidZone, setInvalidZone] = useState(true);
+
+  // For Working days in week
+  const [dropdownWorkingDaysErrorMessage, setDropdownWorkingDaysErrorMessage] =
+    useState("");
+  const [invalidWorkingDays, setInvalidWorkingDays] = useState(true);
+
+  // For Budget
+  const [budgetErrorMessage, setBudgetErrorMessage] = useState("");
+  const [invalidBudget, setInvalidBudget] = useState(true);
+
+  // For Status
+  const [statusErrorMessage, setStatusErrorMessage] = useState("");
+  const [invalidStatus, setInvalidStatus] = useState(true);
+
+  // For Type
+  const [typeErrorMessage, setTypeErrorMessage] = useState("");
+  const [invalidType, setInvalidType] = useState(true);
+
+  // For Start Day Salary
+  const [startdaysalaryErrorMessage, setStartdaysalaryErrorMessage] =
+    useState("");
+  const [invalidStartdaysalary, setInvalidStartdaysalary] = useState(true);
+
+   // For Customer
+   const [customerErrorMessage, setCustomerErrorMessage] = useState("");
+   const [invalidCustomer, setInvalidCustomer] = useState(true);
+
   const [aadhar_number, setAadharNumber] = useState();
 
   const [txt_salutation_error_message, setTxtSalutationErrorMessage] =
@@ -172,31 +210,130 @@ const DivOne = ({ onButtonClick }) => {
 
   const [date_of_birth, setDateOfBirth] = useState();
 
+  const addFieldsValues = (fieldName, value) => {
+    setFormData({ ...formData, [fieldName]: value });
+  };
   const validateForm = (fieldName, value) => {
     switch (fieldName) {
-      case "rad_salutation":
+      case "txt_gps":
+        addFieldsValues(fieldName, value);
+        break;
+      case "txt_location":
+        addFieldsValues(fieldName, value);
+        break;
+      case "txt_address":
+        addFieldsValues(fieldName, value);
+        break;
+      case "txt_manpower":
+        addFieldsValues(fieldName, value);
+        break;
+      case "txt_remark":
+        addFieldsValues(fieldName, value);
+        break;
+      case "drp_state":
         if (value === undefined) {
-          setInvalidSalutation(true);
-          setTxtSalutationErrorMessage("Invalid Salutation.");
+          setInvalidState(true);
+          setDropdownStateErrorMessage("Please Select State");
         } else {
-          setInvalidSalutation(false);
-          setTxtSalutationErrorMessage("");
+          addFieldsValues(fieldName, value);
+          setInvalidState(false);
+          setDropdownStateErrorMessage("");
           setValidateDivOne(true);
         }
         break;
-      case "txt_aadhar_number":
-        if (value === undefined || value.length < 12) {
-          setInvalidAdhar(true);
-          setTxtAadharNumberErrorMessage("Invalid Aadhar Number.");
+      case "drp_city":
+        if (value === undefined) {
+          setInvalidCity(true);
+          setDropdownCityErrorMessage("Please Select City");
         } else {
-          setInvalidAdhar(false);
-          setTxtAadharNumberErrorMessage("");
+          addFieldsValues(fieldName, value);
+          setInvalidCity(false);
+          setDropdownCityErrorMessage("");
+          setValidateDivOne(true);
         }
         break;
-      default:
+      case "drp_zone":
+        if (value === undefined) {
+          setInvalidZone(true);
+          setDropdownZoneErrorMessage("Please Select Zone");
+        } else {
+          addFieldsValues(fieldName, value);
+          setInvalidZone(false);
+          setDropdownZoneErrorMessage("");
+          setValidateDivOne(true);
+        }
         break;
+      case "rad_workingdays":
+        if (value === undefined) {
+          setInvalidWorkingDays(true);
+          setDropdownWorkingDaysErrorMessage("Please Select Date");
+        } else {
+          addFieldsValues(fieldName, value);
+          setInvalidWorkingDays(false);
+          setDropdownWorkingDaysErrorMessage("");
+          setValidateDivOne(true);
+        }
+        break;
+      case "txt_budget":
+        if (value === undefined) {
+          setInvalidBudget(true);
+          setBudgetErrorMessage("Please Select Date");
+        } else {
+          addFieldsValues(fieldName, value);
+          setInvalidBudget(false);
+          setBudgetErrorMessage("");
+          setValidateDivOne(true);
+        }
+        break;
+      case "drp_Status":
+        if (value === undefined) {
+          setInvalidStatus(true);
+          setStatusErrorMessage("Please Select Status");
+        } else {
+          addFieldsValues(fieldName, value);
+          setInvalidStatus(false);
+          setStatusErrorMessage("");
+          setValidateDivOne(true);
+        }
+        break;
+      case "drp_type":
+        if (value === undefined) {
+          setInvalidType(true);
+          setTypeErrorMessage("Please Select Type");
+        } else {
+          addFieldsValues(fieldName, value);
+          setInvalidType(false);
+          setTypeErrorMessage("");
+          setValidateDivOne(true);
+        }
+        break;
+      case "txt_salaryProcessing":
+        if (value === undefined) {
+          setInvalidStartdaysalary(true);
+          setStartdaysalaryErrorMessage("Please Select Type");
+        } else {
+          addFieldsValues(fieldName, value);
+          setInvalidStartdaysalary(false);
+          setStartdaysalaryErrorMessage("");
+          setValidateDivOne(true);
+        }
+        break;
+        case "drp_customer":
+          if (value === undefined) {
+            setInvalidCustomer(true);
+            setStartdaysalaryErrorMessage("Please Select Customer");
+          } else {
+            addFieldsValues(fieldName, value);
+            setInvalidCustomer(false);
+            setCustomerErrorMessage("");
+            setValidateDivOne(true);
+          }
+          break;
+          
+      default:
     }
   };
+
 
   return (
     <>
@@ -211,7 +348,7 @@ const DivOne = ({ onButtonClick }) => {
                 label="GPS"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_middle_name", inputValue);
+                  validateForm("txt_gps", inputValue);
                 }}
               />
             </Col>
@@ -221,7 +358,7 @@ const DivOne = ({ onButtonClick }) => {
                 label="Location"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_middle_name", inputValue);
+                  validateForm("txt_location", inputValue);
                 }}
               />
             </Col>
@@ -231,19 +368,27 @@ const DivOne = ({ onButtonClick }) => {
                 label="Address"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_middle_name", inputValue);
+                  validateForm("txt_address", inputValue);
                 }}
               />
             </Col>
             <Col>
               <Dropdown
+                required
                 label="State"
                 controlId="drp_state"
                 options={dropdownOptionsState}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
+                  validateForm("drp_state", dropDownValue);
                 }}
               />
+              {invalidState === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {dropdownStateErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
 
             {/* <Col>
@@ -287,9 +432,16 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_city"
                 options={dropdownOptionsCity}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
+                  validateForm("drp_city", dropDownValue);
                 }}
               />
+              {invalidCity === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {dropdownCityErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
             {/* <Col>
               <Input
@@ -319,9 +471,16 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_zone"
                 options={dropdownOptionsZone}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
+                  validateForm("drp_zone", dropDownValue);
                 }}
               />
+              {invalidZone === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {dropdownZoneErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
 
             <Col>
@@ -329,7 +488,9 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="txt_manpower"
                 label="Total Agreed Manpower"
                 type="text"
-                onChangeInputHandler={(inputValue) => {}}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_manpower", inputValue);
+                }}
               />
             </Col>
             <Col>
@@ -339,13 +500,12 @@ const DivOne = ({ onButtonClick }) => {
                 label="Working days in week"
                 options={salutationArr}
                 onChangeInputHandler={(value) => {
-                  setSalutation(value);
-                  validateForm("rad_salutation", value);
+                  validateForm("rad_workingdays", value);
                 }}
               />
-              {invalidSalutation === true ? (
+              {invalidWorkingDays === true ? (
                 <Form.Text className="position-relative mandatoryField">
-                  {txt_salutation_error_message}
+                  {dropdownWorkingDaysErrorMessage}
                 </Form.Text>
               ) : (
                 <></>
@@ -367,8 +527,17 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="txt_budget"
                 label="Budget"
                 type="text"
-                onChangeInputHandler={(inputValue) => {}}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_budget", inputValue);
+                }}
               />
+              {invalidBudget === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {budgetErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
 
             <Col>
@@ -378,9 +547,16 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_Status"
                 options={dropdownOptionsStatus}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
+                  validateForm("drp_Status", dropDownValue);
                 }}
               />
+              {invalidStatus === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {statusErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
 
             <Col>
@@ -390,9 +566,17 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_type"
                 options={dropdownOptionsType}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
+                  validateForm("drp_type", dropDownValue);
                 }}
               />
+
+              {invalidType === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {typeErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
             {/* <Col>
               <SingleDatePicker
@@ -408,8 +592,17 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="txt_salaryProcessing"
                 label="Start Day For Salary Processing"
                 type="text"
-                onChangeInputHandler={(inputValue) => {}}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_salaryProcessing", inputValue);
+                }}
               />
+              {invalidStartdaysalary === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {startdaysalaryErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
           </Row>
           <Row className="mb-3">
@@ -421,26 +614,27 @@ const DivOne = ({ onButtonClick }) => {
                 options={genderArr}
               />
             </Col> */}
- <Col>
+            <Col>
               <TextArea
                 // required
                 controlId="txt_remark"
                 label="Remarks"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                    handleOnChange("txt_remark", inputValue);
+                  validateForm("txt_remark", inputValue);
                 }}
               />
             </Col>
-
-
-           
             <Col>
               <RadioButton
-                controlId=""
+                controlId="rad_previousemployer"
                 label="Previous Employer"
                 options={["Yes", "No"]}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("rad_previousemployer", inputValue);
+                }}
               />
+              
             </Col>
             <Col></Col>
             <Col></Col>
@@ -507,11 +701,23 @@ const DivOne = ({ onButtonClick }) => {
               if (validateDivOne === true) {
                 onButtonClick("divTwo");
               } else {
-                validateForm("rad_workingdays");
-                validateForm("txt_budget");
-                validateForm("drp_Status");
-                validateForm("drp_type");
-                validateForm("txt_salaryProcessing");
+                validateForm("txt_gps");
+                validateForm("txt_location");
+                validateForm("txt_address");
+                validateForm("txt_remark");
+                validateForm("txt_manpower");
+                validateForm("rad_previousemployer");
+                validateForm("drp_state", formData.drp_state);
+                validateForm("drp_city", formData.drp_city);
+                validateForm("drp_zone", formData.drp_zone);
+                validateForm("rad_workingdays", formData.rad_workingdays);
+                validateForm("txt_budget", formData.txt_budget);
+                validateForm("drp_Status", formData.txt_budget);
+                validateForm("drp_type", formData.drp_type);
+                validateForm(
+                  "txt_salaryProcessing",
+                  formData.txt_salaryProcessing
+                );
               }
             }}
           >
@@ -524,8 +730,37 @@ const DivOne = ({ onButtonClick }) => {
 };
 
 const DivTwo = ({ onButtonClick }) => {
-  const [date_of_birth, setDateOfBirth] = useState();
+  const [formData2, setFormData2] = useState([]);
 
+  const [customerErrorMessage, setCustomerErrorMessage] = useState();
+  const [invalidCustomer, setInvalidCustomer] = useState();
+  const validateForm2 = (fieldName, value) => {
+    switch (fieldName) {
+       case "drp_customer":
+    if (value === undefined) {
+      setInvalidCustomer(true);
+      setCustomerErrorMessage("Please Select customer");
+    } else {
+     
+      setInvalidCustomer(false);
+      setCustomerErrorMessage("");
+      // setValidateDivOne(true);
+      setFormData2({ ...formData2, [fieldName]: value });
+    }
+    break;
+    case "txt_customergst":
+      setFormData2({ ...formData2, [fieldName]: value });
+        break;
+        
+            case "rad_gstApllicable":
+      setFormData2({ ...formData2, [fieldName]: value });
+        break;
+        case "txt_sitename":
+          setFormData2({ ...formData2, [fieldName]: value });
+            break;
+    default:
+   
+  }}
   const handleOnChange = (value) => {};
   return (
     <>
@@ -534,23 +769,32 @@ const DivTwo = ({ onButtonClick }) => {
         <Card.Header className="cardHeader">Job Details</Card.Header>
         <Card.Body>
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Dropdown
                 required
                 label="Customer"
                 controlId="drp_customer"
                 options={dropdownOptionsCustomer}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
+                  validateForm2("drp_customer",dropDownValue);
                 }}
               />
+               {invalidCustomer === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {customerErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
             <Col>
               <Input
                 controlId="txt_customergst"
                 label="Customer GST"
                 type="text"
-                onChangeInputHandler={(inputValue) => {}}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm2("txt_customergst",inputValue);
+                }}
               />
             </Col>
             <Col>
@@ -558,17 +802,20 @@ const DivTwo = ({ onButtonClick }) => {
                 controlId="rad_gstApllicable"
                 label="Is GST Applicable?                "
                 options={["Yes", "No"]}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm2("rad_gstApllicable",inputValue);
+                }}
               />
             </Col>
-
-           
 
             <Col>
               <Input
                 controlId="txt_sitename"
                 label="Site name"
                 type="text"
-                onChangeInputHandler={(inputValue) => {}}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm2("txt_sitename",inputValue);
+                }}
               />
             </Col>
 
@@ -683,10 +930,18 @@ const DivTwo = ({ onButtonClick }) => {
             type="button"
             className="alignRight"
             onClick={() => {
-              onButtonClick("divThree");
-            }}
+              if (DivTwo === true) {
+                onButtonClick("divTwo");
+              } else {
+                validateForm2("drp_customer", formData2.drp_customer);
+                validateForm2("txt_customergst", formData2.txt_customergst);
+                validateForm2("rad_gstApllicable", formData2.rad_gstApllicable);
+                validateForm2("txt_sitename", formData2.txt_sitename);
+              }
+            }
+          }
           >
-            Next
+            Save
           </Button>
         </Card.Body>
       </Card>
