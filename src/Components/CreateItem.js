@@ -259,7 +259,7 @@ const DivOne = ({ onButtonClick }) => {
   };
 
   const getData=()=>{
-    alert("FormData==>" + JSON.stringify(formData))
+    // alert("FormData==>" + JSON.stringify(formData))
   }
   return (
     <>
