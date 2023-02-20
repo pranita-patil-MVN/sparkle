@@ -227,11 +227,12 @@ export default function Shift() {
         <Col md={10} className='colTable'>
           <div className='divTable'>
 
-            <TableCompo data={[
+            <TableCompo 
+            data={[
               columns,
               checkedItem.length > 0 ?
                 checkedItem :
-                filteredItems]} />
+                filteredItems, "Shift"]} />
             {/* <DataTable
               columns={columns}
               data={checkedItem.length > 0 ?

@@ -40,11 +40,13 @@ const dropdownOptions = [
   },
 ];
 
+const noOfSteps  =  [1,2,3,4];
 const DivOne = ({ onButtonClick }) => {
   const salutationArr = ["Mr.", "Mrs.", "Ms"];
   const genderArr = ["Male", "Female", "Other"];
   const maritalStatusArr = ["Married", "Unmarried"];
 
+  
   const [validateDivOne, setValidateDivOne] = useState(false);
   
   const [txt_aadhar_number_error_message, setTxtAadharNumberErrorMessage] =
@@ -84,6 +86,8 @@ const DivOne = ({ onButtonClick }) => {
         break;
     }
   };
+
+  const handleOnChange = (value) => {};
 
   return (
     <>
@@ -292,6 +296,64 @@ const DivOne = ({ onButtonClick }) => {
               />
             </Col>
           </Row>
+          <Row className="mb-3">
+            <Col>
+              <Dropdown
+                label="Blood Group"
+                controlId="drp_blood_group"
+                options={dropdownOptions}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  handleOnChange(dropDownValue);
+                }}
+              />
+            </Col>
+            <Col>
+              <Input
+                controlId="txt_height"
+                label="Height(Cm)"
+                type="number"
+                onChangeInputHandler={(inputValue) => {}}
+              />
+            </Col>
+            <Col>
+              <Input
+                controlId="txt_weight"
+                label="Weight(Kg)"
+                type="number"
+                onChangeInputHandler={(inputValue) => {}}
+              />
+            </Col>
+            <Col>
+              <Input
+                controlId="txt_mother_tongue"
+                label="Mother Tongue"
+                type="text"
+                onChangeInputHandler={(inputValue) => {}}
+              />
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col>
+              <Input
+                controlId="txt_nominee"
+                label="Nominee"
+                type="text"
+                onChangeInputHandler={(inputValue) => {}}
+              />
+            </Col>
+            <Col>
+              <Dropdown
+                label="Relation"
+                controlId="drp_relation"
+                options={dropdownOptions}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  handleOnChange(dropDownValue);
+                }}
+              />
+            </Col>
+            <Col></Col>
+            <Col></Col>
+          </Row>
           <Button
             type="button"
             className="alignRight"
@@ -323,7 +385,7 @@ const DivTwo = ({ onButtonClick }) => {
     <>
       {" "}
       <Card>
-        <Card.Header className="cardHeader">Job Details</Card.Header>
+        <Card.Header className="cardHeader">Employment Details</Card.Header>
         <Card.Body>
           <Row className="mb-3">
             <Col>
@@ -569,90 +631,8 @@ const DivThree = ({ onButtonClick }) => {
     </>
   );
 };
-
+ 
 const DivFour = ({ onButtonClick }) => {
-  const handleOnChange = (value) => {};
-  return (
-    <>
-      {" "}
-      <Card>
-        <Card.Header className="cardHeader">Other Details</Card.Header>
-        <Card.Body>
-          <Row className="mb-3">
-            <Col>
-              <Dropdown
-                label="Blood Group"
-                controlId="drp_blood_group"
-                options={dropdownOptions}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
-                }}
-              />
-            </Col>
-            <Col>
-              <Input
-                controlId="txt_height"
-                label="Height(Cm)"
-                type="number"
-                onChangeInputHandler={(inputValue) => {}}
-              />
-            </Col>
-            <Col>
-              <Input
-                controlId="txt_weight"
-                label="Weight(Kg)"
-                type="number"
-                onChangeInputHandler={(inputValue) => {}}
-              />
-            </Col>
-            <Col>
-              <Input
-                controlId="txt_mother_tongue"
-                label="Mother Tongue"
-                type="text"
-                onChangeInputHandler={(inputValue) => {}}
-              />
-            </Col>
-          </Row>
-          <Row className="mb-3">
-            <Col>
-              <Input
-                controlId="txt_nominee"
-                label="Nominee"
-                type="text"
-                onChangeInputHandler={(inputValue) => {}}
-              />
-            </Col>
-            <Col>
-              <Dropdown
-                label="Relation"
-                controlId="drp_relation"
-                options={dropdownOptions}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
-                }}
-              />
-            </Col>
-            <Col></Col>
-            <Col></Col>
-          </Row>
-          <Button type="button" onClick={() => onButtonClick("divTwo")}>
-            Back
-          </Button>
-          <Button
-            type="button"
-            className="alignRight"
-            onClick={() => onButtonClick("divFive")}
-          >
-            Save
-          </Button>
-        </Card.Body>
-      </Card>
-    </>
-  );
-};
-
-const DivFive = ({ onButtonClick }) => {
   return (
     <>
       {" "}
@@ -708,7 +688,7 @@ const DivFive = ({ onButtonClick }) => {
             </Col>
           </Row>
 
-          <Button type="button" onClick={() => onButtonClick("divFour")}>
+          <Button type="button" onClick={() => onButtonClick("divThree")}>
             Back
           </Button>
           <Button
@@ -760,14 +740,13 @@ const CreateEmployee = () => {
           <h6 className="title">Add Employee</h6>
         </div>
         <Container className="step-progress-bar-div">
-          <MultiStepProgressBar div={div} onDivNumberClick={nextDivNumber} />
+          <MultiStepProgressBar div={div} onDivNumberClick={nextDivNumber} noOfSteps={noOfSteps}/>
           {
             {
               divOne: <DivOne onButtonClick={nextDiv} />,
               divTwo: <DivTwo onButtonClick={nextDiv} />,
               divThree: <DivThree onButtonClick={nextDiv} />,
-              divFour: <DivFour onButtonClick={nextDiv} />,
-              divFive: <DivFive onButtonClick={nextDiv} />,
+              divFour: <DivFour onButtonClick={nextDiv} /> 
             }[div]
           }
         </Container>

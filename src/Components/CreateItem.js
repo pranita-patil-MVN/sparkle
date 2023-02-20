@@ -218,7 +218,8 @@ const DivOne = ({ onButtonClick }) => {
         // }
         break;
 
-      case "text_cg":
+      case "text_cgst":
+       var expression= "/^(100(\.0{1,2})?|([0-9]?[0-9](\.[0-9]{1,2})))$/"
         if (value != undefined) {
           setFormData({
             ...formData,
@@ -285,7 +286,7 @@ const DivOne = ({ onButtonClick }) => {
     <>
       {" "}
       <Card>
-        <Card.Header className="cardHeader">Personal Details</Card.Header>
+        <Card.Header className="cardHeader">Item details</Card.Header>
         <Card.Body>
           <Row className="mb-3">
             <Col>
@@ -421,11 +422,11 @@ const DivOne = ({ onButtonClick }) => {
                 <Col xl={4} lg={4} md={4}>
                   <Input
                     // required
-                    controlId="text_cg"
+                    controlId="text_cgst"
                     label="CGST(%)"
                     type="text"
                     onChangeInputHandler={(inputValue) => {
-                      validateForm("text_cg", inputValue.currentTarget.value);
+                      validateForm("text_cgst", inputValue.currentTarget.value);
                     }}
                   />
                 </Col>
@@ -503,23 +504,6 @@ const DivOne = ({ onButtonClick }) => {
             type="button"
             className="alignRight mr-5"
             onClick={() => {
-              // validateForm("txt_item", formData.txt_item);
-              // validateForm("txt_code", formData.txt_code);
-              // validateForm("drp_category", formData.drp_category);
-              // validateForm("drp_status", formData.drp_status);
-              // validateForm("rad_deduction_status", formData.rad_deduction_status);
-              // validateForm(
-              //   "drp_measurement_unit",
-              //   formData.drp_measurement_unit
-              // );
-              // validateForm("txt_make", formData.txt_make);
-              // validateForm("txt_rate", formData.txt_rate);
-              // validateForm("txt_cgst", formData.txt_cgst);
-              // validateForm("txt_sgst", formData.txt_sgst);
-              // validateForm("txt_igst", formData.txt_igst);
-              // validateForm("text_hsn", formData.text_hsn);
-              // validateForm("txt_remark", formData.txt_remark);
-              // validateForm("txt_information", formData.txt_information);
               getItemsData();
             }}
           >
@@ -546,28 +530,6 @@ const CreateItem = () => {
   const nextDiv = (div) => {
     setDiv(div);
   };
-  // const nextDivNumber = (divNumber) => {
-  //   switch (divNumber) {
-  //     case "1":
-  //       setDiv("divOne");
-  //       break;
-  //     // case "2":
-  //     //   setDiv("divTwo");
-  //     //   break;
-  //     // case "3":
-  //     //   setDiv("divThree");
-  //     //   break;
-  //     // case "4":
-  //     //   setDiv("divFour");
-  //     //   break;
-  //     // case "5":
-  //     //   setDiv("divFive");
-  //     //   break;
-  //     default:
-  //       setDiv("1");
-  //   }
-  // };
-
   return (
     <Container>
       <div>
