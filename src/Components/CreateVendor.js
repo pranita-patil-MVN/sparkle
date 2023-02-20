@@ -14,148 +14,141 @@ import Input from "../CommonComponents/Input";
 import RadioButton from "../CommonComponents/RadioButtons";
 import TextArea from "../CommonComponents/TextArea";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
-
+import { useNavigate, useLocation } from "react-router-dom";
 import placeholder from "../assets/Images/Placeholder.png";
 
 const DivOne = ({ onButtonClick }) => {
-
-  const [itemValue, setItemValue] = useState();
-
+  const navigate = useNavigate();
   // For Vendor name
   const [invalidItem, setInvalidItem] = useState(true);
   const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
-  const [ErrorMessage, setErrorMessage] = useState("");
- 
+
   // For Address 1
   const [invalidAddress, setInvalidAddress] = useState(true);
   const [addressErrorMessage, setTxtAddressErrorMessage] = useState("");
-  
+
   //For Cell 1
   const [invalidCell, setInvalidCell] = useState(true);
   const [cellErrorMessage, setTxtCellErrorMessage] = useState("");
-  
+
   //For Email 1
   const [invalidEmail, setInvalidEmail] = useState(true);
   const [emailErrorMessage, setTxtEmailErrorMessage] = useState("");
-  
-  
-  const [formData, setFormData] = useState();
-//  alert(JSON.stringify(formData))
-  const formDataValue = () => {
-    
-    
-  }
-  const validateOnSaveButton = ()=> {
-    if (formData !== undefined ) {
-        validateForm("txt_Code", formData.txt_Code);
-        validateForm("txt_Name", formData.txt_Name);
-        validateForm("txt_contactPerson", formData.txt_contactPerson);
-        validateForm("txt_vendorGst", formData.txt_vendorGst);
-        validateForm(
-          "txt_Address1",
-          formData.txt_Address1
-        );
-        validateForm("txt_Address2", formData.txt_Address2);
-        validateForm("txt_Email1", formData.txt_Email1);
-        validateForm("txt_Email2", formData.txt_Email2);
-        validateForm("txt_Telephone1", formData.txt_Telephone1);
-        validateForm("txt_Telephone2", formData.txt_Telephone2);
-        validateForm("txt_Cell1", formData.txt_Cell1);
-        validateForm("txt_Cell2", formData.txt_Cell2);
-        setInvalidAddress(false)
-        // alert("formData===>"+ JSON.stringify(formData))
-    //    alert(formData.txt_Code)
-    } else {
-        setInvalidAddress(true)
-setErrorMessage("Please fill all fields")
-    }
-   
 
- 
-  }
-const addFieldsValues = (fieldName, value) => {
-    
-    setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+  const [formData, setFormData] = useState();
+  //  alert(JSON.stringify(formData))
+
+  const saveVendorData = () => {
+    // alert(formData)
+    if (formData === undefined) {
+      alert("Please fill the fields");
+    } else if (formData.txt_Name === undefined || formData.txt_Name === "") {
+      setInvalidItem(true);
+      setTxtItemNameErrorMessage("Name is mandatory");
+    } else if (
+      formData.txt_Address1 === undefined ||
+      formData.txt_Address1 === ""
+    ) {
+      setInvalidAddress(true);
+      setTxtAddressErrorMessage("Address is mandatory");
+    } else if (formData.txt_Cell1 === undefined || formData.txt_Cell1 === "") {
+      setInvalidCell(true);
+      setTxtCellErrorMessage("Cell is mandatory");
+    } else {
+      alert(JSON.stringify(formData));
+    }
+    // alert("formData===>"+ JSON.stringify(formData))
+    //     validateForm("txt_Code", formData.txt_Code);
+    //     validateForm("txt_Name", formData.txt_Name);
+    //     validateForm("txt_contactPerson", formData.txt_contactPerson);
+    //     validateForm("txt_vendorGst", formData.txt_vendorGst);
+    //     validateForm(
+    //       "txt_Address1",
+    //       formData.txt_Address1
+    //     );
+    //     validateForm("txt_Address2", formData.txt_Address2);
+    //     validateForm("txt_Email1", formData.txt_Email1);
+    //     validateForm("txt_Email2", formData.txt_Email2);
+    //     validateForm("txt_Telephone1", formData.txt_Telephone1);
+    //     validateForm("txt_Telephone2", formData.txt_Telephone2);
+    //     validateForm("txt_Cell1", formData.txt_Cell1);
+    //     validateForm("txt_Cell2", formData.txt_Cell2);
+    //     setInvalidAddress(false)
+
+    //    alert(formData.txt_Code)
+  };
+  const onCancelButton = (fieldName, value) => {
+    navigate("/masters/vendor");
   };
 
   const validateForm = (fieldName, value) => {
-    alert(fieldName)
+    // alert(fieldName)
 
     switch (fieldName) {
-        case "txt_Code":
-            
-            addFieldsValues(fieldName, value);
-          break;
-        case "txt_Name":
-          if (value === "" || value === undefined) {
-            setInvalidItem(true);
-            setTxtItemNameErrorMessage("Invalid name");
-          } else {
-            addFieldsValues(fieldName, value);
-            setInvalidItem(false);
-            setTxtItemNameErrorMessage("");
-            //   setValidateDivOne(true);
-          }
-          break;
-        
-        case "txt_contactPerson":
-            addFieldsValues(fieldName, value);
-          break;
-        case "txt_vendorGst":
-          addFieldsValues(fieldName, value);
-          break;
-        case "txt_Address1":
-          if (value === "" || value === undefined) {
-            setInvalidAddress(true);
-            setTxtAddressErrorMessage("Invalid address");
-          } else {
-            addFieldsValues(fieldName, value);
-            setInvalidAddress(false);
-            setTxtAddressErrorMessage("");
-          }
-          break;
-        case "txt_Address2":
-          addFieldsValues(fieldName, value);
-          break;
-  
-        case "txt_Email1":
-          if (value === "" || value === undefined) {
-            setInvalidEmail(true);
-            setTxtEmailErrorMessage("Invalid email");
-          } else {
-            addFieldsValues(fieldName, value);
-            setInvalidEmail(false);
-            setTxtEmailErrorMessage("");
-          }
-          break;
-  
-        case "txt_Email2":
-          addFieldsValues(fieldName, value);
-          break;
-        case "txt_Telephone1":
-          addFieldsValues(fieldName, value);
-          break;
-        case "txt_Telephone2":
-          addFieldsValues(fieldName, value);
-          break;
-        case "txt_Cell1":
-            if (value === "" || value === undefined) {
-                setInvalidCell(true);
-                setTxtCellErrorMessage("Invalid cell");
-              } else {
-                addFieldsValues(fieldName, value);
-                setInvalidCell(false);
-                setTxtCellErrorMessage("");
-              }
-          break;
-        case "txt_Cell2":
-          addFieldsValues(fieldName, value);
-          formDataValue()
-          break;
-       
-        default:
-          break;
-      }
+      case "txt_Code":
+        if (value !== undefined && value !== "")
+          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+
+        break;
+      case "txt_Name":
+        // alert(fieldName)
+        if (value !== "" && value !== undefined) {
+          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+          setInvalidItem(false);
+          setTxtItemNameErrorMessage("");
+        }
+        break;
+
+      case "txt_contactPerson":
+        if (value !== undefined && value !== "") break;
+      case "txt_vendorGst":
+        setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+        break;
+      case "txt_Address1":
+        if (value !== "" && value !== undefined) {
+          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+          setInvalidAddress(false);
+          setTxtAddressErrorMessage("");
+        }
+        break;
+      case "txt_Address2":
+        if (value !== undefined && value !== "")
+          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+        break;
+
+      case "txt_Email1":
+        if (value !== undefined && value !== "")
+          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+        break;
+
+      case "txt_Email2":
+        if (value !== undefined && value !== "")
+          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+        break;
+      case "txt_Telephone1":
+        if (value !== undefined && value !== "")
+          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+        break;
+      case "txt_Telephone2":
+        if (value !== undefined && value !== "")
+          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+        break;
+      case "txt_Cell1":
+        if (value !== "" && value !== undefined) {
+          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+          setInvalidItem(false);
+          setTxtItemNameErrorMessage("");
+        }
+        break;
+      case "txt_Cell2":
+        if (value !== undefined && value !== "")
+          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (
@@ -165,7 +158,7 @@ const addFieldsValues = (fieldName, value) => {
         <Card.Header className="cardHeader">Vendor Details</Card.Header>
         <Card.Body>
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Input
                 // required
                 controlId="txt_Code"
@@ -175,7 +168,6 @@ const addFieldsValues = (fieldName, value) => {
                   validateForm("txt_Code", inputValue.currentTarget.value);
                 }}
               />
-              
             </Col>
             <Col>
               <Input
@@ -186,9 +178,8 @@ const addFieldsValues = (fieldName, value) => {
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_Name", inputValue);
                 }}
-                
               />
-               {invalidItem === true ? (
+              {invalidItem === true ? (
                 <Form.Text className="position-relative mandatoryField">
                   {itemNameErrorMessage}
                 </Form.Text>
@@ -203,7 +194,10 @@ const addFieldsValues = (fieldName, value) => {
                 label="Contact Person"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_contactPerson", inputValue.currentTarget.value);
+                  validateForm(
+                    "txt_contactPerson",
+                    inputValue.currentTarget.value
+                  );
                 }}
               />
             </Col>
@@ -218,10 +212,9 @@ const addFieldsValues = (fieldName, value) => {
                 }}
               />
             </Col>
-          
           </Row>
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Input
                 required
                 controlId="txt_Address1"
@@ -231,7 +224,7 @@ const addFieldsValues = (fieldName, value) => {
                   validateForm("txt_Address1", inputValue);
                 }}
               />
-               {invalidAddress === true ? (
+              {invalidAddress === true ? (
                 <Form.Text className="position-relative mandatoryField">
                   {addressErrorMessage}
                 </Form.Text>
@@ -260,7 +253,7 @@ const addFieldsValues = (fieldName, value) => {
                   validateForm("txt_Email1", inputValue.currentTarget.value);
                 }}
               />
-               {invalidEmail === true ? (
+              {invalidEmail === true ? (
                 <Form.Text className="position-relative mandatoryField">
                   {emailErrorMessage}
                 </Form.Text>
@@ -279,20 +272,21 @@ const addFieldsValues = (fieldName, value) => {
                 }}
               />
             </Col>
-          
           </Row>
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Input
                 // required
                 controlId="txt_Telephone1"
                 label="Telephone 1"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_Telephone1", inputValue.currentTarget.value);
+                  validateForm(
+                    "txt_Telephone1",
+                    inputValue.currentTarget.value
+                  );
                 }}
               />
-             
             </Col>
             <Col>
               <Input
@@ -301,7 +295,10 @@ const addFieldsValues = (fieldName, value) => {
                 label="Telephone 2"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_Telephone2", inputValue.currentTarget.value);
+                  validateForm(
+                    "txt_Telephone2",
+                    inputValue.currentTarget.value
+                  );
                 }}
               />
             </Col>
@@ -315,7 +312,7 @@ const addFieldsValues = (fieldName, value) => {
                   validateForm("txt_Cell1", inputValue);
                 }}
               />
-                {invalidCell === true ? (
+              {invalidCell === true ? (
                 <Form.Text className="position-relative mandatoryField">
                   {cellErrorMessage}
                 </Form.Text>
@@ -334,44 +331,32 @@ const addFieldsValues = (fieldName, value) => {
                 }}
               />
             </Col>
-          
           </Row>
-        
-         
+
           <Button
             type="button"
             // className="alignRight"
-            // onClick={() => {
-             
-            //     validateForm("txt_item", itemValue);
-            //     // validateForm("txt_first_name");
-            //     // validateForm("txt_middle_name");
-            //     // validateForm("txt_last_name");
-            //     // validateForm("txt_aadhar_number", aadhar_number);
-              
-            // }}
+            onClick={() => {
+                onCancelButton();
+              }}
           >
             Cancle
           </Button>
-          
-          
- <Button
+
+          <Button
             type="button"
             className="alignRight"
             onClick={() => {
-                validateOnSaveButton()
+              saveVendorData();
             }}
           >
             Save
           </Button>
-          
-         
         </Card.Body>
       </Card>
     </>
   );
 };
-
 
 const CreateItem = () => {
   const [div, setDiv] = useState("divOne");
