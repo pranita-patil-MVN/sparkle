@@ -8,7 +8,7 @@ import {
   Form,
   Figure,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import MultiStepProgressBar from "../CommonComponents/MultiStepProgressBar";
 import Dropdown from "../CommonComponents/Dropdown";
 import Input from "../CommonComponents/Input";
@@ -211,32 +211,30 @@ const DivOne = ({ onButtonClick }) => {
 
   const [date_of_birth, setDateOfBirth] = useState();
 
-  const addFieldsValues = (fieldName, value) => {
-    setFormData({ ...formData, [fieldName]: value });
-  };
+  
   const validateForm = (fieldName, value) => {
     switch (fieldName) {
       case "txt_gps":
-        addFieldsValues(fieldName, value);
+          setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_location":
-        addFieldsValues(fieldName, value);
+          setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_address":
-        addFieldsValues(fieldName, value);
+          setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_manpower":
-        addFieldsValues(fieldName, value);
+          setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_remark":
-        addFieldsValues(fieldName, value);
+          setFormData({ ...formData, [fieldName]: value });
         break;
       case "drp_state":
         if (value === undefined) {
           setInvalidState(true);
           setDropdownStateErrorMessage("Please Select State");
         } else {
-          addFieldsValues(fieldName, value);
+            setFormData({ ...formData, [fieldName]: value });
           setInvalidState(false);
           setDropdownStateErrorMessage("");
           setValidateDivOne(true);
@@ -247,7 +245,7 @@ const DivOne = ({ onButtonClick }) => {
           setInvalidCity(true);
           setDropdownCityErrorMessage("Please Select City");
         } else {
-          addFieldsValues(fieldName, value);
+            setFormData({ ...formData, [fieldName]: value });
           setInvalidCity(false);
           setDropdownCityErrorMessage("");
           setValidateDivOne(true);
@@ -258,7 +256,7 @@ const DivOne = ({ onButtonClick }) => {
           setInvalidZone(true);
           setDropdownZoneErrorMessage("Please Select Zone");
         } else {
-          addFieldsValues(fieldName, value);
+            setFormData({ ...formData, [fieldName]: value });
           setInvalidZone(false);
           setDropdownZoneErrorMessage("");
           setValidateDivOne(true);
@@ -269,7 +267,7 @@ const DivOne = ({ onButtonClick }) => {
           setInvalidWorkingDays(true);
           setDropdownWorkingDaysErrorMessage("Please Select Date");
         } else {
-          addFieldsValues(fieldName, value);
+            setFormData({ ...formData, [fieldName]: value });
           setInvalidWorkingDays(false);
           setDropdownWorkingDaysErrorMessage("");
           setValidateDivOne(true);
@@ -280,7 +278,7 @@ const DivOne = ({ onButtonClick }) => {
           setInvalidBudget(true);
           setBudgetErrorMessage("Please enter budget");
         } else {
-          addFieldsValues(fieldName, value);
+            setFormData({ ...formData, [fieldName]: value });
           setInvalidBudget(false);
           setBudgetErrorMessage("");
           setValidateDivOne(true);
@@ -291,7 +289,7 @@ const DivOne = ({ onButtonClick }) => {
           setInvalidStatus(true);
           setStatusErrorMessage("Please Select Status");
         } else {
-          addFieldsValues(fieldName, value);
+            setFormData({ ...formData, [fieldName]: value });
           setInvalidStatus(false);
           setStatusErrorMessage("");
           setValidateDivOne(true);
@@ -302,18 +300,18 @@ const DivOne = ({ onButtonClick }) => {
           setInvalidType(true);
           setTypeErrorMessage("Please Select Type");
         } else {
-          addFieldsValues(fieldName, value);
+            setFormData({ ...formData, [fieldName]: value });
           setInvalidType(false);
           setTypeErrorMessage("");
           setValidateDivOne(true);
         }
         break;
-      case "txt_salaryProcessing":
+      case "txt_salaryProcessing":   
         if (value === undefined) {
           setInvalidStartdaysalary(true);
           setStartdaysalaryErrorMessage("Please Enter Start Date of Salary processing");
         } else {
-          addFieldsValues(fieldName, value);
+          setFormData({ ...formData, [fieldName]: value });
           setInvalidStartdaysalary(false);
           setStartdaysalaryErrorMessage("");
           setValidateDivOne(true);
@@ -324,7 +322,7 @@ const DivOne = ({ onButtonClick }) => {
           setInvalidCustomer(true);
           setStartdaysalaryErrorMessage("Please Select Customer");
         } else {
-          addFieldsValues(fieldName, value);
+          setFormData({ ...formData, [fieldName]: value });
           setInvalidCustomer(false);
           setCustomerErrorMessage("");
           setValidateDivOne(true);
@@ -348,7 +346,8 @@ const DivOne = ({ onButtonClick }) => {
                 label="GPS"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_gps", inputValue);
+                  validateForm("txt_gps",inputValue.currentTarget.value);
+                  
                 }}
               />
             </Col>
@@ -358,7 +357,7 @@ const DivOne = ({ onButtonClick }) => {
                 label="Location"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_location", inputValue);
+                  validateForm("txt_location", inputValue.currentTarget.value);
                 }}
               />
             </Col>
@@ -368,7 +367,7 @@ const DivOne = ({ onButtonClick }) => {
                 label="Address"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_address", inputValue);
+                  validateForm("txt_address", inputValue.currentTarget.value);
                 }}
               />
             </Col>
@@ -379,7 +378,8 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_state"
                 options={dropdownOptionsState}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_state", dropDownValue);
+                  validateForm("drp_state", dropdownOptionsState[dropDownValue-1].value)
+                 
                 }}
               />
               {invalidState === true ? (
@@ -390,39 +390,6 @@ const DivOne = ({ onButtonClick }) => {
                 <></>
               )}
             </Col>
-
-            {/* <Col>
-              <Input
-                required
-                controlId="txt_first_name"
-                label="First Name"
-                type="text"
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_first_name", inputValue);
-                }}
-              />
-            </Col> */}
-            {/* <Col>
-              <Input
-                controlId="txt_middle_name"
-                label="Middle Name"
-                type="text"
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_middle_name", inputValue);
-                }}
-              />
-            </Col> */}
-            {/* <Col>
-              <Input
-                required
-                controlId="txt_last_name"
-                label="Last Name"
-                type="text"
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_last_name");
-                }}
-              />
-            </Col> */}
           </Row>
           <Row className="mb-3">
             <Col>
@@ -432,7 +399,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_city"
                 options={dropdownOptionsCity}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_city", dropDownValue);
+                  validateForm("drp_city", dropdownOptionsCity[dropDownValue-1].value);
                 }}
               />
               {invalidCity === true ? (
@@ -471,7 +438,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_zone"
                 options={dropdownOptionsZone}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_zone", dropDownValue);
+                  validateForm("drp_zone", dropdownOptionsZone[dropDownValue-1].value);
                 }}
               />
               {invalidZone === true ? (
@@ -511,14 +478,7 @@ const DivOne = ({ onButtonClick }) => {
                 <></>
               )}
             </Col>
-            {/* <Col>
-              <Input
-                controlId=""
-                label="UNA Number"
-                type="text"
-                onChangeInputHandler={(inputValue) => {}}
-              />
-            </Col> */}
+         
           </Row>
           <Row className="mb-3">
             <Col>
@@ -547,7 +507,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_Status"
                 options={dropdownOptionsStatus}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_Status", dropDownValue);
+                  validateForm("drp_Status", dropdownOptionsStatus[dropDownValue-1].value);
                 }}
               />
               {invalidStatus === true ? (
@@ -566,7 +526,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_type"
                 options={dropdownOptionsType}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_type", dropDownValue);
+                  validateForm("drp_type", dropdownOptionsType[dropDownValue-1].value);
                 }}
               />
 
@@ -606,14 +566,6 @@ const DivOne = ({ onButtonClick }) => {
             </Col>
           </Row>
           <Row className="mb-3">
-            {/* <Col>
-              <RadioButton
-                required
-                controlId=""
-                label="Gender"
-                options={genderArr}
-              />
-            </Col> */}
             <Col>
               <TextArea
                 // required
@@ -699,6 +651,10 @@ const DivOne = ({ onButtonClick }) => {
             onClick={() => {
               if (validateDivOne === true) {
                 onButtonClick("divTwo");
+
+                sessionStorage.setItem("add_site",JSON.stringify(formData))
+                
+
               } else {
                 validateForm("txt_gps");
                 validateForm("txt_location");
@@ -740,6 +696,7 @@ const DivTwo = ({ onButtonClick }) => {
   const [invalidSez, setInvalidSez] = useState();
 
   const validateForm2 = (fieldName, value) => {
+    alert(value)
     switch (fieldName) {
       case "drp_customer":
         if (value === undefined) {
@@ -776,7 +733,31 @@ const DivTwo = ({ onButtonClick }) => {
       default:
     }
   };
+  var arr=[];
+  var secondArr=[];
   const handleOnChange = (value) => {};
+  const getSiteData = () => {
+if(formData2.drp_customer==undefined || formData2.drp_customer == ""){
+  setInvalidCustomer(true);
+  setCustomerErrorMessage("Please Select customer");
+}else if(formData2.rad_sez==undefined || formData2.rad_sez == ""){
+  setInvalidSez(true);
+  setSezErrorMessage("Please Select value");
+}
+else{
+  // alert(JSON.stringify(formData2))
+ var sessionData = sessionStorage.getItem("add_site")
+ var parsedJson=JSON.parse(sessionData)
+arr.push(parsedJson)
+//  alert(JSON.stringify(formData2))
+ secondArr.push(formData2)
+//  setFormData2(arr)
+const allData = arr.concat(secondArr)
+ alert(JSON.stringify(allData))
+ sessionStorage.removeItem("add_site")
+}
+
+  }
   return (
     <>
       {" "}
@@ -791,7 +772,7 @@ const DivTwo = ({ onButtonClick }) => {
                 controlId="drp_customer"
                 options={dropdownOptionsCustomer}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm2("drp_customer", dropDownValue);
+                  validateForm2("drp_customer", dropdownOptionsCustomer[dropDownValue-1].value);
                 }}
               />
               {invalidCustomer === true ? (
@@ -808,7 +789,7 @@ const DivTwo = ({ onButtonClick }) => {
                 label="Customer GST"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm2("txt_customergst", inputValue);
+                  validateForm2("txt_customergst", inputValue.currentTarget.value);
                 }}
               />
             </Col>
@@ -822,36 +803,16 @@ const DivTwo = ({ onButtonClick }) => {
                 }}
               />
             </Col>
-
             <Col>
               <Input
                 controlId="txt_sitename"
                 label="Site name"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm2("txt_sitename", inputValue);
+                  validateForm2("txt_sitename", inputValue.currentTarget.value);
                 }}
               />
             </Col>
-
-            {/* <Col>
-              <SingleDatePicker
-                required
-                label="Joining Date"
-                value={date_of_birth}
-                onChangeDateHandler={(inputValue) => {}}
-              />
-            </Col> */}
-            {/* <Col>
-              <Dropdown
-                label="Designation"
-                controlId="drp_designation"
-                options={dropdownOptions}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
-                }}
-              />
-            </Col> */}
           </Row>
           <Row className="mb-3">
             <Col>
@@ -860,8 +821,8 @@ const DivTwo = ({ onButtonClick }) => {
                 controlId="rad_sez"
                 label="SEZ"
                 options={["Non-SEZ", "SEZ"]}
-                onChangeInputHandler={(inputValue) => {
-                  validateForm2("rad_sez", inputValue);
+                onChangeInputHandler={(dropDownValue) => {
+                  validateForm2("rad_sez", dropDownValue);
                 }}
               />
                {invalidSez === true ? (
@@ -876,95 +837,15 @@ const DivTwo = ({ onButtonClick }) => {
             <Col></Col>
             <Col></Col>
             <Col></Col>
-            {/* <Col>
-              <Input
-                controlId="txt_temp_code"
-                label="Temporary Code"
-                type="text"
-                onChangeInputHandler={(inputValue) => {}}
-              />
-            </Col> */}
-            {/* <Col>
-              <Input
-                controlId="txt_permanant_code"
-                label="Permanant Code"
-                type="text"
-                onChangeInputHandler={(inputValue) => {}}
-              />
-            </Col> */}
-            {/* <Col>
-              <Dropdown
-                label="Role"
-                controlId="drp_role"
-                options={dropdownOptions}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
-                }}
-              />
-            </Col> */}
-            {/* <Col>
-              <Dropdown
-                label="Department"
-                controlId="drp_department"
-                options={dropdownOptions}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
-                }}
-              />
-            </Col> */}
           </Row>
-          {/* <Row className="mb-3">
-            <Col>
-              <Dropdown
-                required
-                label="Site"
-                controlId="drp_site"
-                options={dropdownOptions}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
-                }}
-              />
-            </Col>
-            <Col>
-              <Row>
-                <Col> 
-                  <RadioButton
-                    controlId=""
-                    label="Allow Login"
-                    options={["Yes", "No"]}
-                  />
-                </Col>
-                <Col>
-                  <Dropdown
-                    required
-                    label="Status"
-                    controlId="drp_status"
-                    options={dropdownOptions}
-                    onChangeDropDownHandler={(dropDownValue) => {
-                      handleOnChange(dropDownValue);
-                    }}
-                  />
-                </Col>
-              </Row>
-            </Col>
-          </Row> */}
+         
           <Button type="button" onClick={() => onButtonClick("divOne") } >
             Back
           </Button>
           <Button
             type="button"
             className="alignRight"
-            onClick={() => {
-              if (DivTwo === true) {
-                onButtonClick("divTwo");
-              } else {
-                validateForm2("drp_customer", formData2.drp_customer);
-                validateForm2("txt_customergst", formData2.txt_customergst);
-                validateForm2("rad_gstApllicable", formData2.rad_gstApllicable);
-                validateForm2("txt_sitename", formData2.txt_sitename);
-                validateForm2("rad_sez", formData2.rad_sez);
-              }
-            }}
+            onClick={() => getSiteData()}
           >
             Save
           </Button>
@@ -974,278 +855,6 @@ const DivTwo = ({ onButtonClick }) => {
   );
 };
 
-// const DivThree = ({ onButtonClick }) => {
-//   const handleOnChange = (value) => {};
-//   return (
-//     <>
-//       {" "}
-//       <Card>
-//         <Card.Header className="cardHeader">Address Details</Card.Header>
-//         <Card.Body>
-//           <Row className="mb-3">
-//             <Col>
-//               <Input
-//                 controlId="txt_temp_address"
-//                 label="Temporary Address"
-//                 type="textarea"
-//                 onChangeInputHandler={(inputValue) => {}}
-//               />
-//             </Col>
-//             <Col>
-//               <Dropdown
-//                 label="State"
-//                 controlId="drp_state"
-//                 options={dropdownOptions}
-//                 onChangeDropDownHandler={(dropDownValue) => {
-//                   handleOnChange(dropDownValue);
-//                 }}
-//               />
-//             </Col>
-//             <Col>
-//               <Dropdown
-//                 label="City"
-//                 controlId="drp_city"
-//                 options={dropdownOptions}
-//                 onChangeDropDownHandler={(dropDownValue) => {
-//                   handleOnChange(dropDownValue);
-//                 }}
-//               />
-//             </Col>
-//             <Col>
-//               <Col>
-//                 <Input
-//                   controlId="txt_temp_pincode"
-//                   label="Pin code"
-//                   type="text"
-//                   onChangeInputHandler={(inputValue) => {}}
-//                 />
-//               </Col>
-//             </Col>
-//           </Row>
-//           <Row className="mb-3">
-//             <Col>
-//             <Col>
-//               <RadioButton
-//                 controlId=""
-//                 label=""
-//                 options={["Same As temporary"]}
-//               />
-//             </Col>
-
-//             </Col>
-//             <Col></Col>
-//             <Col></Col>
-//             <Col></Col>
-//           </Row>
-//           <Row className="mb-3">
-//             <Col>
-//               <Input
-//                 controlId="txt_temp_address"
-//                 label="Temporary Address"
-//                 type="textarea"
-//                 onChangeInputHandler={(inputValue) => {}}
-//               />
-//             </Col>
-//             <Col>
-//               <Dropdown
-//                 label="State"
-//                 controlId="drp_state"
-//                 options={dropdownOptions}
-//                 onChangeDropDownHandler={(dropDownValue) => {
-//                   handleOnChange(dropDownValue);
-//                 }}
-//               />
-//             </Col>
-//             <Col>
-//               <Dropdown
-//                 label="City"
-//                 controlId="drp_city"
-//                 options={dropdownOptions}
-//                 onChangeDropDownHandler={(dropDownValue) => {
-//                   handleOnChange(dropDownValue);
-//                 }}
-//               />
-//             </Col>
-//             <Col>
-//               <Col>
-//                 <Input
-//                   controlId="txt_temp_pincode"
-//                   label="Pin code"
-//                   type="text"
-//                   onChangeInputHandler={(inputValue) => {}}
-//                 />
-//               </Col>
-//             </Col>
-//           </Row>
-//           <Button type="button" onClick={() => onButtonClick("divTwo")}>
-//             Back
-//           </Button>
-//           <Button
-//             type="button"
-//             className="alignRight"
-//             onClick={() => onButtonClick("divFour")}
-//           >
-//             Next
-//           </Button>
-//         </Card.Body>
-//       </Card>
-//     </>
-//   );
-// };
-
-// const DivFour = ({ onButtonClick }) => {
-//   const handleOnChange = (value) => {};
-//   return (
-//     <>
-//       {" "}
-//       <Card>
-//         <Card.Header className="cardHeader">Other Details</Card.Header>
-//         <Card.Body>
-//           <Row className="mb-3">
-//             <Col>
-//               <Dropdown
-//                 label="Blood Group"
-//                 controlId="drp_blood_group"
-//                 options={dropdownOptions}
-//                 onChangeDropDownHandler={(dropDownValue) => {
-//                   handleOnChange(dropDownValue);
-//                 }}
-//               />
-//             </Col>
-//             <Col>
-//               <Input
-//                 controlId="txt_height"
-//                 label="Height(Cm)"
-//                 type="number"
-//                 onChangeInputHandler={(inputValue) => {}}
-//               />
-//             </Col>
-//             <Col>
-//               <Input
-//                 controlId="txt_weight"
-//                 label="Weight(Kg)"
-//                 type="number"
-//                 onChangeInputHandler={(inputValue) => {}}
-//               />
-//             </Col>
-//             <Col>
-//               <Input
-//                 controlId="txt_mother_tongue"
-//                 label="Mother Tongue"
-//                 type="text"
-//                 onChangeInputHandler={(inputValue) => {}}
-//               />
-//             </Col>
-//           </Row>
-//           <Row className="mb-3">
-//             <Col>
-//               <Input
-//                 controlId="txt_nominee"
-//                 label="Nominee"
-//                 type="text"
-//                 onChangeInputHandler={(inputValue) => {}}
-//               />
-//             </Col>
-//             <Col>
-//               <Dropdown
-//                 label="Relation"
-//                 controlId="drp_relation"
-//                 options={dropdownOptions}
-//                 onChangeDropDownHandler={(dropDownValue) => {
-//                   handleOnChange(dropDownValue);
-//                 }}
-//               />
-//             </Col>
-//             <Col></Col>
-//             <Col></Col>
-//           </Row>
-//           <Button type="button" onClick={() => onButtonClick("divTwo")}>
-//             Back
-//           </Button>
-//           <Button
-//             type="button"
-//             className="alignRight"
-//             onClick={() => onButtonClick("divFive")}
-//           >
-//             Save
-//           </Button>
-//         </Card.Body>
-//       </Card>
-//     </>
-//   );
-// };
-
-// const DivFive = ({ onButtonClick }) => {
-//   return (
-//     <>
-//       {" "}
-//       <Card>
-//         <Card.Header className="cardHeader">Documents</Card.Header>
-//         <Card.Body>
-//           <Row className="mb-3">
-//             <Col>
-//               <Figure>
-//                 <Figure.Image width={171} height={180} src={placeholder} />
-//                 <Figure.Caption>
-//                   Photo<sup className="mandatoryField">*</sup>
-//                 </Figure.Caption>
-//               </Figure>
-//             </Col>
-//             <Col>
-//               <Figure>
-//                 <Figure.Image width={171} height={180} src={placeholder} />
-//                 <Figure.Caption>
-//                   Joining Form<sup className="mandatoryField">*</sup>
-//                 </Figure.Caption>
-//               </Figure>
-//             </Col>
-//             <Col>
-//               <Figure>
-//                 <Figure.Image width={171} height={180} src={placeholder} />
-//                 <Figure.Caption>PAN Card</Figure.Caption>
-//               </Figure>
-//             </Col>
-//           </Row>
-//           <Row className="mb-3">
-//             <Col>
-//               <Figure>
-//                 <Figure.Image width={171} height={180} src={placeholder} />
-//                 <Figure.Caption>
-//                   Aadhar Card Front<sup className="mandatoryField">*</sup>
-//                 </Figure.Caption>
-//               </Figure>
-//             </Col>
-//             <Col>
-//               <Figure>
-//                 <Figure.Image width={171} height={180} src={placeholder} />
-//                 <Figure.Caption>
-//                   Aadhar Card Back<sup className="mandatoryField">*</sup>
-//                 </Figure.Caption>
-//               </Figure>
-//             </Col>
-//             <Col>
-//               <Figure>
-//                 <Figure.Image width={171} height={180} src={placeholder} />
-//                 <Figure.Caption>Bank Passbook</Figure.Caption>
-//               </Figure>
-//             </Col>
-//           </Row>
-
-//           <Button type="button" onClick={() => onButtonClick("divFour")}>
-//             Back
-//           </Button>
-//           <Button
-//             type="button"
-//             className="alignRight"
-//             onClick={() => console.log("div 5 clicked")}
-//           >
-//             Save
-//           </Button>
-//         </Card.Body>
-//       </Card>
-//     </>
-//   );
-// };
 const CreateSite = () => {
   const navigate = useNavigate();
   const [div, setDiv] = useState("divOne");
@@ -1295,7 +904,7 @@ const CreateSite = () => {
             onClick={ ()=>goToBackPage()}
           />
           <BiUser size={20} color={"var(--purple-color"} />
-          <h6 className="title">Add Employee</h6>
+          <h6 className="title">Add Site</h6>
         </div>
         <Container className="step-progress-bar-div">
           <MultiStepProgressBar div={div} onDivNumberClick={nextDivNumber} noOfSteps={noOfSteps}/>
