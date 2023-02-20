@@ -28,7 +28,8 @@ const SiteMaster = () => {
     // try {
     // const response = await axios.get(
     //   "https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce"
-    // ); 
+    // );
+    // alert(JSON.stringify(siteData.Data));
     setSiteData(siteJson.Data);
     // alert(response.data.length)
     setFilteredItems(siteJson.Data);

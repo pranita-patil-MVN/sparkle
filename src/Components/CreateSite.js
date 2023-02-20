@@ -8,6 +8,7 @@ import {
   Form,
   Figure,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import MultiStepProgressBar from "../CommonComponents/MultiStepProgressBar";
 import Dropdown from "../CommonComponents/Dropdown";
 import Input from "../CommonComponents/Input";
@@ -150,15 +151,15 @@ const dropdownOptionsCustomer = [
     value: "GTT Communication",
   },
 ];
-
+const noOfSteps  =  [1,2];
 const DivOne = ({ onButtonClick }) => {
+  const navigate = useNavigate();
   const handleOnChange = (value) => {};
   const salutationArr = ["5", "6", "7"];
   const genderArr = ["Male", "Female", "Other"];
   const maritalStatusArr = ["Married", "Unmarried"];
 
   const [formData, setFormData] = useState([]);
-  
 
   const [validateDivOne, setValidateDivOne] = useState(false);
 
@@ -197,9 +198,9 @@ const DivOne = ({ onButtonClick }) => {
     useState("");
   const [invalidStartdaysalary, setInvalidStartdaysalary] = useState(true);
 
-   // For Customer
-   const [customerErrorMessage, setCustomerErrorMessage] = useState("");
-   const [invalidCustomer, setInvalidCustomer] = useState(true);
+  // For Customer
+  const [customerErrorMessage, setCustomerErrorMessage] = useState("");
+  const [invalidCustomer, setInvalidCustomer] = useState(true);
 
   const [aadhar_number, setAadharNumber] = useState();
 
@@ -277,7 +278,7 @@ const DivOne = ({ onButtonClick }) => {
       case "txt_budget":
         if (value === undefined) {
           setInvalidBudget(true);
-          setBudgetErrorMessage("Please Select Date");
+          setBudgetErrorMessage("Please enter budget");
         } else {
           addFieldsValues(fieldName, value);
           setInvalidBudget(false);
@@ -310,7 +311,7 @@ const DivOne = ({ onButtonClick }) => {
       case "txt_salaryProcessing":
         if (value === undefined) {
           setInvalidStartdaysalary(true);
-          setStartdaysalaryErrorMessage("Please Select Type");
+          setStartdaysalaryErrorMessage("Please Enter Start Date of Salary processing");
         } else {
           addFieldsValues(fieldName, value);
           setInvalidStartdaysalary(false);
@@ -318,22 +319,21 @@ const DivOne = ({ onButtonClick }) => {
           setValidateDivOne(true);
         }
         break;
-        case "drp_customer":
-          if (value === undefined) {
-            setInvalidCustomer(true);
-            setStartdaysalaryErrorMessage("Please Select Customer");
-          } else {
-            addFieldsValues(fieldName, value);
-            setInvalidCustomer(false);
-            setCustomerErrorMessage("");
-            setValidateDivOne(true);
-          }
-          break;
-          
+      case "drp_customer":
+        if (value === undefined) {
+          setInvalidCustomer(true);
+          setStartdaysalaryErrorMessage("Please Select Customer");
+        } else {
+          addFieldsValues(fieldName, value);
+          setInvalidCustomer(false);
+          setCustomerErrorMessage("");
+          setValidateDivOne(true);
+        }
+        break;
+
       default:
     }
   };
-
 
   return (
     <>
@@ -634,7 +634,6 @@ const DivOne = ({ onButtonClick }) => {
                   validateForm("rad_previousemployer", inputValue);
                 }}
               />
-              
             </Col>
             <Col></Col>
             <Col></Col>
@@ -732,35 +731,51 @@ const DivOne = ({ onButtonClick }) => {
 const DivTwo = ({ onButtonClick }) => {
   const [formData2, setFormData2] = useState([]);
 
+  // For customer
   const [customerErrorMessage, setCustomerErrorMessage] = useState();
   const [invalidCustomer, setInvalidCustomer] = useState();
+
+  // For SEZ UnSEZ Value
+  const [sezErrorMessage, setSezErrorMessage] = useState();
+  const [invalidSez, setInvalidSez] = useState();
+
   const validateForm2 = (fieldName, value) => {
     switch (fieldName) {
-       case "drp_customer":
-    if (value === undefined) {
-      setInvalidCustomer(true);
-      setCustomerErrorMessage("Please Select customer");
-    } else {
-     
-      setInvalidCustomer(false);
-      setCustomerErrorMessage("");
-      // setValidateDivOne(true);
-      setFormData2({ ...formData2, [fieldName]: value });
-    }
-    break;
-    case "txt_customergst":
-      setFormData2({ ...formData2, [fieldName]: value });
-        break;
-        
-            case "rad_gstApllicable":
-      setFormData2({ ...formData2, [fieldName]: value });
-        break;
-        case "txt_sitename":
+      case "drp_customer":
+        if (value === undefined) {
+          setInvalidCustomer(true);
+          setCustomerErrorMessage("Please Select customer");
+        } else {
+          setInvalidCustomer(false);
+          setCustomerErrorMessage("");
+          // setValidateDivOne(true);
           setFormData2({ ...formData2, [fieldName]: value });
-            break;
-    default:
-   
-  }}
+        }
+        break;
+      case "txt_customergst":
+        setFormData2({ ...formData2, [fieldName]: value });
+        break;
+
+      case "rad_gstApllicable":
+        setFormData2({ ...formData2, [fieldName]: value });
+        break;
+      case "txt_sitename":
+        setFormData2({ ...formData2, [fieldName]: value });
+        break;
+      case "rad_sez":
+        if (value === undefined) {
+          setInvalidSez(true);
+          setSezErrorMessage("Please Select value");
+        } else {
+          setInvalidSez(false);
+          setSezErrorMessage("");
+          // setValidateDivOne(true);
+          setFormData2({ ...formData2, [fieldName]: value });
+        }
+        break;
+      default:
+    }
+  };
   const handleOnChange = (value) => {};
   return (
     <>
@@ -776,10 +791,10 @@ const DivTwo = ({ onButtonClick }) => {
                 controlId="drp_customer"
                 options={dropdownOptionsCustomer}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm2("drp_customer",dropDownValue);
+                  validateForm2("drp_customer", dropDownValue);
                 }}
               />
-               {invalidCustomer === true ? (
+              {invalidCustomer === true ? (
                 <Form.Text className="position-relative mandatoryField">
                   {customerErrorMessage}
                 </Form.Text>
@@ -793,7 +808,7 @@ const DivTwo = ({ onButtonClick }) => {
                 label="Customer GST"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm2("txt_customergst",inputValue);
+                  validateForm2("txt_customergst", inputValue);
                 }}
               />
             </Col>
@@ -803,7 +818,7 @@ const DivTwo = ({ onButtonClick }) => {
                 label="Is GST Applicable?                "
                 options={["Yes", "No"]}
                 onChangeInputHandler={(inputValue) => {
-                  validateForm2("rad_gstApllicable",inputValue);
+                  validateForm2("rad_gstApllicable", inputValue);
                 }}
               />
             </Col>
@@ -814,7 +829,7 @@ const DivTwo = ({ onButtonClick }) => {
                 label="Site name"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm2("txt_sitename",inputValue);
+                  validateForm2("txt_sitename", inputValue);
                 }}
               />
             </Col>
@@ -845,7 +860,17 @@ const DivTwo = ({ onButtonClick }) => {
                 controlId="rad_sez"
                 label="SEZ"
                 options={["Non-SEZ", "SEZ"]}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm2("rad_sez", inputValue);
+                }}
               />
+               {invalidSez === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {sezErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
 
             <Col></Col>
@@ -923,7 +948,7 @@ const DivTwo = ({ onButtonClick }) => {
               </Row>
             </Col>
           </Row> */}
-          <Button type="button" onClick={() => onButtonClick("divOne")}>
+          <Button type="button" onClick={() => onButtonClick("divOne") } >
             Back
           </Button>
           <Button
@@ -937,9 +962,9 @@ const DivTwo = ({ onButtonClick }) => {
                 validateForm2("txt_customergst", formData2.txt_customergst);
                 validateForm2("rad_gstApllicable", formData2.rad_gstApllicable);
                 validateForm2("txt_sitename", formData2.txt_sitename);
+                validateForm2("rad_sez", formData2.rad_sez);
               }
-            }
-          }
+            }}
           >
             Save
           </Button>
@@ -1222,6 +1247,7 @@ const DivTwo = ({ onButtonClick }) => {
 //   );
 // };
 const CreateSite = () => {
+  const navigate = useNavigate();
   const [div, setDiv] = useState("divOne");
 
   const nextDiv = (div) => {
@@ -1248,17 +1274,31 @@ const CreateSite = () => {
         setDiv("1");
     }
   };
+  const goToBackPage = () => {
+    if(div=="divTwo"){
+      setDiv("divOne")
+    }
+  else
+{
+  navigate(-1);
+}
+   
+  };
 
   return (
     <Container>
       <div>
         <div className="titleDiv">
-          <BiChevronLeft size={20} color={"var(--purple-color"} />
+          <BiChevronLeft
+            size={20}
+            color={"var(--purple-color"}
+            onClick={ ()=>goToBackPage()}
+          />
           <BiUser size={20} color={"var(--purple-color"} />
           <h6 className="title">Add Employee</h6>
         </div>
         <Container className="step-progress-bar-div">
-          <MultiStepProgressBar div={div} onDivNumberClick={nextDivNumber} />
+          <MultiStepProgressBar div={div} onDivNumberClick={nextDivNumber} noOfSteps={noOfSteps}/>
           {
             {
               divOne: <DivOne onButtonClick={nextDiv} />,
