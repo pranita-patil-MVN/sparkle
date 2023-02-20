@@ -2,35 +2,111 @@ import React from "react";
 import "../css/MultiStepProgressBar.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
 
-const MultiStepProgressBar = ({ div, onDivNumberClick }) => {
+const MultiStepProgressBar = ({ div, onDivNumberClick, noOfSteps }) => {
   var stepPercentage = 0;
+
   if (div === "divOne") {
     stepPercentage = 0;
   } else if (div === "divTwo") {
-    stepPercentage = 25;
+    switch (noOfSteps.length) {
+      case 1:
+        stepPercentage = 0;
+        break;
+      case 2:
+        stepPercentage = 100;
+        break;
+      case 3:
+        stepPercentage = 15.5;
+        break;
+      case 4:
+        stepPercentage = 35.5;
+        break;
+      case 5:
+        stepPercentage = 25;
+        break;
+      default:
+        break;
+    }
   } else if (div === "divThree") {
-    stepPercentage = 50;
+    switch (noOfSteps.length) {
+      case 1:
+        stepPercentage = 0;
+        break;
+      case 2:
+        stepPercentage = 100;
+        break;
+      case 3:
+        stepPercentage = 15.5;
+        break;
+      case 4:
+        stepPercentage = 70.5;
+        break;
+      case 5:
+        stepPercentage =50;
+        break;
+      default:
+        break;
+    }
   } else if (div === "divFour") {
-    stepPercentage = 75;
+    switch (noOfSteps.length) {
+      case 1:
+        stepPercentage = 0;
+        break;
+      case 2:
+        stepPercentage = 100;
+        break;
+      case 3:
+        stepPercentage = 15.5;
+        break;
+      case 4:
+        stepPercentage = 100;
+        break;
+      case 5:
+        stepPercentage =75;
+        break;
+      default:
+        break;
+    }
   } else if (div === "divFive") {
-    stepPercentage = 100;
+    switch (noOfSteps.length) {
+      case 1:
+        stepPercentage = 0;
+        break;
+      case 2:
+        stepPercentage = 100;
+        break;
+      case 3:
+        stepPercentage = 15.5;
+        break;
+      case 4:
+        stepPercentage = 100;
+        break;
+      case 5:
+        stepPercentage =100;
+        break;
+      default:
+        break;
+    }
   } else {
     stepPercentage = 0;
   }
 
   return (
     <ProgressBar percent={stepPercentage}>
-      <Step>
-        {({ accomplished, index }) => (
-          <div
-            className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onDivNumberClick("1")}
-          >
-            {index + 1}
-          </div>
-        )}
-      </Step>
-      <Step>
+      {noOfSteps.map((items, key) => (
+        <Step>
+          {({ accomplished, index }) => (
+            <div
+              className={`indexedStep ${accomplished ? "accomplished" : null}`}
+              onClick={() => onDivNumberClick(items.toString())}
+            >
+              {index + 1}
+            </div>
+          )}
+        </Step>
+      ))}
+
+      {/* <Step>
         {({ accomplished, index }) => (
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
@@ -69,7 +145,7 @@ const MultiStepProgressBar = ({ div, onDivNumberClick }) => {
             {index + 1}
           </div>
         )}
-      </Step>
+      </Step> */}
     </ProgressBar>
   );
 };
