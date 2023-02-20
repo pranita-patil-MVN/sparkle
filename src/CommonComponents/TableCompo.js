@@ -102,6 +102,7 @@ export default function TableCompo(props) {
     );
   };
 const openForm=(value)=>{
+  // alert(value)
   if(value==='itemMaster'){
     navigate('/masters/itemMaster/createItem')
   }
@@ -109,10 +110,11 @@ const openForm=(value)=>{
     navigate('/masters/customer/SiteMaster/createSite')
   }
   else if (value === 'vendorMaster')
-  navigate('/masters/vendor/CreateVendor')
-  // else if(value==='siteMaster'){
-  //   navigate('/masters/customer/SiteMaster/createSite')
-  // }
+  navigate('/masters/vendor/createVendor')
+
+  else if(value==='Shift'){
+    navigate('/masters/shift/createShift')
+  }
 }
   return (
     <div className="outer-data-table">

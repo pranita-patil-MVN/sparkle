@@ -14,7 +14,7 @@ import Input from "../CommonComponents/Input";
 import RadioButton from "../CommonComponents/RadioButtons";
 import TextArea from "../CommonComponents/TextArea";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
-
+import {useNavigate } from "react-router-dom";
 import placeholder from "../assets/Images/Placeholder.png";
 
 const dropdownStatusOptions = [
@@ -88,6 +88,7 @@ const dropdownMeasurementUnitsOptions = [
   },
 ];
 const DivOne = ({ onButtonClick }) => {
+  const navigate=useNavigate();
   const handleOnChange = (value) => {};
 
   const [formData, setFormData] = useState([]);
@@ -100,172 +101,192 @@ const DivOne = ({ onButtonClick }) => {
   // for category dropdown
   const [categoryDropdownErrorMessage, setCategoryDropdownErrorMessage] =
     useState("");
-  const [invalidCategory, setInvalidCategory] = useState(true);
+  const [invalidCategory, setInvalidCategory] = useState(false);
 
   // for status dropdown
   const [statusDropdownErrorMessage, setStatusDropdownErrorMessage] =
     useState("");
-  const [invalidStatus, setInvalidStatus] = useState(true);
+  const [invalidStatus, setInvalidStatus] = useState(false);
 
   // for measurement unit
   const [unitErrorMessage, setUnitErrorMessage] = useState("");
-  const [invalidUnit, setInvalidUnit] = useState(true);
+  const [invalidUnit, setInvalidUnit] = useState(false);
 
   // for item rate
   const [itemRateErrorMessage, setItemRateErrorMessage] = useState("");
-  const [invalidRate, setInvalidRate] = useState(true);
-
+  const [invalidRate, setInvalidRate] = useState(false);
 
   const addFieldsValues = (fieldName, value) => {
     setFormData({
-       ...formData,
-       [fieldName]: value
-       });
+      ...formData,
+      [fieldName]: value,
+    });
   };
   const validateForm = (fieldName, value) => {
-   
     switch (fieldName) {
       case "txt_item":
-        if (value === "" || value === undefined) {
-          setInvalidItem(true);
-          setTxtItemNameErrorMessage("Invalid Item");
-        } else {
+        // if (value === "" || value === undefined) {
+        //   setInvalidItem(true);
+        //   setTxtItemNameErrorMessage("Invalid Item");
+        // } else {
           setInvalidItem(false);
           setTxtItemNameErrorMessage("");
           setFormData({
             ...formData,
-            [fieldName]: value
-            });
-          // setItemValue(value)
-          //   setValidateDivOne(true);
-        }
+            [fieldName]: value,
+          });
+          
+        // }
         break;
       case "txt_code":
         setFormData({
           ...formData,
-          [fieldName]: value
-          });
+          [fieldName]: value,
+        });
         break;
       case "drp_category":
-        if (value === "" || value === undefined) {
-          setInvalidCategory(true);
-          setCategoryDropdownErrorMessage("Select category");
-        } else {
-         
+        // if (value === "" || value === undefined) {
+        //   setInvalidCategory(true);
+        //   setCategoryDropdownErrorMessage("Select category");
+        // } else {
           setInvalidCategory(false);
           setCategoryDropdownErrorMessage("");
           setFormData({
             ...formData,
-            [fieldName]: value
-            });
-        }
+            [fieldName]: value,
+          });
+        // }
         break;
       case "drp_status":
-        if (value === "" || value === undefined) {
-          setInvalidStatus(true);
-          setStatusDropdownErrorMessage("Select status");
-        } else {
-          
+        // if (value === "" || value === undefined) {
+        //   setInvalidStatus(true);
+        //   setStatusDropdownErrorMessage("Select status");
+        // } else {
           setInvalidStatus(false);
           setStatusDropdownErrorMessage("");
           setFormData({
             ...formData,
-            [fieldName]: value
-            });
-        }
+            [fieldName]: value,
+          });
+        // }
         break;
       case "rad_deduction_status":
         setFormData({
           ...formData,
-          [fieldName]: value
-          });
+          [fieldName]: value,
+        });
         break;
       case "drp_measurement_unit":
-        if (value === "" || value === undefined) {
-          setInvalidUnit(true);
-          setUnitErrorMessage("Select unit");
-        } else {
-     
+        // if (value === "" || value === undefined) {
+        //   setInvalidUnit(true);
+        //   setUnitErrorMessage("Select unit");
+        // } else {
           setInvalidUnit(false);
           setUnitErrorMessage("");
           setFormData({
             ...formData,
-            [fieldName]: value
-            });
-        }
+            [fieldName]: value,
+          });
+        // }
         break;
       case "txt_make":
         setFormData({
           ...formData,
-          [fieldName]: value
-          });
+          [fieldName]: value,
+        });
         break;
 
       case "txt_rate":
-        if (value === "" || value === undefined) {
-          setInvalidRate(true);
-          setItemRateErrorMessage("Invalid rate");
-        } else {
+        var expression= "^[0-9]*$";
+        if (value.match(expression)){
           setFormData({
             ...formData,
-            [fieldName]: value
-            });
+            [fieldName]: value,
+          });
           setInvalidRate(false);
           setItemRateErrorMessage("");
         }
+        else{
+           setInvalidRate(true);
+        setItemRateErrorMessage("Invalid rate");
+        }
+        // if (value === "" || value === undefined) {
+        //   setInvalidRate(true);
+        //   setItemRateErrorMessage("Invalid rate");
+        // } else {
+         
+        // }
         break;
 
-      case "text_cg":
-     if(value !=undefined){
-      setFormData({
-        ...formData,
-        [fieldName]: value
-        });
-     }
+      case "text_cgst":
+       var expression= "/^(100(\.0{1,2})?|([0-9]?[0-9](\.[0-9]{1,2})))$/"
+        if (value != undefined) {
+          setFormData({
+            ...formData,
+            [fieldName]: value,
+          });
+        }
         break;
       case "text_sgst":
         setFormData({
           ...formData,
-          [fieldName]: value
-          });
+          [fieldName]: value,
+        });
         break;
       case "text_igst":
         setFormData({
           ...formData,
-          [fieldName]: value
-          });
+          [fieldName]: value,
+        });
         break;
       case "text_hsn":
         setFormData({
           ...formData,
-          [fieldName]: value
-          });
+          [fieldName]: value,
+        });
         break;
       case "txt_remark":
         setFormData({
           ...formData,
-          [fieldName]: value
-          });
+          [fieldName]: value,
+        });
         break;
       case "txt_information":
         setFormData({
           ...formData,
-          [fieldName]: value
-          });
+          [fieldName]: value,
+        });
         break;
       default:
         break;
     }
   };
 
-  const getData=()=>{
-    // alert("FormData==>" + JSON.stringify(formData))
-  }
+  const getItemsData = () => {
+    if (formData.txt_item ===undefined) {
+      setInvalidItem(true);
+        setTxtItemNameErrorMessage("Please fill the item");
+    }  else if (!formData.drp_category) {
+      setInvalidCategory(true);
+      setCategoryDropdownErrorMessage("Please select category");
+    } else if (!formData.drp_status) {
+      setInvalidStatus(true)
+      setStatusDropdownErrorMessage("Please select status");
+    }  else if (!formData.drp_measurement_unit) {
+      setInvalidUnit(true)
+      setUnitErrorMessage("Please select measurement unit");
+    }  else if (!formData.txt_rate) {
+      setInvalidRate(true)
+      setItemRateErrorMessage("Please fill rate");
+    } else {
+      alert(JSON.stringify(formData));
+    }
+  };
   return (
     <>
       {" "}
       <Card>
-        <Card.Header className="cardHeader">Personal Details</Card.Header>
+        <Card.Header className="cardHeader">Item details</Card.Header>
         <Card.Body>
           <Row className="mb-3">
             <Col>
@@ -304,7 +325,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_category"
                 options={dropdownCategoryOptions}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_category", dropDownValue);
+                  validateForm("drp_category", dropdownCategoryOptions[dropDownValue-1].value);
                 }}
               />
               {invalidCategory === true ? (
@@ -326,7 +347,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_status"
                 options={dropdownStatusOptions}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_status", dropDownValue);
+                  validateForm("drp_status", dropdownStatusOptions[dropDownValue-1].value);
                 }}
               />
               {invalidStatus === true ? (
@@ -339,7 +360,7 @@ const DivOne = ({ onButtonClick }) => {
             </Col>
             <Col>
               <RadioButton
-                controlId=""
+                controlId="rad_deduction_status"
                 label="Apply Deduction"
                 options={["Yes", "No"]}
                 onChangeInputHandler={(optionValue) => {
@@ -354,7 +375,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_measurement_unit"
                 options={dropdownMeasurementUnitsOptions}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_measurement_unit", dropDownValue);
+                  validateForm("drp_measurement_unit", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
                 }}
               />
               {invalidUnit === true ? (
@@ -376,9 +397,9 @@ const DivOne = ({ onButtonClick }) => {
               />
             </Col>
           </Row>
-         
+
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Input
                 required
                 controlId="txt_rate"
@@ -399,14 +420,13 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Row>
                 <Col xl={4} lg={4} md={4}>
-                
                   <Input
                     // required
-                    controlId="text_cg"
+                    controlId="text_cgst"
                     label="CGST(%)"
                     type="text"
                     onChangeInputHandler={(inputValue) => {
-                      validateForm("text_cg", inputValue.currentTarget.value);
+                      validateForm("text_cgst", inputValue.currentTarget.value);
                     }}
                   />
                 </Col>
@@ -449,7 +469,6 @@ const DivOne = ({ onButtonClick }) => {
             <Col></Col>
           </Row>
           <Row className="mb-3">
-            
             <Col>
               <TextArea
                 // required
@@ -468,7 +487,10 @@ const DivOne = ({ onButtonClick }) => {
                 label="Information"
                 type="textArea"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_information", inputValue.currentTarget.value);
+                  validateForm(
+                    "txt_information",
+                    inputValue.currentTarget.value
+                  );
                 }}
               />
             </Col>
@@ -476,37 +498,25 @@ const DivOne = ({ onButtonClick }) => {
             <Col></Col>
           </Row>
 
-          <Button
+       
+         <div className="d-flex justify-content-end formBtn">
+            <Button
             type="button"
-            className="alignRight"
+            className="alignRight mr-5"
             onClick={() => {
-           
-              validateForm("txt_item", formData.txt_item);
-              validateForm("txt_code", formData.txt_code);
-              validateForm("drp_category", formData.drp_category);
-              validateForm("drp_status", formData.drp_status);
-              validateForm("rad_deduction_status", formData.rad_deduction_status);
-              validateForm(
-                "drp_measurement_unit",
-                formData.drp_measurement_unit
-              );
-              validateForm("txt_make", formData.txt_make);
-              validateForm("txt_rate", formData.txt_rate);
-              validateForm("txt_cgst", formData.txt_cgst);
-              validateForm("txt_sgst", formData.txt_sgst);
-              validateForm("txt_igst", formData.txt_igst);
-              validateForm("text_hsn", formData.text_hsn);
-              validateForm("txt_remark", formData.txt_remark);
-              validateForm("txt_information", formData.txt_information);
-
+              getItemsData();
             }}
           >
             Save
           </Button>
-          <button   onClick={() => 
-              getData()}>
-click
-          </button>
+          <Button   
+          type="button"
+            className="alignRight"
+            onClick={()=>navigate(-1)}
+            >
+            Cancel
+          </Button>
+          </div>
         </Card.Body>
       </Card>
     </>
@@ -516,31 +526,10 @@ click
 const CreateItem = () => {
   const [div, setDiv] = useState("divOne");
 
+
   const nextDiv = (div) => {
     setDiv(div);
   };
-  // const nextDivNumber = (divNumber) => {
-  //   switch (divNumber) {
-  //     case "1":
-  //       setDiv("divOne");
-  //       break;
-  //     // case "2":
-  //     //   setDiv("divTwo");
-  //     //   break;
-  //     // case "3":
-  //     //   setDiv("divThree");
-  //     //   break;
-  //     // case "4":
-  //     //   setDiv("divFour");
-  //     //   break;
-  //     // case "5":
-  //     //   setDiv("divFive");
-  //     //   break;
-  //     default:
-  //       setDiv("1");
-  //   }
-  // };
-
   return (
     <Container>
       <div>
@@ -549,18 +538,10 @@ const CreateItem = () => {
           <BiUser size={20} color={"var(--purple-color"} />
           <h6 className="title">Add Item</h6>
         </div>
-        <Container className="step-progress-bar-div">
-          <MultiStepProgressBar div={div} />
-          {
-            {
-              divOne: <DivOne onButtonClick={nextDiv} />,
-              //   divTwo: <DivTwo onButtonClick={nextDiv} />,
-              //   divThree: <DivThree onButtonClick={nextDiv} />,
-              //   divFour: <DivFour onButtonClick={nextDiv} />,
-              //   divFive: <DivFive onButtonClick={nextDiv} />,
-            }[div]
-          }
-        </Container>
+        <div className="step-progress-bar-div">
+          <DivOne/>
+           
+        </div>
       </div>
     </Container>
   );

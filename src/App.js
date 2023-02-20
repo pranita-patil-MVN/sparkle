@@ -20,6 +20,7 @@ import CreateEmployee from "./Components/CreateEmployee";
 import CreateSite from "./Components/CreateSite";
 import CreateCustomer from "./Components/CreateCustomer";
 import CreateItem from "./Components/CreateItem";
+import CreateShift from "./Components/CreateShift";
 function App() {
   return (
     <div className="App">
@@ -39,17 +40,19 @@ function App() {
             <Route path="/masters/customer/createCustomer" element={<CreateCustomer />} />
             <Route path="/masters/itemMaster" element={<ItemMaster />} />
             <Route path="/masters/itemMaster/createItem" element={ <CreateItem/>} />
+            <Route path="/masters/vendor" element={<Vendor />} />
             <Route path="/masters/vendor/createVendor" element={ <CreateVendor/>} />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/TableCompo" element={<TableCompo />} />
             <Route path="/masters/shift" element={<Shift />} />
+            <Route path="/masters/shift/createShift" element={<CreateShift/>}/> 
             <Route path="/Checkbox" element={<Checkbox />} />
           <Route
               path="/masters/customer/SiteMaster"
               element={<SiteMaster />}  
             />
             <Route path="/masters/customer/SiteMaster/createSite" element={<CreateSite />} />
-            <Route path="/masters/vendor" element={<Vendor />} />
+            
           </Routes>
         </SideBar>
       </Router>
