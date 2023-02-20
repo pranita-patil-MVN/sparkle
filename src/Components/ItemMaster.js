@@ -11,6 +11,7 @@ import { BiPlus } from "react-icons/bi";
 import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
 import itemJson from "../data/itemData.json";
+import {useNavigate,useLocation } from "react-router-dom";
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
@@ -34,10 +35,15 @@ const ItemMaster = () => {
   const [statusValue,setStatusValue] =useState();
 
   const [statusValueData,setStatusValueData] =useState();
+  const navigate=useNavigate()
   var selectedDropdownValue;
   useEffect(() => {
     getItemList();
   }, []);
+  const getItemDataForEdit=(name)=>{
+    alert(JSON.stringify(name))
+    navigate("/masters/itemMaster/createItem", { state: name });
+  }
   const getItemList = async () => {
     try {
       // const response = await axios.get(
@@ -81,13 +87,15 @@ const ItemMaster = () => {
       name: "Update",
       cell: (row) => (
         <div>
-          <button className="btn btn-default update" type="button">
+          <button className="btn btn-default update" type="button"   
+          onClick={() => getItemDataForEdit(row.items)}>
             <img src={editImg} alt="edit" />
           </button>
         </div>
       ),
     },
   ];
+  
 
   const onSearch = (data) => {
     if(data===''){
