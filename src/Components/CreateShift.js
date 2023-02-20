@@ -9,17 +9,17 @@ import {
   Figure,
 } from "react-bootstrap";
 import MultiStepProgressBar from "../CommonComponents/MultiStepProgressBar";
-import Dropdown from "../CommonComponents/Dropdown";
+// import Dropdown from "../CommonComponents/Dropdown";
 import Input from "../CommonComponents/Input";
-import RadioButton from "../CommonComponents/RadioButtons";
-import TextArea from "../CommonComponents/TextArea";
+// import RadioButton from "../CommonComponents/RadioButtons";
+// import TextArea from "../CommonComponents/TextArea";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
-import placeholder from "../assets/Images/Placeholder.png";
+// import placeholder from "../assets/Images/Placeholder.png";
 
 const DivOne = ({ onButtonClick }) => {
-  const handleOnChange = (value) => { };
+  // const handleOnChange = (value) => { };
 
   const [itemValue, setItemValue] = useState();
   const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
@@ -32,8 +32,8 @@ const DivOne = ({ onButtonClick }) => {
   const [workingHours,setWorkingHours] = useState(false)
   const [workingHoursErrorMessage,setWorkingHoursErrorMessage]=useState("")
   
-  const [invalidShtfTime,setInvalidShtfTime] = useState(false)
-  const [shiftErrorMsg,setShiftErrorMsg]=useState("")
+  const [invalidShtiftTime,setInvalidShiftTime] = useState(false)
+  const [invalidShtiftTimeErrMsg,setInvalidShtiftTimeErrMsg]=useState("")
   //   const [aadhar_number, setAadharNumber] = useState();
 
   //   const [txt_salutation_error_message, setTxtSalutationErrorMessage] =
@@ -52,7 +52,7 @@ const DivOne = ({ onButtonClick }) => {
       case "txt_shift":
         if (value === "" || value === undefined) {
           setInvalidShift(true)
-          setShiftErrorMessage("Please enter a shift")
+          setShiftErrorMessage("Please enter a shift.")
         } else {
           // addFieldsValues(fieldName, value);
           setInvalidShift(false)
@@ -67,11 +67,11 @@ const DivOne = ({ onButtonClick }) => {
         break;
       case "tpick_shift_start_time":
         if (value === "" || value === undefined) {
-          setInvalidShtfTime(true)
-          setShiftErrorMsg("Please select a valid time")
+          setInvalidShtiftTimeErrMsg(true)
+          setInvalidShtiftTimeErrMsg("Please select a valid time.")
         } else {
-          setInvalidShtfTime(false)
-          setShiftErrorMsg("")
+          setInvalidShtiftTimeErrMsg(false)
+          setInvalidShtiftTimeErrMsg("")
           setFormData({
             ...formData,
             [fieldName]: value
@@ -82,7 +82,7 @@ const DivOne = ({ onButtonClick }) => {
       case "txt_working_hours":
         if(value === "" || value === undefined) {
           setWorkingHours(true)
-          setWorkingHoursErrorMessage("Please enter valid working hours")
+          setWorkingHoursErrorMessage("Please enter valid working hours.")
         } else {  
           setWorkingHours(false)
           setWorkingHoursErrorMessage("")
@@ -134,11 +134,20 @@ const DivOne = ({ onButtonClick }) => {
     }
   };
 
+  // const getItemsData=()=>{
+  //   if (formData.txt_item ===undefined) {
+  //     setInvalidShtiftTimeErrMsg(true)
+  //     setInvalidShtiftTimeErrMsg("Please select a valid time.")
+  //   } else if (!formData.tpick_shift_start_time){
+  //     setShiftErrorMessage(true)
+  //     setShiftErrorMessage("Please enter a shift.")
+  //   } else if (!formData)
+  // }
   const navigate = useNavigate();
 
-  const goToBackPage = () => {
-    navigate(-1);
-  }
+  // const goToBackPage = () => {
+  //   navigate(-1);
+  // }
   return (
     <>
       {" "}
@@ -176,7 +185,7 @@ const DivOne = ({ onButtonClick }) => {
               />
               {invalidShift === true ? (
                 <Form.Text className="position-relative mandatoryField">
-                  {shiftErrorMsg}
+                  {invalidShtiftTimeErrMsg}
                 </Form.Text>
               ) : (
                 <></>
@@ -275,11 +284,11 @@ const DivOne = ({ onButtonClick }) => {
             <Col></Col>
           </Row>
 
-          <Button
+          <div className="d-flex justify-content-end formBtn"> 
+            <Button
             type="button"
-            className="alignLeft"
+            className="alignLeft mr-5"
             onClick={() => {
-
               validateForm("txt_shift", formData.txt_shift);
               validateForm("txt_working_hours", formData.txt_working_hours)
               validateForm("tpick_shift_start_time", formData.tpick_shift_start_time)
@@ -288,8 +297,9 @@ const DivOne = ({ onButtonClick }) => {
           <Button
             type="button"
             className="alignRight"
-            onClick={() => goToBackPage()}
+            onClick={() => navigate(-1)}
           >Cancel</Button>
+          </div>
         </Card.Body>
       </Card>
     </>
@@ -306,9 +316,9 @@ const CreateShift = () => {
 
   const navigate = useNavigate();
 
-  const goToBackPage = () => {
-    navigate(-1);
-  }
+  // const goToBackPage = () => {
+  //   navigate(-1);
+  // }
   const nextDivNumber = (divNumber) => {
     switch (divNumber) {
       case "1":
@@ -337,7 +347,7 @@ const CreateShift = () => {
         <div className="titleDiv">
           <BiChevronLeft size={20}
             color={"var(--purple-color"}
-            onClick={() => goToBackPage()}
+            onClick={() => navigate(-1)}
           />
           <BiUser size={20} color={"var(--purple-color"} />
           <h6 className="title">Add Shift</h6>
@@ -346,7 +356,7 @@ const CreateShift = () => {
           {/* <MultiStepProgressBar div={div} onDivNumberClick={nextDivNumber} /> */}
           {
             {
-              divOne: <DivOne onButtonClick={nextDiv} />,
+              divOne: <DivOne />,
               //   divTwo: <DivTwo onButtonClick={nextDiv} />,
               //   divThree: <DivThree onButtonClick={nextDiv} />,
               //   divFour: <DivFour onButtonClick={nextDiv} />,
