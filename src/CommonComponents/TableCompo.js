@@ -111,9 +111,10 @@ const openForm=(value)=>{
   }
   else if (value === 'vendorMaster')
   navigate('/masters/vendor/createVendor')
-  // else if(value==='siteMaster'){
-  //   navigate('/masters/customer/SiteMaster/createSite')
-  // }
+
+  else if(value==='Shift'){
+    navigate('/masters/shift/createShift')
+  }
 }
   return (
     <div className="outer-data-table">
