@@ -57,7 +57,7 @@ nav{
   .btnHeader{
     position: absolute;
     display: flex;
-    right: 5%;
+    right: 6%;
     top: 20%;
   }
   @media only screen and (min-width: 1300px) and (max-width: 1460px) {
