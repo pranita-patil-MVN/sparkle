@@ -36,9 +36,9 @@ const ItemMaster = () => {
   const [statusValueData,setStatusValueData] =useState();
   var selectedDropdownValue;
   useEffect(() => {
-    getEmployeeList();
+    getItemList();
   }, []);
-  const getEmployeeList = async () => {
+  const getItemList = async () => {
     try {
       // const response = await axios.get(
       //   "https://mocki.io/v1/c6b1a681-4ec1-44b2-8c6e-4d88dd04a8ce"

@@ -110,9 +110,7 @@ const openForm=(value)=>{
     navigate('/masters/customer/SiteMaster/createSite')
   }
   else if (value === 'vendorMaster')
-  navigate('CreateVendor')
-  else if (value === 'Shift')
-  navigate('/masters/shift/CreateShift')
+  navigate('/masters/vendor/CreateVendor')
   // else if(value==='siteMaster'){
   //   navigate('/masters/customer/SiteMaster/createSite')
   // }

@@ -29,9 +29,9 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            {/* <Route path="/masters/employee" element={<Employee />} /> */}
+            <Route path="/masters/employee" element={<Employee />} />
             <Route
-              path="/masters/employee"
+              path="/masters/createEmployee"
               element={<CreateEmployee />}
             />
             <Route path="/masters" element={<Masters />} />
