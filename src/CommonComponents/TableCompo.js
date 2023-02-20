@@ -4,8 +4,13 @@ import previousArrowBtnWhite from "../assets/Images/previousArrowBtnWhite.png";
 import nextArrowBtnBlue from "../assets/Images/nextArrowBtnBlue.png";
 import previousArrowBtnBlue from "../assets/Images/previousArrowBtnBlue.png";
 import nextArrowBtnWhite from "../assets/Images/nextArrowBtnWhite.png";
+import { BiPlus } from "react-icons/bi";
+import { CiSearch, CiImport, CiExport } from "react-icons/ci";
 import ButtonGroup from "./ButtonGroup";
+import { useNavigate, useLocation } from "react-router-dom";
 export default function TableCompo(props) {
+  const location = useLocation();
+  const navigate=useNavigate();
   //     useEffect(()=>{
   // alert(JSON.stringify(props))
   //     },[])
@@ -96,7 +101,19 @@ export default function TableCompo(props) {
       </nav>
     );
   };
-
+const openForm=(value)=>{
+  if(value==='itemMaster'){
+    navigate('/masters/itemMaster/createItem')
+  }
+  else if(value==='siteMaster'){
+    navigate('/masters/customer/SiteMaster/createSite')
+  }
+  else if (value === 'vendorMaster')
+  navigate('/masters/vendor/CreateVendor')
+  // else if(value==='siteMaster'){
+  //   navigate('/masters/customer/SiteMaster/createSite')
+  // }
+}
   return (
     <div className="outer-data-table">
       <DataTable
@@ -112,7 +129,24 @@ export default function TableCompo(props) {
         subHeaderComponent={
           <div className="subHeader">
             <div className="btnHeader">
-             <ButtonGroup/>
+
+            <button className="btnTable btn" onClick={()=>openForm(props.data[2])}>
+        <BiPlus size={20} />
+        New
+      </button>
+      <button className={ location.pathname==="/masters/shift"?"d-none":"btnTable btn"}>
+        <CiExport size={20} />
+        Excel
+      </button>
+      
+      <button className={location.pathname==="/masters/itemMaster" || location.pathname==="/masters/shift"?"d-none":"btnTable btn"}>
+        <CiImport size={20} id="import " />
+        Import
+      </button>
+      <button className={location.pathname==="/masters/employee" || location.pathname==="/masters/customer/SiteMaster" || location.pathname==="/masters/shift"?"d-none":"btnTable btn"}>
+        <CiImport size={20} id="import " />
+        PDF
+      </button>
             </div>
           </div>
         }
