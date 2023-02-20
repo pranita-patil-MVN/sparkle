@@ -102,7 +102,7 @@ export default function TableCompo(props) {
     );
   };
 const openForm=(value)=>{
-  alert(value)
+  // alert(value)
   if(value==='itemMaster'){
     navigate('/masters/itemMaster/createItem')
   }
@@ -110,7 +110,7 @@ const openForm=(value)=>{
     navigate('/masters/customer/SiteMaster/createSite')
   }
   else if (value === 'vendorMaster')
-  navigate('/masters/vendor/CreateVendor')
+  navigate('/masters/vendor/createVendor')
   // else if(value==='siteMaster'){
   //   navigate('/masters/customer/SiteMaster/createSite')
   // }

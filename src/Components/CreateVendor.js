@@ -364,27 +364,7 @@ const CreateItem = () => {
   const nextDiv = (div) => {
     setDiv(div);
   };
-  const nextDivNumber = (divNumber) => {
-    switch (divNumber) {
-      case "1":
-        setDiv("divOne");
-        break;
-      case "2":
-        setDiv("divTwo");
-        break;
-      case "3":
-        setDiv("divThree");
-        break;
-      case "4":
-        setDiv("divFour");
-        break;
-      case "5":
-        setDiv("divFive");
-        break;
-      default:
-        setDiv("1");
-    }
-  };
+
 
   return (
     <Container>
@@ -392,10 +372,10 @@ const CreateItem = () => {
         <div className="titleDiv">
           <BiChevronLeft size={20} color={"var(--purple-color"} />
           <BiUser size={20} color={"var(--purple-color"} />
-          <h6 className="title">Add Item</h6>
+          <h6 className="title">Add vendor</h6>
         </div>
         <Container className="step-progress-bar-div">
-          <MultiStepProgressBar div={div} onDivNumberClick={nextDivNumber} />
+          {/* <MultiStepProgressBar div={div} onDivNumberClick={nextDivNumber} /> */}
           {
             {
               divOne: <DivOne onButtonClick={nextDiv} />,

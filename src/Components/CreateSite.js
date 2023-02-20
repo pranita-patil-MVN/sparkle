@@ -151,6 +151,7 @@ const dropdownOptionsCustomer = [
     value: "GTT Communication",
   },
 ];
+const noOfSteps  =  [1,2];
 const DivOne = ({ onButtonClick }) => {
   const navigate = useNavigate();
   const handleOnChange = (value) => {};
@@ -947,7 +948,7 @@ const DivTwo = ({ onButtonClick }) => {
               </Row>
             </Col>
           </Row> */}
-          <Button type="button" onClick={() => onButtonClick("divOne")}>
+          <Button type="button" onClick={() => onButtonClick("divOne") } >
             Back
           </Button>
           <Button
@@ -1297,7 +1298,7 @@ const CreateSite = () => {
           <h6 className="title">Add Employee</h6>
         </div>
         <Container className="step-progress-bar-div">
-          <MultiStepProgressBar div={div} onDivNumberClick={nextDivNumber} />
+          <MultiStepProgressBar div={div} onDivNumberClick={nextDivNumber} noOfSteps={noOfSteps}/>
           {
             {
               divOne: <DivOne onButtonClick={nextDiv} />,
