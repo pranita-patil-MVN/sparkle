@@ -550,7 +550,7 @@ const CreateItem = () => {
           <h6 className="title">Add Item</h6>
         </div>
         <Container className="step-progress-bar-div">
-          <MultiStepProgressBar div={div} />
+          {/* <MultiStepProgressBar div={div} /> */}
           {
             {
               divOne: <DivOne onButtonClick={nextDiv} />,
