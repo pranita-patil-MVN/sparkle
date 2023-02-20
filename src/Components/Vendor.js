@@ -93,7 +93,7 @@ const Vendor = () => {
         <div>
           {" "}
           <button className="btn btn-default update" type="button">
-            <img src={editImg} alt="edit" />
+            <img  src={editImg} alt="edit" />
           </button>
         </div>
       ),
