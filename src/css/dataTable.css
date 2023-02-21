@@ -60,6 +60,27 @@ nav{
     right: 6%;
     top: 20%;
   }
+  .nextIconColor{
+color: red;
+  }
+  .previousIconColor{
+color: blueviolet;
+  }
+  .page-link{
+    border: none;
+  }
+  .page-link:focus{
+    box-shadow: none;
+    margin: 0px;
+  }
+  .page-item:last-child .page-link{
+    padding: 4px 4px 3px 4px;
+    margin-left: 4px;
+  }
+  .page-item:first-child .page-link{
+    padding: 4px 4px 3px 4px;
+    margin-right: 4px;
+  }
   @media only screen and (min-width: 1300px) and (max-width: 1460px) {
     .pagination {
        padding-top: 10px;

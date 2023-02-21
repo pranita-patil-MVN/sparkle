@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import {
   Row,
   Col,
@@ -14,25 +14,27 @@ import Input from "../CommonComponents/Input";
 import RadioButton from "../CommonComponents/RadioButtons";
 import TextArea from "../CommonComponents/TextArea";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
-import {useNavigate } from "react-router-dom";
+import {useNavigate,useLocation } from "react-router-dom";
 import placeholder from "../assets/Images/Placeholder.png";
+import itemJson from "../data/itemData.json";
+import _ from "underscore";
 
 const dropdownStatusOptions = [
   {
     id: 1,
-    value: "AVAILABLE",
+    value: "Available",
   },
   {
     id: 2,
-    value: "END_OF_LIFE",
+    value: "End of life",
   },
   {
     id: 3,
-    value: "NOT_IN_USE",
+    value: "Not in use",
   },
   {
     id: 4,
-    value: "WITHDRAWN",
+    value: "Withdrawn",
   },
 ];
 const dropdownCategoryOptions = [
@@ -87,12 +89,15 @@ const dropdownMeasurementUnitsOptions = [
     value: "Set",
   },
 ];
-const DivOne = ({ onButtonClick }) => {
-  const navigate=useNavigate();
+const DivOne = ({onButtonClick}) => {
+  const location= useLocation();
+  const items = location.state;
+  // var ref=useRef(items)
+    const navigate=useNavigate();
   const handleOnChange = (value) => {};
 
   const [formData, setFormData] = useState([]);
-
+  const [editableItemData, setEditableItemData] = useState();
   // for item name
   const [itemValue, setItemValue] = useState("");
   const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
@@ -116,19 +121,25 @@ const DivOne = ({ onButtonClick }) => {
   const [itemRateErrorMessage, setItemRateErrorMessage] = useState("");
   const [invalidRate, setInvalidRate] = useState(false);
 
-  const addFieldsValues = (fieldName, value) => {
-    setFormData({
-      ...formData,
-      [fieldName]: value,
-    });
-  };
+  // for cgst%
+  const [cgstErrorMessage, setCgstErrorMessage] = useState("");
+  const [invalidCgst, setInvalidCgst] = useState(false);
+
+    // for sgst%
+  const [sgstErrorMessage, setSgstErrorMessage] = useState("");
+  const [invalidSgst, setInvalidSgst] = useState(false);
+
+     // for Igst%
+  const [igstErrorMessage, setIgstErrorMessage] = useState("");
+  const [invalidIgst, setInvalidIgst] = useState(false);
+
+
+
+ 
   const validateForm = (fieldName, value) => {
+    var expression= "^[0-9]*$";
     switch (fieldName) {
       case "txt_item":
-        // if (value === "" || value === undefined) {
-        //   setInvalidItem(true);
-        //   setTxtItemNameErrorMessage("Invalid Item");
-        // } else {
           setInvalidItem(false);
           setTxtItemNameErrorMessage("");
           setFormData({
@@ -197,7 +208,6 @@ const DivOne = ({ onButtonClick }) => {
         break;
 
       case "txt_rate":
-        var expression= "^[0-9]*$";
         if (value.match(expression)){
           setFormData({
             ...formData,
@@ -210,34 +220,49 @@ const DivOne = ({ onButtonClick }) => {
            setInvalidRate(true);
         setItemRateErrorMessage("Invalid rate");
         }
-        // if (value === "" || value === undefined) {
-        //   setInvalidRate(true);
-        //   setItemRateErrorMessage("Invalid rate");
-        // } else {
-         
-        // }
         break;
 
       case "text_cgst":
-       var expression= "/^(100(\.0{1,2})?|([0-9]?[0-9](\.[0-9]{1,2})))$/"
-        if (value != undefined) {
+        if (value.match(expression)){
           setFormData({
             ...formData,
             [fieldName]: value,
           });
+          setInvalidCgst(false);
+          setCgstErrorMessage("");
+        }
+        else{
+           setInvalidCgst(true);
+           setCgstErrorMessage("Invalid CGST");
         }
         break;
       case "text_sgst":
-        setFormData({
-          ...formData,
-          [fieldName]: value,
-        });
+        if (value.match(expression)){
+          setFormData({
+            ...formData,
+            [fieldName]: value,
+          });
+          setInvalidSgst(false);
+          setSgstErrorMessage("");
+        }
+        else{
+           setInvalidSgst(true);
+           setSgstErrorMessage("Invalid SGST");
+        }
         break;
       case "text_igst":
-        setFormData({
-          ...formData,
-          [fieldName]: value,
-        });
+        if (value.match(expression)){
+          setFormData({
+            ...formData,
+            [fieldName]: value,
+          });
+          setInvalidIgst(false);
+          setIgstErrorMessage("");
+        }
+        else{
+           setInvalidIgst(true);
+           setIgstErrorMessage("Invalid IGST");
+        }
         break;
       case "text_hsn":
         setFormData({
@@ -263,41 +288,63 @@ const DivOne = ({ onButtonClick }) => {
   };
 
   const getItemsData = () => {
-    if (formData.txt_item ===undefined) {
+    if (formData.txt_item ===undefined || formData.txt_item=="") {
       setInvalidItem(true);
         setTxtItemNameErrorMessage("Please fill the item");
-    }  else if (!formData.drp_category) {
+    }  else if (formData.drp_category===undefined || formData.drp_category=="") {
       setInvalidCategory(true);
       setCategoryDropdownErrorMessage("Please select category");
-    } else if (!formData.drp_status) {
-      setInvalidStatus(true)
-      setStatusDropdownErrorMessage("Please select status");
-    }  else if (!formData.drp_measurement_unit) {
+    } 
+    else if (formData.drp_measurement_unit ===undefined || formData.drp_measurement_unit=="") {
       setInvalidUnit(true)
-      setUnitErrorMessage("Please select measurement unit");
-    }  else if (!formData.txt_rate) {
+      setUnitErrorMessage("Please select unit");
+    }
+    else if (formData.txt_rate ===undefined || formData.txt_rate=="") {
       setInvalidRate(true)
       setItemRateErrorMessage("Please fill rate");
-    } else {
+    }
+    else if (formData.drp_status ===undefined || formData.drp_status=="") {
+      setInvalidStatus(true)
+      setStatusDropdownErrorMessage("Please select status");
+    }  else {
       alert(JSON.stringify(formData));
     }
   };
   return (
     <>
-      {" "}
       <Card>
-        <Card.Header className="cardHeader">Item details</Card.Header>
+        <Card.Header className="cardHeader">Item Details</Card.Header>
         <Card.Body>
           <Row className="mb-3">
+          <Col>
+              <Input
+                required
+                controlId="txt_code"
+                label="Code"
+                type="text"
+                // value={formData.txt_code}
+                // defaultValue={editableItemData!=undefined?editableItemData.code:formData.txt_code}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_code", inputValue.currentTarget.value);
+                }}
+                disabled={true}
+              />
+            </Col>
             <Col>
               <Input
                 required
                 controlId="txt_item"
                 label=" Item"
                 type="text"
+                // ref={ref.current.items}
+                // defaultValue={editableItemData!=undefined?editableItemData.items:formData.txt_item}
+                // value={formData.items!=undefined?formData.items:formData.txt_item}
+                // value={ref!=undefined?ref.current.items:formData.txt_item}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_item", inputValue);
                 }}
+                disabled={false}
+               
               />
               {invalidItem === true ? (
                 <Form.Text className="position-relative mandatoryField">
@@ -307,17 +354,7 @@ const DivOne = ({ onButtonClick }) => {
                 <></>
               )}
             </Col>
-            <Col>
-              <Input
-                // required
-                controlId="txt_code"
-                label="Code"
-                type="text"
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_code", inputValue.currentTarget.value);
-                }}
-              />
-            </Col>
+          
             <Col>
               <Dropdown
                 required
@@ -325,7 +362,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="drp_category"
                 options={dropdownCategoryOptions}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_category", dropdownCategoryOptions[dropDownValue-1].value);
+                  validateForm("drp_category", [dropdownCategoryOptions[dropDownValue-1].value,dropDownValue]);
                 }}
               />
               {invalidCategory === true ? (
@@ -337,38 +374,20 @@ const DivOne = ({ onButtonClick }) => {
               )}
             </Col>
 
-            <Col></Col>
+            <Col>
+              <Input
+                controlId="txt_make"
+                label="Make"
+                type="text"
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_make", inputValue.currentTarget.value);
+                }}
+              />
+            </Col>
           </Row>
+         
           <Row className="mb-3">
-            <Col>
-              <Dropdown
-                required
-                label="Status"
-                controlId="drp_status"
-                options={dropdownStatusOptions}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_status", dropdownStatusOptions[dropDownValue-1].value);
-                }}
-              />
-              {invalidStatus === true ? (
-                <Form.Text className="position-relative mandatoryField">
-                  {statusDropdownErrorMessage}
-                </Form.Text>
-              ) : (
-                <></>
-              )}
-            </Col>
-            <Col>
-              <RadioButton
-                controlId="rad_deduction_status"
-                label="Apply Deduction"
-                options={["Yes", "No"]}
-                onChangeInputHandler={(optionValue) => {
-                  validateForm("rad_deduction_status", optionValue);
-                }}
-              />
-            </Col>
-            <Col>
+          <Col>
               <Dropdown
                 required
                 label="Unit of Measure"
@@ -387,18 +406,7 @@ const DivOne = ({ onButtonClick }) => {
               )}
             </Col>
             <Col>
-              <Input
-                controlId="txt_make"
-                label="Make"
-                type="text"
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_make", inputValue.currentTarget.value);
-                }}
-              />
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
+            <Row>
             <Col>
               <Input
                 required
@@ -417,9 +425,7 @@ const DivOne = ({ onButtonClick }) => {
                 <></>
               )}
             </Col>
-            <Col>
-              <Row>
-                <Col xl={4} lg={4} md={4}>
+            <Col >
                   <Input
                     // required
                     controlId="text_cgst"
@@ -429,8 +435,20 @@ const DivOne = ({ onButtonClick }) => {
                       validateForm("text_cgst", inputValue.currentTarget.value);
                     }}
                   />
+                  {invalidCgst === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {cgstErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
                 </Col>
-                <Col xl={4} lg={4} md={4}>
+            </Row>
+            </Col>
+            <Col>
+              <Row>
+               
+                <Col >
                   <Input
                     // required
                     controlId="text_sgst"
@@ -440,8 +458,15 @@ const DivOne = ({ onButtonClick }) => {
                       validateForm("text_sgst", inputValue.currentTarget.value);
                     }}
                   />
+                  {invalidSgst === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {sgstErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
                 </Col>
-                <Col xl={4} lg={4} md={4}>
+                <Col >
                   <Input
                     // required
                     controlId="text_igst"
@@ -451,11 +476,15 @@ const DivOne = ({ onButtonClick }) => {
                       validateForm("text_igst", inputValue.currentTarget.value);
                     }}
                   />
+                  {invalidIgst === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {igstErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
                 </Col>
-              </Row>
-            </Col>
-
-            <Col>
+                <Col>
               <Input
                 // required
                 controlId="text_hsn"
@@ -466,9 +495,42 @@ const DivOne = ({ onButtonClick }) => {
                 }}
               />
             </Col>
-            <Col></Col>
+              </Row>
+            </Col>
+
+           
+            <Col>
+              <RadioButton
+                controlId="rad_deduction_status"
+                label="Apply Deduction"
+                options={["Yes", "No"]}
+                onChangeInputHandler={(optionValue) => {
+                  validateForm("rad_deduction_status", optionValue);
+                }}
+              />
+            </Col>
+          
           </Row>
+          
           <Row className="mb-3">
+          <Col>
+              <Dropdown
+                required
+                label="Status"
+                controlId="drp_status"
+                options={dropdownStatusOptions}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  validateForm("drp_status", dropdownStatusOptions[dropDownValue-1].value);
+                }}
+              />
+              {invalidStatus === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {statusDropdownErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
+            </Col>
             <Col>
               <TextArea
                 // required
@@ -495,7 +557,6 @@ const DivOne = ({ onButtonClick }) => {
               />
             </Col>
             <Col></Col>
-            <Col></Col>
           </Row>
 
        
@@ -512,7 +573,7 @@ const DivOne = ({ onButtonClick }) => {
           <Button   
           type="button"
             className="alignRight"
-            onClick={()=>navigate(-1)}
+            onClick={()=>window.location.reload()}
             >
             Cancel
           </Button>
@@ -524,22 +585,17 @@ const DivOne = ({ onButtonClick }) => {
 };
 
 const CreateItem = () => {
-  const [div, setDiv] = useState("divOne");
-
-
-  const nextDiv = (div) => {
-    setDiv(div);
-  };
+    const navigate=useNavigate();
   return (
     <Container>
       <div>
-        <div className="titleDiv">
+        <div className="titleDiv" onClick={()=>navigate(-1)}>
           <BiChevronLeft size={20} color={"var(--purple-color"} />
           <BiUser size={20} color={"var(--purple-color"} />
           <h6 className="title">Add Item</h6>
         </div>
         <div className="step-progress-bar-div">
-          <DivOne/>
+          <DivOne />
            
         </div>
       </div>

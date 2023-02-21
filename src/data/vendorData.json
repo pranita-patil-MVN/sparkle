@@ -7,7 +7,13 @@
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
         "mobile":"9697989900",
         "state":"Maharashtra",
-        "city":"Miraj"
+        "city":"Miraj",
+        "code" : "A001",
+        "vendorGst" : "27AGFPA1832P1ZD",
+        "addressSecond" : "VIDYANAGAR,TINGRE NAGAR RD NO.7D,10-D4,PUNE 411032",
+        "email" : "A@gmail.com",
+        "cell" : "9890827560"
+
       },
       {
         "company": "Infosys ltd.",
@@ -16,7 +22,12 @@
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
         "mobile":"9192939495",
         "state":"Maharashtra",
-        "city":"Warje"
+        "city":"Warje",
+        "code" : "A001",
+        "vendorGst" : "27AGFPA1832P1ZD",
+        "addressSecond" : "VIDYANAGAR,TINGRE NAGAR RD NO.7D,10-D4,PUNE 411032",
+        "email" : "A@gmail.com",
+        "cell" : "9890827560"
       },
       {
         "company": "Tcs ltd.",
@@ -25,7 +36,12 @@
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
         "mobile":"9193969899",
         "state":"Karnataka",
-        "city":"Karvenagar"
+        "city":"Karvenagar",
+        "code" : "A001",
+        "vendorGst" : "27AGFPA1832P1ZD",
+        "addressSecond" : "VIDYANAGAR,TINGRE NAGAR RD NO.7D,10-D4,PUNE 411032",
+        "email" : "A@gmail.com",
+        "cell" : "9890827560"
       },
       {
         "company": "Wipro ltd.",
@@ -34,7 +50,12 @@
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
         "mobile":"9194569899",
         "state":"Maharashtra",
-        "city":"Miraj"
+        "city":"Miraj",
+        "code" : "A001",
+        "vendorGst" : "27AGFPA1832P1ZD",
+        "addressSecond" : "VIDYANAGAR,TINGRE NAGAR RD NO.7D,10-D4,PUNE 411032",
+        "email" : "A@gmail.com",
+        "cell" : "9890827560"
       },
       {
         "company": "Workday ltd.",
@@ -43,7 +64,12 @@
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
         "mobile":"9193969376",
         "state":"Maharashtra",
-        "city":"Kothrud"
+        "city":"Kothrud",
+        "code" : "A001",
+        "vendorGst" : "27AGFPA1832P1ZD",
+        "addressSecond" : "VIDYANAGAR,TINGRE NAGAR RD NO.7D,10-D4,PUNE 411032",
+        "email" : "A@gmail.com",
+        "cell" : "9890827560"
       },
       {
         "company": "Honeywell ltd.",
@@ -52,7 +78,12 @@
         "address":"Shivam nagar, infront of CCD, karishma society road, Modern colony",
         "mobile":"9196778599",
         "state":"Karnataka",
-        "city":"Kothrud"
+        "city":"Kothrud",
+        "code" : "A001",
+        "vendorGst" : "27AGFPA1832P1ZD",
+        "addressSecond" : "VIDYANAGAR,TINGRE NAGAR RD NO.7D,10-D4,PUNE 411032",
+        "email" : "A@gmail.com",
+        "cell" : "9890827560"
       }
       
 

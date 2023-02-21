@@ -9,140 +9,135 @@ import {
   Figure,
 } from "react-bootstrap";
 import MultiStepProgressBar from "../CommonComponents/MultiStepProgressBar";
-import Dropdown from "../CommonComponents/Dropdown";
 import Input from "../CommonComponents/Input";
-import RadioButton from "../CommonComponents/RadioButtons";
-import TextArea from "../CommonComponents/TextArea";
+import _ from "underscore";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
 import { useNavigate, useLocation } from "react-router-dom";
-import placeholder from "../assets/Images/Placeholder.png";
+const DivOne = ({ props }) => {
+  const location = useLocation();
 
-const DivOne = ({ onButtonClick }) => {
+  var vendorDetails = location.state;
+  const [vendorData, setVendorData] = useState(vendorDetails);
+  // useEffect(()=>{
+  //   // alert(vendorData)
+
+  // })
+
   const navigate = useNavigate();
+
+  // For Vendor code
+  const [invalidCode, setInvalidCode] = useState(false);
+  const [itemCodeErrorMessage, setTxtCodeErrorMessage] = useState("");
+
   // For Vendor name
-  const [invalidItem, setInvalidItem] = useState(true);
+  const [invalidItem, setInvalidItem] = useState(false);
   const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
 
   // For Address 1
-  const [invalidAddress, setInvalidAddress] = useState(true);
+  const [invalidAddress, setInvalidAddress] = useState(false);
   const [addressErrorMessage, setTxtAddressErrorMessage] = useState("");
 
   //For Cell 1
-  const [invalidCell, setInvalidCell] = useState(true);
+  const [invalidCell, setInvalidCell] = useState(false);
   const [cellErrorMessage, setTxtCellErrorMessage] = useState("");
 
   //For Email 1
-  const [invalidEmail, setInvalidEmail] = useState(true);
+  const [invalidEmail, setInvalidEmail] = useState(false);
   const [emailErrorMessage, setTxtEmailErrorMessage] = useState("");
 
-  const [formData, setFormData] = useState();
+  const [code, setCode] = useState([]);
+  const [formData, setFormData] = useState([]);
   //  alert(JSON.stringify(formData))
 
   const saveVendorData = () => {
-    // alert(formData)
-    if (formData === undefined) {
-      alert("Please fill the fields");
-    } else if (formData.txt_Name === undefined || formData.txt_Name === "") {
+    // alert(JSON.stringify(formData));
+    if (formData.txt_code === undefined || formData.txt_code === "") {
+      setInvalidCode(true);
+      setTxtCodeErrorMessage("Please enter code");
+    } else if (formData.txt_name === undefined || formData.txt_name === "") {
       setInvalidItem(true);
-      setTxtItemNameErrorMessage("Name is mandatory");
+      setTxtItemNameErrorMessage("Please enter name");
     } else if (
-      formData.txt_Address1 === undefined ||
-      formData.txt_Address1 === ""
+      formData.txt_address1 === undefined ||
+      formData.txt_address1 === ""
     ) {
       setInvalidAddress(true);
-      setTxtAddressErrorMessage("Address is mandatory");
-    } else if (formData.txt_Cell1 === undefined || formData.txt_Cell1 === "") {
+      setTxtAddressErrorMessage("Please enter Address ");
+    } else if (
+      formData.txt_email1 === undefined ||
+      formData.txt_email1 === ""
+    ) {
+      setInvalidEmail(true);
+      setTxtEmailErrorMessage("Please enter email");
+    } else if (formData.txt_cell1 === undefined || formData.txt_cell1 === "") {
       setInvalidCell(true);
-      setTxtCellErrorMessage("Cell is mandatory");
+      setTxtCellErrorMessage("Please enter cell");
     } else {
       alert(JSON.stringify(formData));
     }
-    // alert("formData===>"+ JSON.stringify(formData))
-    //     validateForm("txt_Code", formData.txt_Code);
-    //     validateForm("txt_Name", formData.txt_Name);
-    //     validateForm("txt_contactPerson", formData.txt_contactPerson);
-    //     validateForm("txt_vendorGst", formData.txt_vendorGst);
-    //     validateForm(
-    //       "txt_Address1",
-    //       formData.txt_Address1
-    //     );
-    //     validateForm("txt_Address2", formData.txt_Address2);
-    //     validateForm("txt_Email1", formData.txt_Email1);
-    //     validateForm("txt_Email2", formData.txt_Email2);
-    //     validateForm("txt_Telephone1", formData.txt_Telephone1);
-    //     validateForm("txt_Telephone2", formData.txt_Telephone2);
-    //     validateForm("txt_Cell1", formData.txt_Cell1);
-    //     validateForm("txt_Cell2", formData.txt_Cell2);
-    //     setInvalidAddress(false)
-
-    //    alert(formData.txt_Code)
   };
-  const onCancelButton = (fieldName, value) => {
-    navigate("/masters/vendor");
+  const onCancelButton = () => {
+    window.location.reload();
   };
 
   const validateForm = (fieldName, value) => {
-    // alert(fieldName)
+   
 
     switch (fieldName) {
-      case "txt_Code":
-        if (value !== undefined && value !== "")
-          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+      case "txt_code":
+        setInvalidCode(false);
+        setTxtCodeErrorMessage("");
+        // alert(JSON.stringify(value))
+        setVendorData({...vendorData, [fieldName]: value})
+        // if (value !== undefined && value !== "")
+        setFormData({ ...formData, [fieldName]: value });
 
         break;
-      case "txt_Name":
-        // alert(fieldName)
-        if (value !== "" && value !== undefined) {
-          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
-          setInvalidItem(false);
-          setTxtItemNameErrorMessage("");
-        }
+      case "txt_name":
+        setInvalidItem(false);
+        // alert(JSON.stringify(vendorData))
+        setTxtItemNameErrorMessage("");
+        setFormData({ ...formData, [fieldName]: value });
         break;
 
-      case "txt_contactPerson":
-        if (value !== undefined && value !== "") break;
+      case "txt_contact_person":
+        setFormData({ ...formData, [fieldName]: value });
       case "txt_vendorGst":
-        setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+        setFormData({ ...formData, [fieldName]: value });
         break;
-      case "txt_Address1":
-        if (value !== "" && value !== undefined) {
-          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
-          setInvalidAddress(false);
-          setTxtAddressErrorMessage("");
-        }
+      case "txt_address1":
+        setInvalidAddress(false);
+        setTxtAddressErrorMessage("");
+        setFormData({ ...formData, [fieldName]: value });
+
         break;
-      case "txt_Address2":
-        if (value !== undefined && value !== "")
-          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+      case "txt_address2":
+        setFormData({ ...formData, [fieldName]: value });
         break;
 
-      case "txt_Email1":
-        if (value !== undefined && value !== "")
-          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+      case "txt_email1":
+        setInvalidEmail(false);
+        setTxtEmailErrorMessage("");
+        setFormData({ ...formData, [fieldName]: value });
         break;
 
-      case "txt_Email2":
-        if (value !== undefined && value !== "")
-          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+      case "txt_email2":
+        setFormData({ ...formData, [fieldName]: value });
         break;
-      case "txt_Telephone1":
-        if (value !== undefined && value !== "")
-          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+      case "txt_telephone1":
+        setFormData({ ...formData, [fieldName]: value });
         break;
-      case "txt_Telephone2":
-        if (value !== undefined && value !== "")
-          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+      case "txt_telephone2":
+        setFormData({ ...formData, [fieldName]: value });
         break;
-      case "txt_Cell1":
-        if (value !== "" && value !== undefined) {
-          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
-          setInvalidItem(false);
-          setTxtItemNameErrorMessage("");
-        }
+      case "txt_cell1":
+        setInvalidCell(false);
+        setTxtCellErrorMessage("");
+        setFormData({ ...formData, [fieldName]: value });
+
         break;
-      case "txt_Cell2":
-        if (value !== undefined && value !== "")
-          setFormData({ ...formData, [fieldName]: JSON.stringify(value) });
+      case "txt_cell2":
+        setFormData({ ...formData, [fieldName]: value });
 
         break;
 
@@ -156,27 +151,273 @@ const DivOne = ({ onButtonClick }) => {
       {" "}
       <Card>
         <Card.Header className="cardHeader">Vendor Details</Card.Header>
+        {vendorData !== undefined && vendorData !== null ? (
+          <Card.Body>
+            <Row className="mb-3">
+              <Col>
+                <Input
+                  required
+                  controlId="txt_code"
+                  label="Code"
+                  type="text"
+                  value={vendorData.code}
+                  key="txt_code"
+                  // value={vendorData.code?  vendorData.code: code}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm("txt_code", inputValue);
+                  }}
+                />
+                  {invalidCode === true ? (
+                  <Form.Text className="position-relative mandatoryField">
+                    {itemCodeErrorMessage}
+                  </Form.Text>
+                ) : (
+                  <></>
+                )}
+              </Col>
+              <Col>
+                <Input
+                  required
+                  controlId="txt_name"
+                  label="Name"
+                  type="text"
+                  key="txt_name"
+                  // editable= {true}
+                  value={vendorData.company}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm("txt_name", inputValue);
+                  }}
+                />
+                {invalidItem === true ? (
+                  <Form.Text className="position-relative mandatoryField">
+                    {itemNameErrorMessage}
+                  </Form.Text>
+                ) : (
+                  <></>
+                )}
+              </Col>
+              <Col>
+                <Input
+                  // required
+                  controlId="txt_contact_person"
+                  label="Contact Person"
+                  type="text"
+                  key="txt_contact_person"
+                  defaultValue={vendorData.contact_person}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm(
+                      "txt_contact_person",
+                      inputValue.currentTarget.value
+                    );
+                  }}
+                />
+              </Col>
+              <Col>
+                <Input
+                  // required
+                  controlId="txt_vendor_gst"
+                  label="Vendor GST"
+                  type="text"
+                  key="txt_vendor_gst"
+                  value={vendorData.vendorGst}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm(
+                      "txt_vendor_gst",
+                      inputValue.currentTarget.value
+                    );
+                  }}
+                />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col>
+                <Input
+                  required
+                  controlId="txt_address1"
+                  label="Primary Address"
+                  type="text"
+                  key="txt_address1"
+                  value={vendorData.address}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm("txt_address1", inputValue);
+                  }}
+                />
+                {invalidAddress === true ? (
+                  <Form.Text className="position-relative mandatoryField">
+                    {addressErrorMessage}
+                  </Form.Text>
+                ) : (
+                  <></>
+                )}
+              </Col>
+              <Col>
+                <Input
+                  // required
+                  controlId="txt_address2"
+                  label="Secondary Address"
+                  type="text"
+                  key="txt_address2"
+                  value={vendorData.addressSecond}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm(
+                      "txt_address2",
+                      inputValue.currentTarget.value
+                    );
+                  }}
+                />
+              </Col>
+              <Col>
+                <Input
+                  // required
+                  controlId="txt_email1"
+                  label="Primary Email"
+                  type="text"
+                  key="txt_email1"
+                  value={vendorData.email}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm("txt_email1", inputValue.currentTarget.value);
+                  }}
+                />
+                {invalidEmail === true ? (
+                  <Form.Text className="position-relative mandatoryField">
+                    {emailErrorMessage}
+                  </Form.Text>
+                ) : (
+                  <></>
+                )}
+              </Col>
+              <Col>
+                <Input
+                  // required
+                  controlId="txt_email2"
+                  label="Secondary Email"
+                  type="text"
+                  key="txt_email2"
+                  value={vendorData.email2}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm("txt_email2", inputValue.currentTarget.value);
+                  }}
+                />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col>
+                <Input
+                  // required
+                  controlId="txt_telephone1"
+                  label="Primary Landline No."
+                  type="text"
+                  key="txt_telephone1"
+                  value={vendorData.mobile}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm(
+                      "txt_telephone1",
+                      inputValue.currentTarget.value
+                    );
+                  }}
+                />
+              </Col>
+              <Col>
+                <Input
+                  // required
+                  controlId="txt_telephone2"
+                  label="Secondary Landline No."
+                  type="text"
+                  key="txt_telephone2"
+                  value={vendorData.mobile2}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm(
+                      "txt_telephone2",
+                      inputValue.currentTarget.value
+                    );
+                  }}
+                />
+              </Col>
+              <Col>
+                <Input
+                  required
+                  controlId="txt_cell1"
+                  label="Primary Mobile No."
+                  type="text"
+                  key="txt_cell1"
+                  value={vendorData.cell1}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm("txt_cell1", inputValue);
+                  }}
+                />
+                {invalidCell === true ? (
+                  <Form.Text className="position-relative mandatoryField">
+                    {cellErrorMessage}
+                  </Form.Text>
+                ) : (
+                  <></>
+                )}
+              </Col>
+              <Col>
+                <Input
+                  // required
+                  controlId="txt_cell2"
+                  label="Secondary Mobile No."
+                  type="text"
+                  key="txt_cell2"
+                  value={vendorData.cell2}
+                  onChangeInputHandler={(inputValue) => {
+                    validateForm("txt_cell2", vendorData.cell);
+                  }}
+                />
+              </Col>
+            </Row>
+
+            <div className="d-flex justify-content-end formBtn">
+              <Button
+                type="button"
+                className="alignRight mr-5"
+                onClick={() => {
+                  saveVendorData();
+                }}
+              >
+                Save
+              </Button>
+              <Button
+                type="button"
+                className="alignRight"
+                onClick={() => {
+                  onCancelButton();
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+          </Card.Body>
+        ) : (
         <Card.Body>
           <Row className="mb-3">
             <Col>
               <Input
-                // required
-                controlId="txt_Code"
+                required
+                controlId="txt_code"
                 label="Code"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_Code", inputValue.currentTarget.value);
+                  validateForm("txt_code", inputValue);
                 }}
               />
+              {invalidCode === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {itemCodeErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
             <Col>
               <Input
                 required
-                controlId="txt_Name"
+                controlId="txt_name"
                 label="Name"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_Name", inputValue);
+                  validateForm("txt_name", inputValue);
                 }}
               />
               {invalidItem === true ? (
@@ -190,12 +431,12 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 // required
-                controlId="txt_contactPerson"
+                controlId="txt_contact_person"
                 label="Contact Person"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
                   validateForm(
-                    "txt_contactPerson",
+                    "txt_contact_person",
                     inputValue.currentTarget.value
                   );
                 }}
@@ -204,11 +445,14 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 // required
-                controlId="txt_vendorGst"
+                controlId="txt_vendor_gst"
                 label="Vendor GST"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_vendorGst", inputValue.currentTarget.value);
+                  validateForm(
+                    "txt_vendor_gst",
+                    inputValue.currentTarget.value
+                  );
                 }}
               />
             </Col>
@@ -217,11 +461,11 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 required
-                controlId="txt_Address1"
-                label="Address 1"
+                controlId="txt_address1"
+                label="Primary Address"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_Address1", inputValue);
+                  validateForm("txt_address1", inputValue);
                 }}
               />
               {invalidAddress === true ? (
@@ -235,22 +479,22 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 // required
-                controlId="txt_Address2"
-                label="Address 2"
+                controlId="txt_address2"
+                label="Secondary Address"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_Address2", inputValue.currentTarget.value);
+                  validateForm("txt_address2", inputValue.currentTarget.value);
                 }}
               />
             </Col>
             <Col>
               <Input
                 // required
-                controlId="txt_Email1"
-                label="Email 1 "
+                controlId="txt_email1"
+                label="Primary Email"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_Email1", inputValue.currentTarget.value);
+                  validateForm("txt_email1", inputValue.currentTarget.value);
                 }}
               />
               {invalidEmail === true ? (
@@ -264,11 +508,11 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 // required
-                controlId="txt_Email2"
-                label="Email 2"
+                controlId="txt_email2"
+                label="Secondary Email"
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_Email2", inputValue.currentTarget.value);
+                  validateForm("txt_email2", inputValue.currentTarget.value);
                 }}
               />
             </Col>
@@ -277,12 +521,12 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 // required
-                controlId="txt_Telephone1"
-                label="Telephone 1"
+                controlId="txt_telephone1"
+                label="Primary Landline No."
                 type="text"
                 onChangeInputHandler={(inputValue) => {
                   validateForm(
-                    "txt_Telephone1",
+                    "txt_telephone1",
                     inputValue.currentTarget.value
                   );
                 }}
@@ -291,12 +535,12 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 // required
-                controlId="txt_Telephone2"
-                label="Telephone 2"
+                controlId="txt_telephone2"
+                label="Secondary Landline No."
                 type="text"
                 onChangeInputHandler={(inputValue) => {
                   validateForm(
-                    "txt_Telephone2",
+                    "txt_telephone2",
                     inputValue.currentTarget.value
                   );
                 }}
@@ -305,11 +549,12 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 required
-                controlId="txt_Cell1"
-                label="Cell 1 "
+                controlId="txt_cell1"
+                label="Primary Mobile No."
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_Cell1", inputValue);
+                  // alert(inputValue)
+                  validateForm("txt_cell1", inputValue);
                 }}
               />
               {invalidCell === true ? (
@@ -323,54 +568,66 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 // required
-                controlId="txt_code"
-                label="Cell 2"
+                controlId="txt_cell2"
+                label="Secondary Mobile No."
                 type="text"
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_Cell2", inputValue.currentTarget.value);
+                  validateForm("txt_cell2", inputValue.currentTarget.value);
                 }}
               />
             </Col>
           </Row>
 
-          <Button
-            type="button"
-            // className="alignRight"
-            onClick={() => {
+          <div className="d-flex justify-content-end formBtn">
+            <Button
+              type="button"
+              className="alignRight mr-5"
+              onClick={() => {
+                saveVendorData();
+              }}
+            >
+              Save
+            </Button>
+            <Button
+              type="button"
+              className="alignRight"
+              onClick={() => {
                 onCancelButton();
               }}
-          >
-            Cancle
-          </Button>
-
-          <Button
-            type="button"
-            className="alignRight"
-            onClick={() => {
-              saveVendorData();
-            }}
-          >
-            Save
-          </Button>
+            >
+              Cancel
+            </Button>
+          </div>
         </Card.Body>
+         )} 
       </Card>
     </>
   );
 };
 
-const CreateItem = () => {
+const CreateVendor = (props) => {
+  const navigate = useNavigate();
+
   const [div, setDiv] = useState("divOne");
 
   const nextDiv = (div) => {
     setDiv(div);
   };
-
+  const onBackButton = () => {
+    navigate("/masters/vendor");
+  };
 
   return (
     <Container>
       <div>
         <div className="titleDiv">
-          <BiChevronLeft size={20} color={"var(--purple-color"} />
+          <BiChevronLeft
+            onClick={() => {
+              onBackButton();
+            }}
+            size={20}
+            color={"var(--purple-color"}
+          />
           <BiUser size={20} color={"var(--purple-color"} />
           <h6 className="title">Add vendor</h6>
         </div>
@@ -391,4 +648,4 @@ const CreateItem = () => {
   );
 };
 
-export default CreateItem;
+export default CreateVendor;

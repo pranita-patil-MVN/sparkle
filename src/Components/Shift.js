@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Row, Col, Button, InputGroup, Form } from "react-bootstrap";
 import moment, { Moment } from 'moment/moment';
 import _ from "underscore";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/pages.css'
@@ -24,23 +25,28 @@ export default function Shift() {
   const [item, setItem] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [checkedItem, setCheckedItem] = useState([])
-  const [filteredList, setFilteredList] = useState([])
-  const [search, setSearch] = useState("");
-  const [itemData, setItemData] = useState([]);
+  // const [filteredList, setFilteredList] = useState([])
+  // const [search, setSearch] = useState("");
+  // const [itemData, setItemData] = useState([]);
   // const [searchLoc, setSearchLoc] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   // const [date, setDate] = useState('')
   const [selectedValue, setSelectedValue] = useState();
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-  const [listData, setListData] = useState();
+  // const [listData, setListData] = useState();
   const [dropdownValue, setSelectedDropdownValue] = useState([]);
   const [flag, setFlag] = useState(false);
   const [searchFlag, setSearchFlag] = useState(false);
+  const navigate = useNavigate();
   var selectedDropdownValue;
   useEffect(() => {
-    getItem();
+    getShift();
   }, [])
-  const getItem = async () => {
+  const getShiftDataForEdit = (shift) =>{
+    // alert(JSON.stringify(shift))
+    navigate("/masters/shift/createShift", {state: shift})
+  }
+  const getShift = async () => {
     try {
       // const response = await axios.get('https://mocki.io/v1/d1f404a4-9af0-450e-99b6-111ac045377a');
       setItem(ShiftData.Data);
@@ -62,24 +68,26 @@ export default function Shift() {
       sortable: true
     },
     {
-      name: "Short break 1",
+      name: "Break 1 short",
       selector: (row) => row.short_break_1,
       sortable: true
     },
     {
-      name: "Long break",
+      name: "Lunch start",
       selector: (row) => row.long_break,
       sortable: true
     },
     {
-      name: "Short break 2",
+      name: "Break 2 start",
       selector: (row) => row.short_break_2,
       sortable: true
     },
     {
       name: 'Update',
       cell: (row) => <div>
-        <button className='btn btn-default update' type='button'>
+        <button className='btn btn-default update' type='button'
+        onClick={() => getShiftDataForEdit(row.items)}
+        >
           <img src={editImg} alt='edit' /></button> </div>
     }
   ]
@@ -175,7 +183,7 @@ export default function Shift() {
 
           <div className="checkFilterDiv">
 
-            <h5 className="checkHeader">Site</h5>
+            <h5 className="checkHeaderCity">Site</h5>
             <div className="checkboxDiv">
 
               <div className="checkfilter">
@@ -225,7 +233,7 @@ export default function Shift() {
         </Col>
 
         <Col md={10} className='colTable'>
-          <div className='divTable'>
+          <div className=' shift-data-table'>
 
             <TableCompo 
             data={[

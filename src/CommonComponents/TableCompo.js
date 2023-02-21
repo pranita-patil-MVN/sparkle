@@ -4,11 +4,17 @@ import previousArrowBtnWhite from "../assets/Images/previousArrowBtnWhite.png";
 import nextArrowBtnBlue from "../assets/Images/nextArrowBtnBlue.png";
 import previousArrowBtnBlue from "../assets/Images/previousArrowBtnBlue.png";
 import nextArrowBtnWhite from "../assets/Images/nextArrowBtnWhite.png";
-import { BiPlus } from "react-icons/bi";
+import { BiPlus,BiChevronRight,BiChevronLeft } from "react-icons/bi";
 import { CiSearch, CiImport, CiExport } from "react-icons/ci";
+import { FcNext ,FcPrevious} from "react-icons/fc";
 import ButtonGroup from "./ButtonGroup";
 import { useNavigate, useLocation } from "react-router-dom";
+import { exportToExcel } from 'react-json-to-excel';
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable'
+import vendorJson from "../data/vendorData.json";
 export default function TableCompo(props) {
+  const doc = new jsPDF();
   const location = useLocation();
   const navigate=useNavigate();
   //     useEffect(()=>{
@@ -59,10 +65,10 @@ export default function TableCompo(props) {
               aria-disabled={previosDisabled}
               aria-label="previous page"
             >
-              {previosDisabled ? (
-                <img src={previousArrowBtnWhite} />
+               {previosDisabled ? (
+                 <BiChevronLeft size={30} color={"var(--bs-gray-500"}/>
               ) : (
-                <img src={previousArrowBtnBlue} />
+                <BiChevronLeft size={30} color={"var(--bs-primary"}/>
               )}
             </button>
           </li>
@@ -91,9 +97,10 @@ export default function TableCompo(props) {
               aria-label="next page"
             >
               {nextDisabled ? (
-                <img src={nextArrowBtnWhite} />
+            <BiChevronRight size={30}  color={"var(--bs-gray-500"}/>
               ) : (
-                <img src={nextArrowBtnBlue} />
+                <BiChevronRight size={30} color={"var(--bs-primary"} />
+                // <FcNext size={20} className="previousIconColor" />
               )}
             </button>
           </li>
@@ -101,6 +108,86 @@ export default function TableCompo(props) {
       </nav>
     );
   };
+
+  const print = (value) => {
+    // alert(value)
+    if (value === 'vendorMaster'){
+    const pdf = new jsPDF("p", "pt", "a4");
+    const columns = [
+      "Id",
+      "company",
+      "contact_person",
+      "address",
+      "mobile",
+      "code",
+      "vendorGst"
+    ];
+    var rows = [];
+  
+    for (let i = 0; i < vendorJson.Data.length; i++) {
+      /*for (var key in json[i]) {
+        var temp = [key, json[i][key]];
+        rows.push(temp);
+      }*/
+      var temp = [
+        vendorJson.Data[i].id,
+        vendorJson.Data[i].company,
+        vendorJson.Data[i].contact_person,
+        vendorJson.Data[i].address,
+        vendorJson.Data[i].mobile,
+        vendorJson.Data[i].code,
+        vendorJson.Data[i].vendorGst
+      ];
+      rows.push(temp);
+    }
+  // alert(rows)
+  pdf.text(235, 40, "Vendor Data");
+    pdf.autoTable(columns, rows, {
+      startY: 65,
+      theme: "grid",
+      styles: {
+        font: "times",
+        halign: "center",
+        cellPadding: 3.5,
+        lineWidth: 0.5,
+        lineColor: [0, 0, 0],
+        textColor: [0, 0, 0]
+      },
+      headStyles: {
+        textColor: [0, 0, 0],
+        fontStyle: "normal",
+        lineWidth: 0.5,
+        lineColor: [0, 0, 0],
+        fillColor: [166, 204, 247]
+      },
+      alternateRowStyles: {
+        fillColor: [212, 212, 212],
+        textColor: [0, 0, 0],
+        lineWidth: 0.5,
+        lineColor: [0, 0, 0]
+      },
+      rowStyles: {
+        lineWidth: 0.5,
+        lineColor: [0, 0, 0]
+      },
+      tableLineColor: [0, 0, 0]
+    });
+    // console.log(pdf.output("datauristring"));
+    pdf.save("vendorData");
+  };
+}
+ 
+  const JsonExcel=(value)=>{
+    // alert(value)
+   
+    if (value === 'vendorMaster'){
+      // exportToExcel(vendorJson.Data, 'vendorData')
+      doc.text(vendorJson.Data, 10, 10);
+    }
+   
+  
+    
+  }
 const openForm=(value)=>{
   // alert(value)
   if(value==='itemMaster'){
@@ -117,7 +204,7 @@ const openForm=(value)=>{
   }
 }
   return (
-    <div className="outer-data-table">
+    <div className={ location.pathname === "/masters/shift"?"shift-data-table outer-data-table":"outer-data-table"}>
       <DataTable
         columns={props.data[0]}
         data={props.data[1]}
@@ -136,7 +223,7 @@ const openForm=(value)=>{
         <BiPlus size={20} />
         New
       </button>
-      <button className={ location.pathname==="/masters/shift"?"d-none":"btnTable btn"}>
+      <button className={ location.pathname==="/masters/shift"?"d-none":"btnTable btn"} onClick={()=>JsonExcel(props.data[2])} >
         <CiExport size={20} />
         Excel
       </button>
@@ -145,7 +232,7 @@ const openForm=(value)=>{
         <CiImport size={20} id="import " />
         Import
       </button>
-      <button className={location.pathname==="/masters/employee" || location.pathname==="/masters/customer/SiteMaster" || location.pathname==="/masters/shift"?"d-none":"btnTable btn"}>
+      <button onClick={()=>print(props.data[2])} className={location.pathname==="/masters/employee" || location.pathname==="/masters/customer/SiteMaster" || location.pathname==="/masters/shift"?"d-none":"btnTable btn"}>
         <CiImport size={20} id="import " />
         PDF
       </button>
