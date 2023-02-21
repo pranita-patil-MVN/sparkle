@@ -4,40 +4,33 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Button, InputGroup, Form } from "react-bootstrap";
 import _ from "underscore";
-import profileImg from "../assets/Images/profileImg.png";
 import editImg from "../assets/Images/editImg.png";
 import { CiSearch, CiImport, CiExport } from "react-icons/ci";
 import { BiPlus,BiUser } from "react-icons/bi";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa";
-import pdfImg from "../assets/Images/pdfImg.png";
+import { useNavigate, useLocation } from "react-router-dom";
 import TableCompo from "../CommonComponents/TableCompo";
-import Select from "react-select";
 import vendorJson from "../data/vendorData.json";
 import stateData from "../data/state.json";
 import cityData from "../data/city.json";
-import Checkbox from "../CommonComponents/Checkbox";
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
 import { findWhere } from "underscore";
 const Vendor = () => {
-  const [search, setSearch] = useState("");
   const [item, setItem] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [checkedItem, setCheckedItem] = useState([]);
-  const [filteredList, setFilteredList] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [flag, setFlag] = useState();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [state, setState] = useState();
-  const [district, setDistrict] = useState();
   const [city, setCity] = useState();
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const options = [
-    { value: "Maharashtra", label: "Maharashtra" },
-    { value: "Karnataka", label: "Karnataka" },
-    { value: "Andhra Pradesh", label: "Andhra Pradesh" },
-  ];
+const [district, setDistrict] = useState();
+  const navigate = useNavigate();
+  
+  const getVendorDataForEdit = (name) => {
+    // alert(JSON.stringify(name));
+    navigate("/masters/vendor/createVendor", { state: name });
+  };
+
+ 
   const ArrState = [];
   const ArrCity = [];
   const getEmployeeList = async () => {
@@ -60,12 +53,7 @@ const Vendor = () => {
   };
 
   const columns = [
-    {
-      name: "Id",
-      selector: (row) => row.id,
-      sortable: true,
-      id: "name",
-    },
+   
     {
       name: "Company",
       selector: (row) => row.company,
@@ -93,7 +81,7 @@ const Vendor = () => {
         <div>
           {" "}
           <button className="btn btn-default update" type="button">
-            <img src={editImg} alt="edit" />
+            <img   onClick={() => getVendorDataForEdit(row)} src={editImg} alt="edit" />
           </button>
         </div>
       ),
@@ -194,7 +182,7 @@ const Vendor = () => {
             />
           </InputGroup>
           <div className="checkFilterDiv">
-            <h5 className="checkHeader">State</h5>
+            <h5 className="checkHeaderCity">State</h5>
             <div className="checkboxDiv">
               <div className="checkfilter">
                 <Form.Select
@@ -229,7 +217,7 @@ const Vendor = () => {
                 </div>
               </div>
 
-              <h5 className="checkHeader">Location</h5>
+              <h5 className="checkHeaderCity">Location</h5>
               <div className="checkboxDiv">
                 <div className="checkfilter">
                   <Form.Select

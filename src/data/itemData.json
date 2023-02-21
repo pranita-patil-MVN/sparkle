@@ -1,84 +1,84 @@
 {
     "Data": [
       {
-        "items": "miraj",
+        "items": "Blade",
         "category": "Consumables",
         "make":"Local",
         "rate":5,
         "status":"Available"
       },
       {
-        "items": "abc",
+        "items": "Brush",
         "category": "Accessories",
         "make":"Galalio",
         "rate":15,
         "status":"Available"
       },
       {
-        "items": "Karvenagar",
+        "items": "Chock up pump",
         "category": "Consumables",
         "make":"Local",
         "rate":35,
         "status":"Unavailable"
       },
       {
-        "items": "miraj",
+        "items": "Ezee Mop",
         "category": "Accessories",
         "make":"Local",
         "rate":55,
         "status":"Available"
       },
       {
-        "items": "miraj",
+        "items": "Dry Mop",
         "category": "Accessories",
         "make":"Local",
         "rate":55,
         "status":"Unavailable"
       },
       {
-        "items": "miraj",
+        "items": "Dust Pan",
         "category": "Accessories",
         "make":"Galalio",
         "rate":55,
         "status":"Unavailable"
       },
       {
-        "items": "miraj",
+        "items": "Floor Scrapper",
         "category": "Accessories",
         "make":"Local",
         "rate":55,
         "status":"Unavailable"
       },
       {
-        "items": "miraj",
+        "items": "Floor Brush",
         "category": "Chemicals",
         "make":"Kleenal",
         "rate":51,
         "status":"Available"
       },
       {
-        "items": "pune",
+        "items": "Glass Duster",
         "category": "Consumables",
         "make":"Galalio",
         "rate":50,
         "status":"Available"
       },
       {
-        "items": "pune",
+        "items": "Hand Brush",
         "category": "Shoes",
         "make":"Kleenal",
         "rate":5,
         "status":"Available"
       },
       {
-        "items": "sangli",
+        "items": "Kitchen Wiper",
         "category": "Spares",
         "make":"Kleenal",
         "rate":25,
         "status":"Available"
       },
       {
-        "items": "sangli",
+        "items": "Hand Gloves",
         "category": "Stationery",
         "make":"Galalio",
         "rate":65,

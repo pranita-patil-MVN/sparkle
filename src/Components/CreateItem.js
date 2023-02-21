@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import {
   Row,
   Col,
@@ -14,8 +14,10 @@ import Input from "../CommonComponents/Input";
 import RadioButton from "../CommonComponents/RadioButtons";
 import TextArea from "../CommonComponents/TextArea";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
-import {useNavigate } from "react-router-dom";
+import {useNavigate,useLocation } from "react-router-dom";
 import placeholder from "../assets/Images/Placeholder.png";
+import itemJson from "../data/itemData.json";
+import _ from "underscore";
 
 const dropdownStatusOptions = [
   {
@@ -87,12 +89,12 @@ const dropdownMeasurementUnitsOptions = [
     value: "Set",
   },
 ];
-const DivOne = ({ onButtonClick }) => {
-  const navigate=useNavigate();
+const DivOne = (props) => {
+  
   const handleOnChange = (value) => {};
 
   const [formData, setFormData] = useState([]);
-
+  const [editableItemData, setEditableItemData] = useState();
   // for item name
   const [itemValue, setItemValue] = useState("");
   const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
@@ -116,19 +118,27 @@ const DivOne = ({ onButtonClick }) => {
   const [itemRateErrorMessage, setItemRateErrorMessage] = useState("");
   const [invalidRate, setInvalidRate] = useState(false);
 
-  const addFieldsValues = (fieldName, value) => {
-    setFormData({
-      ...formData,
-      [fieldName]: value,
-    });
-  };
+  // for cgst%
+  const [cgstErrorMessage, setCgstErrorMessage] = useState("");
+  const [invalidCgst, setInvalidCgst] = useState(false);
+
+    // for sgst%
+  const [sgstErrorMessage, setSgstErrorMessage] = useState("");
+  const [invalidSgst, setInvalidSgst] = useState(false);
+
+     // for Igst%
+  const [igstErrorMessage, setIgstErrorMessage] = useState("");
+  const [invalidIgst, setInvalidIgst] = useState(false);
+
+useEffect(()=>{
+  alert(JSON.stringify(props.data))
+  setEditableItemData(props.data)
+})
+ 
   const validateForm = (fieldName, value) => {
+    var expression= "^[0-9]*$";
     switch (fieldName) {
       case "txt_item":
-        // if (value === "" || value === undefined) {
-        //   setInvalidItem(true);
-        //   setTxtItemNameErrorMessage("Invalid Item");
-        // } else {
           setInvalidItem(false);
           setTxtItemNameErrorMessage("");
           setFormData({
@@ -197,7 +207,6 @@ const DivOne = ({ onButtonClick }) => {
         break;
 
       case "txt_rate":
-        var expression= "^[0-9]*$";
         if (value.match(expression)){
           setFormData({
             ...formData,
@@ -210,34 +219,49 @@ const DivOne = ({ onButtonClick }) => {
            setInvalidRate(true);
         setItemRateErrorMessage("Invalid rate");
         }
-        // if (value === "" || value === undefined) {
-        //   setInvalidRate(true);
-        //   setItemRateErrorMessage("Invalid rate");
-        // } else {
-         
-        // }
         break;
 
       case "text_cgst":
-       var expression= "/^(100(\.0{1,2})?|([0-9]?[0-9](\.[0-9]{1,2})))$/"
-        if (value != undefined) {
+        if (value.match(expression)){
           setFormData({
             ...formData,
             [fieldName]: value,
           });
+          setInvalidCgst(false);
+          setCgstErrorMessage("");
+        }
+        else{
+           setInvalidCgst(true);
+           setCgstErrorMessage("Invalid CGST");
         }
         break;
       case "text_sgst":
-        setFormData({
-          ...formData,
-          [fieldName]: value,
-        });
+        if (value.match(expression)){
+          setFormData({
+            ...formData,
+            [fieldName]: value,
+          });
+          setInvalidSgst(false);
+          setSgstErrorMessage("");
+        }
+        else{
+           setInvalidSgst(true);
+           setSgstErrorMessage("Invalid SGST");
+        }
         break;
       case "text_igst":
-        setFormData({
-          ...formData,
-          [fieldName]: value,
-        });
+        if (value.match(expression)){
+          setFormData({
+            ...formData,
+            [fieldName]: value,
+          });
+          setInvalidIgst(false);
+          setIgstErrorMessage("");
+        }
+        else{
+           setInvalidIgst(true);
+           setIgstErrorMessage("Invalid IGST");
+        }
         break;
       case "text_hsn":
         setFormData({
@@ -263,19 +287,19 @@ const DivOne = ({ onButtonClick }) => {
   };
 
   const getItemsData = () => {
-    if (formData.txt_item ===undefined) {
+    if (formData.txt_item ===undefined || formData.txt_item=="") {
       setInvalidItem(true);
         setTxtItemNameErrorMessage("Please fill the item");
-    }  else if (!formData.drp_category) {
+    }  else if (formData.drp_category===undefined || formData.drp_category=="") {
       setInvalidCategory(true);
       setCategoryDropdownErrorMessage("Please select category");
-    } else if (!formData.drp_status) {
+    } else if (formData.drp_status ===undefined || formData.drp_status=="") {
       setInvalidStatus(true)
       setStatusDropdownErrorMessage("Please select status");
-    }  else if (!formData.drp_measurement_unit) {
+    }  else if (formData.drp_measurement_unit ===undefined || formData.drp_measurement_unit=="") {
       setInvalidUnit(true)
       setUnitErrorMessage("Please select measurement unit");
-    }  else if (!formData.txt_rate) {
+    }  else if (formData.txt_rate ===undefined || formData.txt_rate=="") {
       setInvalidRate(true)
       setItemRateErrorMessage("Please fill rate");
     } else {
@@ -295,9 +319,11 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="txt_item"
                 label=" Item"
                 type="text"
+                // value={editableItemData.items}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_item", inputValue);
                 }}
+               
               />
               {invalidItem === true ? (
                 <Form.Text className="position-relative mandatoryField">
@@ -429,6 +455,13 @@ const DivOne = ({ onButtonClick }) => {
                       validateForm("text_cgst", inputValue.currentTarget.value);
                     }}
                   />
+                  {invalidCgst === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {cgstErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
                 </Col>
                 <Col xl={4} lg={4} md={4}>
                   <Input
@@ -440,6 +473,13 @@ const DivOne = ({ onButtonClick }) => {
                       validateForm("text_sgst", inputValue.currentTarget.value);
                     }}
                   />
+                  {invalidSgst === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {sgstErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
                 </Col>
                 <Col xl={4} lg={4} md={4}>
                   <Input
@@ -451,6 +491,13 @@ const DivOne = ({ onButtonClick }) => {
                       validateForm("text_igst", inputValue.currentTarget.value);
                     }}
                   />
+                  {invalidIgst === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {igstErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
                 </Col>
               </Row>
             </Col>
@@ -512,7 +559,7 @@ const DivOne = ({ onButtonClick }) => {
           <Button   
           type="button"
             className="alignRight"
-            onClick={()=>navigate(-1)}
+            onClick={()=>window.location.reload()}
             >
             Cancel
           </Button>
@@ -524,22 +571,26 @@ const DivOne = ({ onButtonClick }) => {
 };
 
 const CreateItem = () => {
-  const [div, setDiv] = useState("divOne");
+  const location= useLocation();
+  const driverName = location.state;
+    const navigate=useNavigate();
 
-
-  const nextDiv = (div) => {
-    setDiv(div);
-  };
+    var itemInfo;
+    useEffect(()=>{
+      itemInfo = _.findWhere(itemJson.Data, { items: driverName });
+      alert(JSON.stringify(itemInfo))
+      // setEditableItemData(itemInfo);
+    },[])
   return (
     <Container>
       <div>
-        <div className="titleDiv">
+        <div className="titleDiv" onClick={()=>navigate(-1)}>
           <BiChevronLeft size={20} color={"var(--purple-color"} />
           <BiUser size={20} color={"var(--purple-color"} />
           <h6 className="title">Add Item</h6>
         </div>
         <div className="step-progress-bar-div">
-          <DivOne/>
+          <DivOne data={itemInfo}/>
            
         </div>
       </div>
