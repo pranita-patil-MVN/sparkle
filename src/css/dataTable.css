@@ -60,6 +60,12 @@ nav{
     right: 6%;
     top: 20%;
   }
+  .nextIconColor{
+color: red;
+  }
+  .previousIconColor{
+color: blueviolet;
+  }
   @media only screen and (min-width: 1300px) and (max-width: 1460px) {
     .pagination {
        padding-top: 10px;
