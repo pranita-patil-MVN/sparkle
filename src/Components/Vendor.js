@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import DataTable from "react-data-table-component";
-import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Button, InputGroup, Form } from "react-bootstrap";
 import _ from "underscore";
 import editImg from "../assets/Images/editImg.png";
 import { CiSearch, CiImport, CiExport } from "react-icons/ci";
-import { BiPlus,BiUser } from "react-icons/bi";
+import { BiPlus, BiUser } from "react-icons/bi";
 import { useNavigate, useLocation } from "react-router-dom";
 import TableCompo from "../CommonComponents/TableCompo";
 import vendorJson from "../data/vendorData.json";
@@ -15,34 +13,25 @@ import cityData from "../data/city.json";
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
-import { findWhere } from "underscore";
+
 const Vendor = () => {
   const [item, setItem] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [checkedItem, setCheckedItem] = useState([]);
   const [state, setState] = useState();
   const [city, setCity] = useState();
-const [district, setDistrict] = useState();
+  const [district, setDistrict] = useState();
+
   const navigate = useNavigate();
-  
+
   const getVendorDataForEdit = (name) => {
-    // alert(JSON.stringify(name));
     navigate("/masters/vendor/createVendor", { state: name });
   };
 
- 
   const ArrState = [];
-  const ArrCity = [];
   const getEmployeeList = async () => {
     setItem(vendorJson.Data);
-    // alert(JSON.stringify(cityData.city))
-    // for ( let i=0 ; i< cityData.city.length;i++){
-    //   var data = cityData.city[i]["district"]
-    //   ArrCity.push(data)
-    //   console.log(data)
 
-    // }
-    // setCity(ArrCity)
     for (let i = 0; i < stateData.states.length; i++) {
       var data = stateData.states[i]["state"];
       ArrState.push(data);
@@ -53,7 +42,6 @@ const [district, setDistrict] = useState();
   };
 
   const columns = [
-   
     {
       name: "Company",
       selector: (row) => row.company,
@@ -81,7 +69,11 @@ const [district, setDistrict] = useState();
         <div>
           {" "}
           <button className="btn btn-default update" type="button">
-            <img   onClick={() => getVendorDataForEdit(row)} src={editImg} alt="edit" />
+            <img
+              onClick={() => getVendorDataForEdit(row)}
+              src={editImg}
+              alt="edit"
+            />
           </button>
         </div>
       ),
@@ -105,7 +97,7 @@ const [district, setDistrict] = useState();
       });
       // alert(JSON.stringify(result))
       setFilteredItems(result);
-    } else if (data == "search" &&   checkedItem.length == 0) {
+    } else if (data == "search" && checkedItem.length == 0) {
       // alert("by")
       const result = item.filter((item) => {
         return (
@@ -157,12 +149,10 @@ const [district, setDistrict] = useState();
     console.log(event.target.value);
   };
 
-  
-
   return (
     <div>
       <div className="titleDiv">
-      <BiUser size={20} color={"var(--purple-color"} />
+        <BiUser size={20} color={"var(--purple-color"} />
         <h5 className="title">Vendor</h5>
       </div>
 
@@ -194,10 +184,6 @@ const [district, setDistrict] = useState();
                     state.map((item) => {
                       return <option>{item}</option>;
                     })}
-                  {/* <option  disabled selected></option>
-                <option>{state}</option> */}
-                  {/* <option>Karnataka</option>
-                  <option>Andhra Pradesh</option> */}
                 </Form.Select>
               </div>
 
@@ -232,21 +218,12 @@ const [district, setDistrict] = useState();
                   </Form.Select>
                 </div>
               </div>
-
-              
             </div>
           </div>
         </Col>
         <Col md={10} className="colTable">
           <div className="divTable">
-            <TableCompo
-              data={[
-                columns,
-                filteredItems,
-                "vendorMaster"
-              ]}
-            />
-           
+            <TableCompo data={[columns, filteredItems, "vendorMaster"]} />
           </div>
         </Col>
       </Row>

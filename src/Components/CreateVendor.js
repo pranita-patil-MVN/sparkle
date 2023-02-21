@@ -50,7 +50,7 @@ const DivOne = ({ props }) => {
   //  alert(JSON.stringify(formData))
 
   const saveVendorData = () => {
-    alert(JSON.stringify(formData));
+    // alert(JSON.stringify(formData));
     if (formData.txt_code === undefined || formData.txt_code === "") {
       setInvalidCode(true);
       setTxtCodeErrorMessage("Please enter code");
@@ -87,7 +87,7 @@ const DivOne = ({ props }) => {
       case "txt_code":
         setInvalidCode(false);
         setTxtCodeErrorMessage("");
-        alert(JSON.stringify(value))
+        // alert(JSON.stringify(value))
         setVendorData({...vendorData, [fieldName]: value})
         // if (value !== undefined && value !== "")
         setFormData({ ...formData, [fieldName]: value });
@@ -95,7 +95,7 @@ const DivOne = ({ props }) => {
         break;
       case "txt_name":
         setInvalidItem(false);
-        alert(JSON.stringify(vendorData))
+        // alert(JSON.stringify(vendorData))
         setTxtItemNameErrorMessage("");
         setFormData({ ...formData, [fieldName]: value });
         break;
@@ -160,7 +160,7 @@ const DivOne = ({ props }) => {
                   controlId="txt_code"
                   label="Code"
                   type="text"
-                  value={vendorData.code !== "" ? vendorData.code : null }
+                  value={vendorData.code}
                   key="txt_code"
                   // value={vendorData.code?  vendorData.code: code}
                   onChangeInputHandler={(inputValue) => {
