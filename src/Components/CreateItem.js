@@ -136,11 +136,6 @@ const DivOne = ({onButtonClick}) => {
 
 
  
-
-useEffect(()=>{
-  setFormData(items)
-})
- 
   const validateForm = (fieldName, value) => {
     var expression= "^[0-9]*$";
     switch (fieldName) {
@@ -299,16 +294,19 @@ useEffect(()=>{
     }  else if (formData.drp_category===undefined || formData.drp_category=="") {
       setInvalidCategory(true);
       setCategoryDropdownErrorMessage("Please select category");
-    } else if (formData.drp_status ===undefined || formData.drp_status=="") {
-      setInvalidStatus(true)
-      setStatusDropdownErrorMessage("Please select status");
-    }  else if (formData.drp_measurement_unit ===undefined || formData.drp_measurement_unit=="") {
+    } 
+    else if (formData.drp_measurement_unit ===undefined || formData.drp_measurement_unit=="") {
       setInvalidUnit(true)
-      setUnitErrorMessage("Please select measurement unit");
-    }  else if (formData.txt_rate ===undefined || formData.txt_rate=="") {
+      setUnitErrorMessage("Please select unit");
+    }
+    else if (formData.txt_rate ===undefined || formData.txt_rate=="") {
       setInvalidRate(true)
       setItemRateErrorMessage("Please fill rate");
-    } else {
+    }
+    else if (formData.drp_status ===undefined || formData.drp_status=="") {
+      setInvalidStatus(true)
+      setStatusDropdownErrorMessage("Please select status");
+    }  else {
       alert(JSON.stringify(formData));
     }
   };
@@ -364,7 +362,7 @@ useEffect(()=>{
                 controlId="drp_category"
                 options={dropdownCategoryOptions}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_category", dropdownCategoryOptions[dropDownValue-1].value);
+                  validateForm("drp_category", [dropdownCategoryOptions[dropDownValue-1].value,dropDownValue]);
                 }}
               />
               {invalidCategory === true ? (
