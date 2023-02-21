@@ -6,7 +6,7 @@ import { Row, Col, Button, InputGroup, Form } from "react-bootstrap";
 import profileImg from "../assets/Images/profileImg.png";
 import editImg from "../assets/Images/editImg.png";
 import { CiSearch, CiImport, CiExport } from "react-icons/ci";
-import { BiPlus,BiUser } from "react-icons/bi";
+import { BiPlus, BiUser } from "react-icons/bi";
 import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
 import Checkbox from "../CommonComponents/Checkbox";
@@ -15,7 +15,12 @@ import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
 import _ from "underscore";
+import jsPDF from "jspdf";
+// import { format } from "date-fns";
+import "jspdf-autotable";
+import { useNavigate } from "react-router-dom";
 const SiteMaster = () => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [item, setItem] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -37,7 +42,17 @@ const SiteMaster = () => {
     //   console.log(error);
     // }
   };
+  const { jsPDF } = require("jspdf");
+  function generatePDF(data) {
+    const doc = new jsPDF();
+    doc.text("hello"+data);
+    doc.save("document.pdf");
+  }
 
+  const getSiteDataForEdit = (site) => {
+    // alert(JSON.stringify(site))
+    navigate("/masters/customer/SiteMaster/createSite", { state: site });
+  };
   const columns = [
     {
       name: "Site",
@@ -72,23 +87,31 @@ const SiteMaster = () => {
       cell: (row) => (
         <div>
           {" "}
-          <button className="btn btn-default update" type="button">
+          <button
+            className="btn btn-default update"
+            type="button"
+            onClick={() => getSiteDataForEdit(row)}
+          >
             <img src={editImg} alt="edit" />
           </button>
-          <button className="btn btn-default update" type="button">
+          <button
+            className="btn btn-default update"
+            type="button"
+            onClick={()=>generatePDF(row)}
+          >
             <img src={pdfImg} alt="pdfImg" />
           </button>{" "}
         </div>
       ),
     },
   ];
-  
+
   const checkboxValue = (e, data) => {
     // alert(e.target.checked);
     var filteredListData;
     var concatData;
-   
-    var filteredAreaListArr = []
+
+    var filteredAreaListArr = [];
     if (e.target.checked) {
       filteredListData = _.where(filteredItems, {
         Executive: data,
@@ -108,7 +131,7 @@ const SiteMaster = () => {
   }, []);
 
   // Search functionality
-  const onSearch=(data)=>{
+  const onSearch = (data) => {
     if (checkedItem.length > 0) {
       const result = checkedItem.filter((item) => {
         return item.Site.toLowerCase().match(data) || item.Site.match(data);
@@ -155,21 +178,21 @@ const SiteMaster = () => {
           <div className="checkFilterDiv">
             <h5 className="checkHeader">Executives</h5>
             <div className="checkboxDiv">
-            {makeList &&
-                      makeList.map((data, index) => {
-                          return (
-                            <div className="checkfilter">
-                              <input
-                                type="checkbox"
-                                onClick={(e) => {
-                                  checkboxValue(e, data);
-                                }}
-                              />
-                              <p className="checkbox_label">{data}</p>
-                            </div>
-                          );
-                        })}
-                        </div>
+              {makeList &&
+                makeList.map((data, index) => {
+                  return (
+                    <div className="checkfilter">
+                      <input
+                        type="checkbox"
+                        onClick={(e) => {
+                          checkboxValue(e, data);
+                        }}
+                      />
+                      <p className="checkbox_label">{data}</p>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </Col>
         <Col md={10} className="colTable">
@@ -178,7 +201,7 @@ const SiteMaster = () => {
               data={[
                 columns,
                 checkedItem.length > 0 ? checkedItem : filteredItems,
-                "siteMaster"
+                "siteMaster",
               ]}
             />
           </div>
