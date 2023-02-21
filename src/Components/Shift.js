@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Row, Col, Button, InputGroup, Form } from "react-bootstrap";
 import moment, { Moment } from 'moment/moment';
 import _ from "underscore";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/pages.css'
@@ -24,23 +25,28 @@ export default function Shift() {
   const [item, setItem] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [checkedItem, setCheckedItem] = useState([])
-  const [filteredList, setFilteredList] = useState([])
-  const [search, setSearch] = useState("");
-  const [itemData, setItemData] = useState([]);
+  // const [filteredList, setFilteredList] = useState([])
+  // const [search, setSearch] = useState("");
+  // const [itemData, setItemData] = useState([]);
   // const [searchLoc, setSearchLoc] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   // const [date, setDate] = useState('')
   const [selectedValue, setSelectedValue] = useState();
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-  const [listData, setListData] = useState();
+  // const [listData, setListData] = useState();
   const [dropdownValue, setSelectedDropdownValue] = useState([]);
   const [flag, setFlag] = useState(false);
   const [searchFlag, setSearchFlag] = useState(false);
+  const navigate = useNavigate();
   var selectedDropdownValue;
   useEffect(() => {
-    getItem();
+    getShift();
   }, [])
-  const getItem = async () => {
+  const getShiftDataForEdit = (shift) =>{
+    // alert(JSON.stringify(shift))
+    navigate("/masters/shift/createShift", {state: shift})
+  }
+  const getShift = async () => {
     try {
       // const response = await axios.get('https://mocki.io/v1/d1f404a4-9af0-450e-99b6-111ac045377a');
       setItem(ShiftData.Data);
@@ -79,7 +85,9 @@ export default function Shift() {
     {
       name: 'Update',
       cell: (row) => <div>
-        <button className='btn btn-default update' type='button'>
+        <button className='btn btn-default update' type='button'
+        onClick={() => getShiftDataForEdit(row.items)}
+        >
           <img src={editImg} alt='edit' /></button> </div>
     }
   ]
