@@ -62,17 +62,17 @@ export default function Shift() {
       sortable: true
     },
     {
-      name: "Short break 1",
+      name: "Break 1 short",
       selector: (row) => row.short_break_1,
       sortable: true
     },
     {
-      name: "Long break",
+      name: "Lunch start",
       selector: (row) => row.long_break,
       sortable: true
     },
     {
-      name: "Short break 2",
+      name: "Break 2 start",
       selector: (row) => row.short_break_2,
       sortable: true
     },
@@ -175,7 +175,7 @@ export default function Shift() {
 
           <div className="checkFilterDiv">
 
-            <h5 className="checkHeader">Site</h5>
+            <h5 className="checkHeaderCity">Site</h5>
             <div className="checkboxDiv">
 
               <div className="checkfilter">
@@ -225,7 +225,7 @@ export default function Shift() {
         </Col>
 
         <Col md={10} className='colTable'>
-          <div className='divTable'>
+          <div className=' shift-data-table'>
 
             <TableCompo 
             data={[

@@ -12,7 +12,6 @@ import profileImg from "../assets/Images/profileImg.png";
 import editImg from "../assets/Images/editImg.png";
 import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
-
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
@@ -27,18 +26,18 @@ const ItemMaster = () => {
   const [flag, setFlag] = useState(false);
   const [searchFlag, setSearchFlag] = useState(false);
   const [dropdownValue, setSelectedDropdownValue] = useState([]);
-  const [tempState,setTempState] =useState([]);
-  const [removeCheckedvalue,setRemoveCheckedvalue] =useState([]);
+  const [tempState, setTempState] = useState([]);
+  const [removeCheckedvalue, setRemoveCheckedvalue] = useState([]);
 
-  const [searchValue,setSearchValue] =useState();
-  const [dropdownsValue,setDropdownsValue] =useState();
-  const [makeCheckBoxValue,setMakeCheckBoxValue] =useState();
-  const [checkBoxStatusValue,setCheckBoxStatusValue] =useState();
+  const [searchValue, setSearchValue] = useState();
+  const [dropdownsValue, setDropdownsValue] = useState();
+  const [makeCheckBoxValue, setMakeCheckBoxValue] = useState();
+  const [checkBoxStatusValue, setCheckBoxStatusValue] = useState();
 
-  const [statusValue,setStatusValue] =useState();
+  const [statusValue, setStatusValue] = useState();
 
-  const [statusValueData,setStatusValueData] =useState();
-  const navigate=useNavigate()
+  const [statusValueData, setStatusValueData] = useState();
+  const navigate = useNavigate();
   var selectedDropdownValue;
   const makeList=["Local","Galalio","Kleenal","Gala"]
   const dropdownStatusOptions = [
@@ -137,85 +136,82 @@ const ItemMaster = () => {
       ),
     },
   ];
-  
 
   const onSearch = (data) => {
-    if(data===''){
-      setSearchFlag(false)
+    if (data === "") {
+      setSearchFlag(false);
+    } else {
+      setSearchFlag(true);
     }
-    else{
-      setSearchFlag(true)
-    }
-    if (checkedItem.length != 0 && data !="") {
+    if (checkedItem.length != 0 && data != "") {
       const result = checkedItem.filter((item) => {
         return item.items.toLowerCase().match(data) || item.items.match(data);
       });
       setCheckedItem(result);
-      setRemoveCheckedvalue(result)
-    } else if(data==="" && flag===true) {
+      setRemoveCheckedvalue(result);
+    } else if (data === "" && flag === true) {
       const result = itemData.filter((item) => {
-        return item.category.toLowerCase().match(selectedValue) || item.category.match(selectedValue);
+        return (
+          item.category.toLowerCase().match(selectedValue) ||
+          item.category.match(selectedValue)
+        );
       });
-      setCheckedItem(result)
-      setRemoveCheckedvalue(result)
-    }
-    else if(data==="" && flag===false) {
-      const result = itemData.filter((item) => {
-        return item.items.toLowerCase().match(data) || item.items.match(data);
-      });
-      setCheckedItem(result)
-      setRemoveCheckedvalue(result)
-    }
-    else{
+      setCheckedItem(result);
+      setRemoveCheckedvalue(result);
+    } else if (data === "" && flag === false) {
       const result = itemData.filter((item) => {
         return item.items.toLowerCase().match(data) || item.items.match(data);
       });
       setCheckedItem(result);
-      setRemoveCheckedvalue(result)
+      setRemoveCheckedvalue(result);
+    } else {
+      const result = itemData.filter((item) => {
+        return item.items.toLowerCase().match(data) || item.items.match(data);
+      });
+      setCheckedItem(result);
+      setRemoveCheckedvalue(result);
     }
   };
-  const getDropdownValue=(e)=>{
-    setSelectedValue(e.target.value)
-     if(checkedItem.length===0){
-      selectedDropdownValue= filteredItems.filter((i) => {
+  const getDropdownValue = (e) => {
+    setSelectedValue(e.target.value);
+    if (checkedItem.length === 0) {
+      selectedDropdownValue = filteredItems.filter((i) => {
         return i.category.match(e.target.value);
       });
-      setSelectedDropdownValue(selectedDropdownValue)
+      setSelectedDropdownValue(selectedDropdownValue);
       setCheckedItem(selectedDropdownValue);
-      setRemoveCheckedvalue(selectedDropdownValue)
+      setRemoveCheckedvalue(selectedDropdownValue);
       setFlag(true);
-     }else if(searchFlag===false){
-      selectedDropdownValue= filteredItems.filter((i) => {
+    } else if (searchFlag === false) {
+      selectedDropdownValue = filteredItems.filter((i) => {
         return i.category.match(e.target.value);
       });
-      setSelectedDropdownValue(selectedDropdownValue)
+      setSelectedDropdownValue(selectedDropdownValue);
       setCheckedItem(selectedDropdownValue);
-      setRemoveCheckedvalue(selectedDropdownValue)
-     }
-     else{
-      selectedDropdownValue= checkedItem.filter((i) => {
+      setRemoveCheckedvalue(selectedDropdownValue);
+    } else {
+      selectedDropdownValue = checkedItem.filter((i) => {
         return i.category.match(e.target.value);
       });
-      setSelectedDropdownValue(selectedDropdownValue)
+      setSelectedDropdownValue(selectedDropdownValue);
       setCheckedItem(selectedDropdownValue);
-      setRemoveCheckedvalue(selectedDropdownValue)
+      setRemoveCheckedvalue(selectedDropdownValue);
       setFlag(true);
-     }
+    }
     // }
-  }
+  };
   var arr = [];
-  var checkedAreaNameArr=[] ;
- 
-  const checkboxValue = (e, data) => {
+  var checkedAreaNameArr = [];
 
+  const checkboxValue = (e, data) => {
     setTempState(checkedItem);
     var filteredListData;
     var concatData;
     // var concatAreaData;
-    var filteredAreaListArr=[] ;
+    var filteredAreaListArr = [];
     // concatAreaData = checkedAreaNameArr.concat(data);
     if (e.target.checked) {
-      if(searchFlag===false && flag===false){
+      if (searchFlag === false && flag === false) {
         filteredListData = filteredItems.filter((i) => {
           return i.make.match(data);
         });
@@ -224,19 +220,15 @@ const ItemMaster = () => {
         // concatData=filteredListData
         // arr.push(filteredListData)
         setCheckedItem(concatData);
-       }
-       
-       else if(searchFlag===true || flag===false ||flag===true){
-       
+      } else if (searchFlag === true || flag === false || flag === true) {
         filteredListData = checkedItem.filter((i) => {
           return i.make.match(data);
         });
         concatData = tempState.concat(filteredListData);
         setCheckedItem(concatData);
-       }
-    } 
-    else {
-      var data=[]
+      }
+    } else {
+      var data = [];
       var removedData = removeCheckedvalue.filter((e) => {
         return e.make == data;
       });
@@ -439,109 +431,120 @@ const ItemMaster = () => {
   //     }
   //   }
   // };
-const onDropdownChange=(data)=>{
+
+      const onDropdownChange=(data)=>{
   selectedDropdownValue= filteredItems.filter((item) => {
     return item.category.match(data);
   });
   setCheckedItem(selectedDropdownValue)
-}
 
-var arr=[];
-const getData=(search,dropdownValue,checkBoxStatusValue,makeCheckboxValue,checkBoxStatusValue1,statusCheckboxValue)=>{
-  // alert(checkBoxStatusValue?.target?.checked)
- setSearchValue(search);
- setDropdownsValue(dropdownValue);
- setCheckBoxStatusValue(checkBoxStatusValue?.target?.checked)
- setMakeCheckBoxValue(makeCheckboxValue)
- setStatusValue(checkBoxStatusValue1?.target?.checked)
- setStatusValueData(statusCheckboxValue)
-//  if(statusCheckboxValue?.target?.checked ===true){
-//   setCheckValue(makeCheckboxValue);
-//  }
- var filteredListData = [];
- 
- if(search && dropdownValue==undefined && makeCheckboxValue==undefined && statusCheckboxValue ==undefined){
- var result = filteredItems.filter((item) => {
-    return item.items.toLowerCase().match(search) || item.items.match(search);
-  });
-  setCheckedItem(result)
- }
- else if(search && dropdownValue && makeCheckboxValue==undefined && statusCheckboxValue ==undefined){
-  filteredListData = _.where(filteredItems, {
-    items:search,
-    category:dropdownValue,
-  });
-  setCheckedItem(filteredListData)
- }
- else if(search && dropdownValue && checkBoxStatusValue?.target?.checked ===true && makeCheckboxValue && statusCheckboxValue ==undefined){
-  filteredListData = _.where(filteredItems, {
-    items:search,
-    category:dropdownValue,
-    make:makeCheckboxValue
-  });
-  setCheckedItem(filteredListData)
- }
- else if(search && dropdownValue && checkBoxStatusValue ===true && makeCheckboxValue && checkBoxStatusValue1?.target?.checked ===true && statusCheckboxValue){
-  filteredListData = _.where(filteredItems, {
-    items:search,
-    category:dropdownValue,
-    make:makeCheckboxValue,
-    status:statusCheckboxValue
-  });
-  setCheckedItem(filteredListData)
- }
- else if(search =="" && dropdownsValue && makeCheckBoxValue &&statusValue === true && statusValueData){
-  filteredListData = _.where(filteredItems, {
-    category:dropdownValue,
-    make:makeCheckboxValue,
-    status:statusCheckboxValue
-  });
-  setCheckedItem(filteredListData)
- }
- else if(search =="" || search == undefined && dropdownsValue  && makeCheckBoxValue && checkBoxStatusValue1?.target?.checked ===false && statusValueData){
-  filteredListData = _.where(filteredItems, {
-    category:dropdownValue,
-    make:makeCheckboxValue,
-  });
-  setCheckedItem(filteredListData)
- }
- else if(search ==""  || search ==undefined && dropdownsValue && checkBoxStatusValue?.target?.checked ===false && makeCheckBoxValue && statusValueData){
-  filteredListData = _.where(filteredItems, {
-    category:dropdownValue,
-  });
-  setCheckedItem(filteredListData)
- }
- else if(search && dropdownsValue && makeCheckBoxValue && checkBoxStatusValue1?.target?.checked ===false && statusValueData){
-  filteredListData = _.where(filteredItems, {
-    items:search,
-    category:dropdownValue,
-    make:makeCheckBoxValue
-  });
-  setCheckedItem(filteredListData)
- }
- else if(search && dropdownsValue &&checkBoxStatusValue?.target?.checked ===false && makeCheckBoxValue && statusValueData){
-  filteredListData = _.where(filteredItems, {
-    items:search,
-    category:dropdownValue,
-  });
-  setCheckedItem(filteredListData)
- }
- else if(search=" " && dropdownsValue && makeCheckBoxValue && statusValueData && checkBoxStatusValue== false && statusValue==undefined){
-  filteredListData = _.where(filteredItems, {
-    category:dropdownValue,
-  });
-  setCheckedItem(filteredListData)
- }
- 
-//  else if(search && dropdownsValue && checkBoxStatusValue ===false && makeCheckBoxValue && statusValueData){
-//   filteredListData = _.where(filteredItems, {
-//     items:search,
-//     category:dropdownValue,
-//     status:statusCheckboxValue
-//   });
-//   setCheckedItem(filteredListData)
-//  }
-}
+
+
+    //  else if(search && dropdownsValue && checkBoxStatusValue ===false && makeCheckBoxValue && statusValueData){
+    //   filteredListData = _.where(filteredItems, {
+    //     items:search,
+    //     category:dropdownValue,
+    //     status:statusCheckboxValue
+    //   });
+    //   setCheckedItem(filteredListData)
+    //  }
+  };
+
+  const getData=(search,dropdownValue,checkBoxStatusValue,makeCheckboxValue,checkBoxStatusValue1,statusCheckboxValue)=>{
+    // alert(checkBoxStatusValue?.target?.checked)
+   setSearchValue(search);
+   setDropdownsValue(dropdownValue);
+   setCheckBoxStatusValue(checkBoxStatusValue?.target?.checked)
+   setMakeCheckBoxValue(makeCheckboxValue)
+   setStatusValue(checkBoxStatusValue1?.target?.checked)
+   setStatusValueData(statusCheckboxValue)
+  //  if(statusCheckboxValue?.target?.checked ===true){
+  //   setCheckValue(makeCheckboxValue);
+  //  }
+   var filteredListData = [];
+   
+   if(search && dropdownValue==undefined && makeCheckboxValue==undefined && statusCheckboxValue ==undefined){
+   var result = filteredItems.filter((item) => {
+      return item.items.toLowerCase().match(search) || item.items.match(search);
+    });
+    setCheckedItem(result)
+   }
+   else if(search && dropdownValue && makeCheckboxValue==undefined && statusCheckboxValue ==undefined){
+    filteredListData = _.where(filteredItems, {
+      items:search,
+      category:dropdownValue,
+    });
+    setCheckedItem(filteredListData)
+   }
+   else if(search && dropdownValue && checkBoxStatusValue?.target?.checked ===true && makeCheckboxValue && statusCheckboxValue ==undefined){
+    filteredListData = _.where(filteredItems, {
+      items:search,
+      category:dropdownValue,
+      make:makeCheckboxValue
+    });
+    setCheckedItem(filteredListData)
+   }
+   else if(search && dropdownValue && checkBoxStatusValue ===true && makeCheckboxValue && checkBoxStatusValue1?.target?.checked ===true && statusCheckboxValue){
+    filteredListData = _.where(filteredItems, {
+      items:search,
+      category:dropdownValue,
+      make:makeCheckboxValue,
+      status:statusCheckboxValue
+    });
+    setCheckedItem(filteredListData)
+   }
+   else if(search =="" && dropdownsValue && makeCheckBoxValue &&statusValue === true && statusValueData){
+    filteredListData = _.where(filteredItems, {
+      category:dropdownValue,
+      make:makeCheckboxValue,
+      status:statusCheckboxValue
+    });
+    setCheckedItem(filteredListData)
+   }
+   else if(search =="" || search == undefined && dropdownsValue  && makeCheckBoxValue && checkBoxStatusValue1?.target?.checked ===false && statusValueData){
+    filteredListData = _.where(filteredItems, {
+      category:dropdownValue,
+      make:makeCheckboxValue,
+    });
+    setCheckedItem(filteredListData)
+   }
+   else if(search ==""  || search ==undefined && dropdownsValue && checkBoxStatusValue?.target?.checked ===false && makeCheckBoxValue && statusValueData){
+    filteredListData = _.where(filteredItems, {
+      category:dropdownValue,
+    });
+    setCheckedItem(filteredListData)
+   }
+   else if(search && dropdownsValue && makeCheckBoxValue && checkBoxStatusValue1?.target?.checked ===false && statusValueData){
+    filteredListData = _.where(filteredItems, {
+      items:search,
+      category:dropdownValue,
+      make:makeCheckBoxValue
+    });
+    setCheckedItem(filteredListData)
+   }
+   else if(search && dropdownsValue &&checkBoxStatusValue?.target?.checked ===false && makeCheckBoxValue && statusValueData){
+    filteredListData = _.where(filteredItems, {
+      items:search,
+      category:dropdownValue,
+    });
+    setCheckedItem(filteredListData)
+   }
+   else if(search=" " && dropdownsValue && makeCheckBoxValue && statusValueData && checkBoxStatusValue== false && statusValue==undefined){
+    filteredListData = _.where(filteredItems, {
+      category:dropdownValue,
+    });
+    setCheckedItem(filteredListData)
+   }
+   
+  //  else if(search && dropdownsValue && checkBoxStatusValue ===false && makeCheckBoxValue && statusValueData){
+  //   filteredListData = _.where(filteredItems, {
+  //     items:search,
+  //     category:dropdownValue,
+  //     status:statusCheckboxValue
+  //   });
+  //   setCheckedItem(filteredListData)
+  //  }
+  }
   return (
     <div>
       <div className="titleDiv">
@@ -561,7 +564,16 @@ const getData=(search,dropdownValue,checkBoxStatusValue,makeCheckboxValue,checkB
               aria-label="Username"
               aria-describedby="basic-addon1"
               // value={search}
-              onChange={(e)=>getData(e.target.value,dropdownsValue,checkBoxStatusValue,makeCheckBoxValue,statusValue,statusValueData)}
+              onChange={(e) =>
+                getData(
+                  e.target.value,
+                  dropdownsValue,
+                  checkBoxStatusValue,
+                  makeCheckBoxValue,
+                  statusValue,
+                  statusValueData
+                )
+              }
               // onChange={(e) => onSearch(e.target.value)}
             />
           </InputGroup>
@@ -584,21 +596,30 @@ const getData=(search,dropdownValue,checkBoxStatusValue,makeCheckboxValue,checkB
             </div>
             <h5 className="checkHeader">Make</h5>
             <div className="checkboxDiv">
-            {makeList &&
-                      makeList.map((data, index) => {
-                          return (
-                            <div className="checkfilter">
-                              <input
-                                type="checkbox"
-                                onChange={(e)=>{getData(searchValue,dropdownsValue,e,data,statusValue,statusValueData)}}
-                                // onClick={(e) => {
-                                //   checkboxValue(e, data);
-                                // }}
-                              />
-                              <p className="checkbox_label">{data}</p>
-                            </div>
+              {makeList &&
+                makeList.map((data, index) => {
+                  return (
+                    <div className="checkfilter">
+                      <input
+                        type="checkbox"
+                        onChange={(e) => {
+                          getData(
+                            searchValue,
+                            dropdownsValue,
+                            e,
+                            data,
+                            statusValue,
+                            statusValueData
                           );
-                        })}
+                        }}
+                        // onClick={(e) => {
+                        //   checkboxValue(e, data);
+                        // }}
+                      />
+                      <p className="checkbox_label">{data}</p>
+                    </div>
+                  );
+                })}
             </div>
 
             <h5 className="checkHeader">Status</h5>
@@ -606,14 +627,32 @@ const getData=(search,dropdownValue,checkBoxStatusValue,makeCheckboxValue,checkB
               <div className="checkfilter">
                 <input
                   type="checkbox"
-                  onChange={(e)=>{getData(searchValue,dropdownsValue,checkBoxStatusValue,makeCheckBoxValue,e,"Available")}}
+                  onChange={(e) => {
+                    getData(
+                      searchValue,
+                      dropdownsValue,
+                      checkBoxStatusValue,
+                      makeCheckBoxValue,
+                      e,
+                      "Available"
+                    );
+                  }}
                 />
                 <p>Available</p>
               </div>
               <div className="checkfilter">
                 <input
                   type="checkbox"
-                  onChange={(e)=>{getData(searchValue,dropdownsValue,checkBoxStatusValue,makeCheckBoxValue,e,"Unavailable")}}
+                  onChange={(e) => {
+                    getData(
+                      searchValue,
+                      dropdownsValue,
+                      checkBoxStatusValue,
+                      makeCheckBoxValue,
+                      e,
+                      "Unavailable"
+                    );
+                  }}
                 />
                 <p>Unavailable</p>
               </div>
@@ -626,7 +665,7 @@ const getData=(search,dropdownValue,checkBoxStatusValue,makeCheckboxValue,checkB
               data={[
                 columns,
                 checkedItem.length > 0 ? checkedItem : filteredItems,
-                "itemMaster"
+                "itemMaster",
               ]}
             />
           </div>
@@ -634,6 +673,6 @@ const getData=(search,dropdownValue,checkBoxStatusValue,makeCheckboxValue,checkB
       </Row>
     </div>
   );
-};
-
+            }       
+          
 export default ItemMaster;

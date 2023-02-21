@@ -119,7 +119,7 @@ const openForm=(value)=>{
   }
 }
   return (
-    <div className="outer-data-table">
+    <div className={ location.pathname === "/masters/shift"?"shift-data-table outer-data-table":"outer-data-table"}>
       <DataTable
         columns={props.data[0]}
         data={props.data[1]}

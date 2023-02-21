@@ -16,7 +16,7 @@ const Input = (configurationParameters) => {
           <InputGroup
             as={Col}
             md="3"
-            controlId={configurationParameters.controlId}
+            controlid={configurationParameters.controlId}
             className="position-relative"
           >
             <input
