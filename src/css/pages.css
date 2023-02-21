@@ -4,6 +4,8 @@
     --text-color:#020235;
     --grey-color:#F1F4F9;
     --purple-color:#8C8FFF;
+    --bs-primary: #0d6efd;
+    --bs-gray-500: #adb5bd;
 }
 /*Navbar*/
 .navbar>.container{
@@ -33,7 +35,10 @@
             gap: 5%;
             
     }
-
+.dropdownFilter{
+    display: flex;
+    margin-top: 5%;
+}
     .checkfilter p{
         margin-bottom: 0px;
         padding: 2px 0px;

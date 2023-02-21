@@ -25,12 +25,15 @@ const Input = (configurationParameters) => {
               name={configurationParameters.controlId}
               type={configurationParameters.type}
               placeholder={configurationParameters.placeholder}
+              // ref={configurationParameters.ref}
               value={configurationParameters.value}
+                // defaultValue={configurationParameters.defaultValue}
               onChange={(event) => {
                 configurationParameters.onChangeInputHandler( 
                   event.target.value
                 );
               }}
+              disabled={configurationParameters.disabled}
             />
           </InputGroup>
         </>
@@ -49,13 +52,16 @@ const Input = (configurationParameters) => {
               name={configurationParameters.controlId}
               type={configurationParameters.type}
               placeholder={configurationParameters.placeholder}
+              // ref={configurationParameters.ref}
               value={configurationParameters.value}
+              // defaultValue={configurationParameters.defaultValue}
               onChange={(event) => {
                 configurationParameters.onChangeInputHandler(
                   event,
                   event.target.value
                 );
               }}
+              disabled={configurationParameters.disabled}
             />
           </InputGroup>
         </>

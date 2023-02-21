@@ -4,8 +4,9 @@ import previousArrowBtnWhite from "../assets/Images/previousArrowBtnWhite.png";
 import nextArrowBtnBlue from "../assets/Images/nextArrowBtnBlue.png";
 import previousArrowBtnBlue from "../assets/Images/previousArrowBtnBlue.png";
 import nextArrowBtnWhite from "../assets/Images/nextArrowBtnWhite.png";
-import { BiPlus } from "react-icons/bi";
+import { BiPlus,BiChevronRight,BiChevronLeft } from "react-icons/bi";
 import { CiSearch, CiImport, CiExport } from "react-icons/ci";
+import { FcNext ,FcPrevious} from "react-icons/fc";
 import ButtonGroup from "./ButtonGroup";
 import { useNavigate, useLocation } from "react-router-dom";
 export default function TableCompo(props) {
@@ -59,10 +60,10 @@ export default function TableCompo(props) {
               aria-disabled={previosDisabled}
               aria-label="previous page"
             >
-              {previosDisabled ? (
-                <img src={previousArrowBtnWhite} />
+               {previosDisabled ? (
+                 <BiChevronLeft size={30} color={"var(--bs-gray-500"}/>
               ) : (
-                <img src={previousArrowBtnBlue} />
+                <BiChevronLeft size={30} color={"var(--bs-primary"}/>
               )}
             </button>
           </li>
@@ -91,9 +92,10 @@ export default function TableCompo(props) {
               aria-label="next page"
             >
               {nextDisabled ? (
-                <img src={nextArrowBtnWhite} />
+            <BiChevronRight size={30}  color={"var(--bs-gray-500"}/>
               ) : (
-                <img src={nextArrowBtnBlue} />
+                <BiChevronRight size={30} color={"var(--bs-primary"} />
+                // <FcNext size={20} className="previousIconColor" />
               )}
             </button>
           </li>

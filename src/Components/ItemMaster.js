@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
-import DataTable from "react-data-table-component";
-import axios from "axios";
-import _ from "underscore";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Button, InputGroup, Form } from "react-bootstrap";
-import profileImg from "../assets/Images/profileImg.png";
-import editImg from "../assets/Images/editImg.png";
+import {useNavigate,useLocation } from "react-router-dom";
+import _ from "underscore";
 import { CiSearch, CiImport, CiExport } from "react-icons/ci";
 import { BiPlus } from "react-icons/bi";
+
+import Dropdown from "../CommonComponents/Dropdown";
+import itemJson from "../data/itemData.json";
+
+import profileImg from "../assets/Images/profileImg.png";
+import editImg from "../assets/Images/editImg.png";
 import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
-import itemJson from "../data/itemData.json";
-import {useNavigate,useLocation } from "react-router-dom";
+
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
+import "bootstrap/dist/css/bootstrap.min.css"
+
 const ItemMaster = () => {
   const [search, setSearch] = useState("");
   const [itemData, setItemData] = useState([]);
@@ -37,12 +40,46 @@ const ItemMaster = () => {
   const [statusValueData,setStatusValueData] =useState();
   const navigate=useNavigate()
   var selectedDropdownValue;
+  const makeList=["Local","Galalio","Kleenal","Gala"]
+  const dropdownStatusOptions = [
+    {
+      id: 1,
+      value: "Accessories",
+    },
+    {
+      id: 2,
+      value: "Chemicals",
+    },
+    {
+      id: 3,
+      value: "Consumables",
+    },
+    {
+      id: 4,
+      value: "Shoes",
+    },
+    {
+      id: 5,
+      value: "Spares",
+    },
+    {
+      id: 6,
+      value: "Stationery",
+    },
+    {
+      id: 7,
+      value: "Toiletories",
+    },
+    {
+      id: 8,
+      value: "Uniform",
+    },
+  ];
   useEffect(() => {
     getItemList();
   }, []);
-  const getItemDataForEdit=(name)=>{
-    alert(JSON.stringify(name))
-    navigate("/masters/itemMaster/createItem", { state: name });
+  const getItemDataForEdit=(itemData)=>{
+    navigate("/masters/itemMaster/createItem", { state: itemData });
   }
   const getItemList = async () => {
     try {
@@ -63,12 +100,17 @@ const ItemMaster = () => {
       id: "name",
     },
     {
+      name: "Code",
+      selector: (row) => row.code,
+      sortable: true,
+    },
+    {
       name: "Category",
       selector: (row) => row.category,
       sortable: true,
     },
     {
-      name: "make",
+      name: "Make",
       selector: (row) => row.make,
 
       sortable: true,
@@ -88,7 +130,7 @@ const ItemMaster = () => {
       cell: (row) => (
         <div>
           <button className="btn btn-default update" type="button"   
-          onClick={() => getItemDataForEdit(row.items)}>
+          onClick={() => getItemDataForEdit(row)}>
             <img src={editImg} alt="edit" />
           </button>
         </div>
@@ -397,7 +439,12 @@ const ItemMaster = () => {
   //     }
   //   }
   // };
-const makeList=["Local","Galalio","Kleenal","Gala"]
+const onDropdownChange=(data)=>{
+  selectedDropdownValue= filteredItems.filter((item) => {
+    return item.category.match(data);
+  });
+  setCheckedItem(selectedDropdownValue)
+}
 
 var arr=[];
 const getData=(search,dropdownValue,checkBoxStatusValue,makeCheckboxValue,checkBoxStatusValue1,statusCheckboxValue)=>{
@@ -521,20 +568,18 @@ const getData=(search,dropdownValue,checkBoxStatusValue,makeCheckboxValue,checkB
           <div className="checkFilterDiv">
             <h5 className="checkHeader">Item Category</h5>
             <div className="checkboxDiv">
-              <div className="checkfilter">
-                <Form.Select className="filter-dropdown" onChange={(e)=>{getData(searchValue,e.target.value,checkBoxStatusValue,makeCheckBoxValue,statusValue,statusValueData)}}>
-                  <option disabled selected>
-                    All
-                  </option>
-                  <option>Accessories</option>
-                  <option>Chemicals</option>
-                  <option>Consumables</option>
-                  <option>Shoes</option>
-                  <option>Spares</option>
-                  <option>Stationery</option>
-                  <option>Toiletories</option>
-                  <option>Uniform</option>
-                </Form.Select>
+              <div className="dropdownFilter">
+              <Dropdown
+                // required
+                // label="Status"
+                controlId="drp_status"
+                options={dropdownStatusOptions}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  onDropdownChange(dropdownStatusOptions[dropDownValue-1].value);
+                }}
+                // onChangeDropDownHandler={(dropDownValue)=>{getData(searchValue,dropdownStatusOptions[dropDownValue-1].value,checkBoxStatusValue,makeCheckBoxValue,statusValue,statusValueData)}}
+              />
+               
               </div>
             </div>
             <h5 className="checkHeader">Make</h5>

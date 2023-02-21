@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import {
   Row,
   Col,
@@ -22,19 +22,19 @@ import _ from "underscore";
 const dropdownStatusOptions = [
   {
     id: 1,
-    value: "AVAILABLE",
+    value: "Available",
   },
   {
     id: 2,
-    value: "END_OF_LIFE",
+    value: "End of life",
   },
   {
     id: 3,
-    value: "NOT_IN_USE",
+    value: "Not in use",
   },
   {
     id: 4,
-    value: "WITHDRAWN",
+    value: "Withdrawn",
   },
 ];
 const dropdownCategoryOptions = [
@@ -89,8 +89,11 @@ const dropdownMeasurementUnitsOptions = [
     value: "Set",
   },
 ];
-const DivOne = (props) => {
-  
+const DivOne = ({onButtonClick}) => {
+  const location= useLocation();
+  const items = location.state;
+  // var ref=useRef(items)
+    const navigate=useNavigate();
   const handleOnChange = (value) => {};
 
   const [formData, setFormData] = useState([]);
@@ -130,9 +133,12 @@ const DivOne = (props) => {
   const [igstErrorMessage, setIgstErrorMessage] = useState("");
   const [invalidIgst, setInvalidIgst] = useState(false);
 
+
+
+ 
+
 useEffect(()=>{
-  alert(JSON.stringify(props.data))
-  setEditableItemData(props.data)
+  setFormData(items)
 })
  
   const validateForm = (fieldName, value) => {
@@ -308,21 +314,38 @@ useEffect(()=>{
   };
   return (
     <>
-      {" "}
       <Card>
-        <Card.Header className="cardHeader">Item details</Card.Header>
+        <Card.Header className="cardHeader">Item Details</Card.Header>
         <Card.Body>
           <Row className="mb-3">
+          <Col>
+              <Input
+                required
+                controlId="txt_code"
+                label="Code"
+                type="text"
+                // value={formData.txt_code}
+                // defaultValue={editableItemData!=undefined?editableItemData.code:formData.txt_code}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_code", inputValue.currentTarget.value);
+                }}
+                disabled={true}
+              />
+            </Col>
             <Col>
               <Input
                 required
                 controlId="txt_item"
                 label=" Item"
                 type="text"
-                // value={editableItemData.items}
+                // ref={ref.current.items}
+                // defaultValue={editableItemData!=undefined?editableItemData.items:formData.txt_item}
+                // value={formData.items!=undefined?formData.items:formData.txt_item}
+                // value={ref!=undefined?ref.current.items:formData.txt_item}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_item", inputValue);
                 }}
+                disabled={false}
                
               />
               {invalidItem === true ? (
@@ -333,17 +356,7 @@ useEffect(()=>{
                 <></>
               )}
             </Col>
-            <Col>
-              <Input
-                // required
-                controlId="txt_code"
-                label="Code"
-                type="text"
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_code", inputValue.currentTarget.value);
-                }}
-              />
-            </Col>
+          
             <Col>
               <Dropdown
                 required
@@ -363,38 +376,20 @@ useEffect(()=>{
               )}
             </Col>
 
-            <Col></Col>
+            <Col>
+              <Input
+                controlId="txt_make"
+                label="Make"
+                type="text"
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_make", inputValue.currentTarget.value);
+                }}
+              />
+            </Col>
           </Row>
+         
           <Row className="mb-3">
-            <Col>
-              <Dropdown
-                required
-                label="Status"
-                controlId="drp_status"
-                options={dropdownStatusOptions}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_status", dropdownStatusOptions[dropDownValue-1].value);
-                }}
-              />
-              {invalidStatus === true ? (
-                <Form.Text className="position-relative mandatoryField">
-                  {statusDropdownErrorMessage}
-                </Form.Text>
-              ) : (
-                <></>
-              )}
-            </Col>
-            <Col>
-              <RadioButton
-                controlId="rad_deduction_status"
-                label="Apply Deduction"
-                options={["Yes", "No"]}
-                onChangeInputHandler={(optionValue) => {
-                  validateForm("rad_deduction_status", optionValue);
-                }}
-              />
-            </Col>
-            <Col>
+          <Col>
               <Dropdown
                 required
                 label="Unit of Measure"
@@ -413,18 +408,7 @@ useEffect(()=>{
               )}
             </Col>
             <Col>
-              <Input
-                controlId="txt_make"
-                label="Make"
-                type="text"
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_make", inputValue.currentTarget.value);
-                }}
-              />
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
+            <Row>
             <Col>
               <Input
                 required
@@ -443,9 +427,7 @@ useEffect(()=>{
                 <></>
               )}
             </Col>
-            <Col>
-              <Row>
-                <Col xl={4} lg={4} md={4}>
+            <Col >
                   <Input
                     // required
                     controlId="text_cgst"
@@ -463,7 +445,12 @@ useEffect(()=>{
                 <></>
               )}
                 </Col>
-                <Col xl={4} lg={4} md={4}>
+            </Row>
+            </Col>
+            <Col>
+              <Row>
+               
+                <Col >
                   <Input
                     // required
                     controlId="text_sgst"
@@ -481,7 +468,7 @@ useEffect(()=>{
                 <></>
               )}
                 </Col>
-                <Col xl={4} lg={4} md={4}>
+                <Col >
                   <Input
                     // required
                     controlId="text_igst"
@@ -499,10 +486,7 @@ useEffect(()=>{
                 <></>
               )}
                 </Col>
-              </Row>
-            </Col>
-
-            <Col>
+                <Col>
               <Input
                 // required
                 controlId="text_hsn"
@@ -513,9 +497,42 @@ useEffect(()=>{
                 }}
               />
             </Col>
-            <Col></Col>
+              </Row>
+            </Col>
+
+           
+            <Col>
+              <RadioButton
+                controlId="rad_deduction_status"
+                label="Apply Deduction"
+                options={["Yes", "No"]}
+                onChangeInputHandler={(optionValue) => {
+                  validateForm("rad_deduction_status", optionValue);
+                }}
+              />
+            </Col>
+          
           </Row>
+          
           <Row className="mb-3">
+          <Col>
+              <Dropdown
+                required
+                label="Status"
+                controlId="drp_status"
+                options={dropdownStatusOptions}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  validateForm("drp_status", dropdownStatusOptions[dropDownValue-1].value);
+                }}
+              />
+              {invalidStatus === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {statusDropdownErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
+            </Col>
             <Col>
               <TextArea
                 // required
@@ -541,7 +558,6 @@ useEffect(()=>{
                 }}
               />
             </Col>
-            <Col></Col>
             <Col></Col>
           </Row>
 
@@ -571,16 +587,7 @@ useEffect(()=>{
 };
 
 const CreateItem = () => {
-  const location= useLocation();
-  const driverName = location.state;
     const navigate=useNavigate();
-
-    var itemInfo;
-    useEffect(()=>{
-      itemInfo = _.findWhere(itemJson.Data, { items: driverName });
-      alert(JSON.stringify(itemInfo))
-      // setEditableItemData(itemInfo);
-    },[])
   return (
     <Container>
       <div>
@@ -590,7 +597,7 @@ const CreateItem = () => {
           <h6 className="title">Add Item</h6>
         </div>
         <div className="step-progress-bar-div">
-          <DivOne data={itemInfo}/>
+          <DivOne />
            
         </div>
       </div>
