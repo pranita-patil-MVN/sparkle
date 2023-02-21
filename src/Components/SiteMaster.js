@@ -11,6 +11,9 @@ import pdfImg from "../assets/Images/pdfImg.png";
 import TableCompo from "../CommonComponents/TableCompo";
 import Checkbox from "../CommonComponents/Checkbox";
 import siteJson from "../data/SiteData.json";
+import stateData from "../data/state.json";
+import cityData from "../data/city.json";
+
 import "../css/pages.css";
 import "../css/dataTable.css";
 import "../css/commonCss.css";
@@ -23,7 +26,11 @@ const SiteMaster = () => {
   const [filteredList, setFilteredList] = useState([]);
   const [flag, setFlag] = useState();
   const [siteData, setSiteData] = useState([]);
+  const [district, setDistrict] = useState();
+  const [state, setState] = useState();
+  const [city, setCity] = useState();
 
+  const ArrState = [];
   const getEmployeeList = async () => {
     // try {
     // const response = await axios.get(
@@ -33,9 +40,15 @@ const SiteMaster = () => {
     setSiteData(siteJson.Data);
     // alert(response.data.length)
     setFilteredItems(siteJson.Data);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+
+    for (let i = 0; i < stateData.states.length; i++) {
+      var data = stateData.states[i]["state"];
+      ArrState.push(data);
+      // console.log(data)
+    }
+    // alert(ArrState)
+    setState(ArrState);
+    
   };
 
   const columns = [
@@ -108,8 +121,20 @@ const SiteMaster = () => {
   }, []);
 
   // Search functionality
-  const onSearch=(data)=>{
-    if (checkedItem.length > 0) {
+  const onSearch=(data,filterData)=>{
+    alert(data)
+    var cityValue = data;
+    if (filterData == "city" && checkedItem.length == 0) {
+      alert("by"+filteredItems)
+      const result = filteredItems.filter((item) => {
+        return (
+          item.Location.toLowerCase().match(cityValue) || item.Location.match(cityValue)
+        );
+      });
+      alert(JSON.stringify(result))
+      setFilteredItems(result);
+    } 
+   else if (checkedItem.length > 0) {
       const result = checkedItem.filter((item) => {
         return item.Site.toLowerCase().match(data) || item.Site.match(data);
       });
@@ -128,7 +153,23 @@ const SiteMaster = () => {
   };
 
   const makeList = ["Vikas Malap", "Suraj Kadam", "Nik Joshi", "Pritesh Kale"];
-
+ 
+  const onChangeState = (event) => {
+    // console.log(e);
+    const value = event.target.value;
+    // alert(JSON.stringify(stateData.states))
+    var singleState = _.findWhere(stateData.states, { state: value });
+    // alert(JSON.stringify(singleState.districts))
+    setDistrict(singleState["districts"]);
+  };
+  const onChangeDistrict = (event) => {
+    var districtValue = event.target.value;
+    var singleDistrict = _.findWhere(cityData.city, {
+      district: districtValue,
+    });
+    // alert(JSON.stringify(singleState.city))
+    setCity(singleDistrict.city);
+  };
   return (
     <div>
       <div className="titleDiv">
@@ -170,6 +211,59 @@ const SiteMaster = () => {
                           );
                         })}
                         </div>
+                        <h5 className="checkHeaderCity">State</h5>
+            <div className="checkboxDiv">
+              <div className="checkfilter">
+                <Form.Select
+                  className="filter-dropdown"
+                  onChange={onChangeState}
+                >
+                  <option disabled selected></option>
+                  {state &&
+                    state.map((item) => {
+                      return <option>{item}</option>;
+                    })}
+                  {/* <option  disabled selected></option>
+                <option>{state}</option> */}
+                  {/* <option>Karnataka</option>
+                  <option>Andhra Pradesh</option> */}
+                </Form.Select>
+              </div>
+
+              <h5 className="checkHeaderCity">City</h5>
+              <div className="checkboxDiv">
+                <div className="checkfilter">
+                  <Form.Select
+                    className="filter-dropdown"
+                    onChange={onChangeDistrict}
+                  >
+                    <option disabled selected></option>
+                    {district &&
+                      district.map((item) => {
+                        return <option>{item}</option>;
+                      })}
+                  </Form.Select>
+                </div>
+              </div>
+
+              <h5 className="checkHeaderCity">Location</h5>
+              <div className="checkboxDiv">
+                <div className="checkfilter">
+                  <Form.Select
+                    className="filter-dropdown"
+                    onChange={(e) => onSearch(e.target.value, "city")}
+                  >
+                    <option disabled selected></option>
+                    {city &&
+                      city.map((item) => {
+                        return <option>{item}</option>;
+                      })}
+                  </Form.Select>
+                </div>
+              </div>
+
+              
+            </div>
           </div>
         </Col>
         <Col md={10} className="colTable">
