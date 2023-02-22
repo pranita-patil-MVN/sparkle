@@ -447,7 +447,6 @@ const DivOne = ({onButtonClick}) => {
             </Col>
             <Col>
               <Row>
-               
                 <Col >
                   <Input
                     // required

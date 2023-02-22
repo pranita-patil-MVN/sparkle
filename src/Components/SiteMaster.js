@@ -53,12 +53,11 @@ const SiteMaster = () => {
     }
     // alert(ArrState)
     setState(ArrState);
-    
   };
   const { jsPDF } = require("jspdf");
   function generatePDF(data) {
     const doc = new jsPDF();
-    doc.text("hello"+data);
+    doc.text("hello" + data);
     doc.save("document.pdf");
   }
 
@@ -110,7 +109,7 @@ const SiteMaster = () => {
           <button
             className="btn btn-default update"
             type="button"
-            onClick={()=>generatePDF(row)}
+            onClick={() => generatePDF(row)}
           >
             <img src={pdfImg} alt="pdfImg" />
           </button>{" "}
@@ -144,20 +143,20 @@ const SiteMaster = () => {
   }, []);
 
   // Search functionality
-  const onSearch=(data,filterData)=>{
-    alert(data)
+  const onSearch = (data, filterData) => {
+    alert(data);
     var cityValue = data;
     if (filterData == "city" && checkedItem.length == 0) {
-      alert("by"+filteredItems)
+      alert("by" + filteredItems);
       const result = filteredItems.filter((item) => {
         return (
-          item.Location.toLowerCase().match(cityValue) || item.Location.match(cityValue)
+          item.Location.toLowerCase().match(cityValue) ||
+          item.Location.match(cityValue)
         );
       });
-      alert(JSON.stringify(result))
+      alert(JSON.stringify(result));
       setFilteredItems(result);
-    } 
-   else if (checkedItem.length > 0) {
+    } else if (checkedItem.length > 0) {
       const result = checkedItem.filter((item) => {
         return item.Site.toLowerCase().match(data) || item.Site.match(data);
       });
@@ -176,7 +175,7 @@ const SiteMaster = () => {
   };
 
   const makeList = ["Vikas Malap", "Suraj Kadam", "Nik Joshi", "Pritesh Kale"];
- 
+
   const onChangeState = (event) => {
     // console.log(e);
     const value = event.target.value;
@@ -204,37 +203,26 @@ const SiteMaster = () => {
       <Row className="rowTable">
         <Col className="filter" md={2}>
           <h5 className="colHeader"> Filters </h5>
-          <InputGroup className="searchBar">
-            <InputGroup.Text id="searchIcon">
-              <CiSearch />
-            </InputGroup.Text>
-            <Form.Control
-              placeholder="search"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              // value={search}
-              onChange={(e) => onSearch(e.target.value)}
-            />
-          </InputGroup>
+
           <div className="checkFilterDiv">
             <h5 className="checkHeader">Executives</h5>
             <div className="checkboxDiv">
-            {makeList &&
-                      makeList.map((data, index) => {
-                          return (
-                            <div className="checkfilter">
-                              <input
-                                type="checkbox"
-                                onClick={(e) => {
-                                  checkboxValue(e, data);
-                                }}
-                              />
-                              <p className="checkbox_label">{data}</p>
-                            </div>
-                          );
-                        })}
-                        </div>
-                        <h5 className="checkHeaderCity">State</h5>
+              {makeList &&
+                makeList.map((data, index) => {
+                  return (
+                    <div className="checkfilter">
+                      <input
+                        type="checkbox"
+                        onClick={(e) => {
+                          checkboxValue(e, data);
+                        }}
+                      />
+                      <p className="checkbox_label">{data}</p>
+                    </div>
+                  );
+                })}
+            </div>
+            <h5 className="checkHeaderCity">State</h5>
             <div className="checkboxDiv">
               <div className="checkfilter">
                 <Form.Select
@@ -284,8 +272,6 @@ const SiteMaster = () => {
                   </Form.Select>
                 </div>
               </div>
-
-              
             </div>
           </div>
         </Col>

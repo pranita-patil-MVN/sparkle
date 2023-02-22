@@ -185,7 +185,10 @@ const dropdownOptionsCustomer = [
 const noOfSteps = [1, 2];
 const DivOne = ({ onButtonClick }) => {
   const location = useLocation();
+
+  
   const site = location.state;
+  const [sitesData, setSitesData] = useState(site);
 
   const navigate = useNavigate();
   const handleOnChange = (value) => {};
@@ -238,7 +241,40 @@ const DivOne = ({ onButtonClick }) => {
   const [invalidSalutation, setInvalidSalutation] = useState(true);
   const [salutation, setSalutation] = useState();
 
+const[gstApplicable,setGstApplicable]=useState(false);
+
   const [siteData, setSiteData] = useState([]);
+
+  // for fields
+  const[customer,setCustomer]=useState (
+    sitesData === undefined || sitesData === null ? null : sitesData.customer 
+  );
+
+  const[applicable,setApplicable]=useState();
+
+  const[customerGst,setCustomerGst]=useState();
+
+  const[siteName,setSiteName]=useState(
+    sitesData === undefined || sitesData === null ? null : sitesData.Site
+  );
+
+  const[sezSite,setSezSite]=useState();
+
+  const[type,setType]=useState();
+
+  const[manpower,setManpower]=useState();
+
+  const[siteBudget,setSiteBudget]=useState();
+
+  const[siteZone,setSiteZone]=useState();
+
+  const[workingDays,setWorkingDays]=useState();
+
+  const[salary,setSalary]=useState();
+
+  const[material,setMaterial]=useState();
+
+  const[siteStatus,setSiteStatus]=useState();
 
   useEffect(() => {
     // alert(JSON.stringify(site));
@@ -259,6 +295,11 @@ const DivOne = ({ onButtonClick }) => {
         }
         break;
         case "rad_gstApllicable":
+          // alert(value)
+          if (value=="Yes"){
+            setGstApplicable(true)
+          }else{ setGstApplicable(false)}
+         
           setFormData({ ...formData, [fieldName]: value });
           break;
           
@@ -421,7 +462,7 @@ const DivOne = ({ onButtonClick }) => {
     <>
       {" "}
       <Card>
-        <Card.Header className="cardHeader">Customer Site Details</Card.Header>
+        <Card.Header className="cardHeader">Site Details</Card.Header>
         <Card.Body>
           <Row className="mb-3">
             <Col>
@@ -448,9 +489,11 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <RadioButton
                 controlId="rad_gstApllicable"
-                label="Is GST Applicable?                "
+                label="Is GST Applicable?   "
                 options={["Yes", "No"]}
+                
                 onChangeInputHandler={(inputValue) => {
+                  alert(inputValue)
                   validateForm("rad_gstApllicable", inputValue);
                 }}
               />
@@ -460,6 +503,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="txt_customergst"
                 label="Customer GST"
                 type="text"
+                disabled= {gstApplicable === true ? false : true}
                 onChangeInputHandler={(inputValue) => {
                   validateForm(
                     "txt_customergst",
@@ -473,9 +517,12 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="txt_sitename"
                 label="Site name"
                 type="text"
+             value={siteName}
                 onChangeInputHandler={(inputValue) => {
+                  // alert(JSON.stringify(inputValue))
                   validateForm("txt_sitename", inputValue.currentTarget.value);
                 }}
+                
               />
             </Col>
           </Row>
@@ -638,7 +685,7 @@ const DivOne = ({ onButtonClick }) => {
             
           </Row>
           <Row className="mb-3">
-          {/* <Col>
+          <Col>
               <Dropdown
                 required
                 label="Status"
@@ -659,9 +706,9 @@ const DivOne = ({ onButtonClick }) => {
                 <></>
               )}
             </Col>
-            <Col>
+          <Col>
               <TextArea
-                // required
+                 required
                 controlId="txt_remark"
                 label="Remarks"
                 type="text"
@@ -669,7 +716,9 @@ const DivOne = ({ onButtonClick }) => {
                   validateForm("txt_remark", inputValue);
                 }}
               />
-            </Col> */}
+            </Col> 
+        
+         
            
             <Col></Col>
             <Col></Col>
