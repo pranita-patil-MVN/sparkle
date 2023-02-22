@@ -8,22 +8,33 @@ import {
   Form,
   Figure,
 } from "react-bootstrap";
+import "../css/shift.css"
 import MultiStepProgressBar from "../CommonComponents/MultiStepProgressBar";
 // import Dropdown from "../CommonComponents/Dropdown";
 import Input from "../CommonComponents/Input";
 // import RadioButton from "../CommonComponents/RadioButtons";
 // import TextArea from "../CommonComponents/TextArea";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // import placeholder from "../assets/Images/Placeholder.png";
 
 const DivOne = ({ onButtonClick }) => {
   // const handleOnChange = (value) => { };
 
-  const [itemValue, setItemValue] = useState();
-  const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
-  const [invalidItem, setInvalidItem] = useState(true);
+  const location = useLocation()
+
+  var shiftDetails = location.state
+  // alert(shiftDetails)
+  const [shiftData,setShiftData] = useState(shiftDetails)
+  // useEffect(()=>{
+  //   alert(shiftData)
+  // })
+
+  // const [itemValue, setItemValue] = useState();
+  // const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
+  
+  // const [invalidItem, setInvalidItem] = useState(true);
   const [formData, setFormData] = useState([]);
 
   const [invalidShift, setInvalidShift] = useState(false);
@@ -42,6 +53,18 @@ const DivOne = ({ onButtonClick }) => {
   //   const [salutation, setSalutation] = useState();
 
   //   const [date_of_birth, setDateOfBirth] = useState();
+
+  const [shift, setShift] = useState(
+    shiftData === undefined || shiftData == null ? null : shiftData.shift
+  )
+
+  const [shiftTime,setShiftTime] = useState(
+    shiftData === undefined || shiftData == null ? null : shiftData.shift_start_time
+  )
+
+  const [workingHrs,setWorkingHrs] = useState(
+    shiftData === undefined || shiftData == null ? null : shiftData.working_hrs
+  )
 
   const addFieldsValues = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
@@ -72,7 +95,7 @@ const DivOne = ({ onButtonClick }) => {
         //   setInvalidShtiftTimeErrMsg(true)
         //   setInvalidShtiftTimeErrMsg("Please select a valid time.")
         // } else {
-          // alert(tpick_shift_start_time)
+        // alert(tpick_shift_start_time)
         setInvalidShiftTime(false)
         setInvalidShtiftTimeErrMsg("")
         setFormData({
@@ -139,8 +162,7 @@ const DivOne = ({ onButtonClick }) => {
 
   const getShiftData = () => {
     // alert(formData.txt_shift)
-    if (formData.txt_shift === undefined) 
-    {
+    if (formData.txt_shift === undefined) {
       setInvalidShift(true)
       setShiftErrorMessage("Please select a valid time.")
     } else if (!formData.tpick_shift_start_time) {
@@ -171,6 +193,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="txt_shift"
                 label=" Shift"
                 type="text"
+                value={shift}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_shift", inputValue);
                 }}
@@ -189,6 +212,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="tpick_shift_start_time"
                 label="Shift Start Time"
                 type="time"
+                value={shiftTime}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("tpick_shift_start_time", inputValue);
                 }}
@@ -207,6 +231,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="txt_working_hours"
                 label="Working Hours"
                 type="text"
+                value={workingHrs}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_working_hours", inputValue);
                 }}
