@@ -148,6 +148,7 @@ const DivOne = ({ props }) => {
         // alert("Person")
         setContactPerson(value);
       // setFormData({ ...formData, [fieldName]: value });
+      break;
       case "txt_vendor_gst":
         // alert("GST")
         // alert(fieldName)
