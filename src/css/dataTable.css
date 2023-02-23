@@ -81,6 +81,10 @@ color: blueviolet;
     padding: 4px 4px 3px 4px;
     margin-right: 4px;
   }
+  .kDEcCH{
+display: flex !important;
+justify-content: left !important;
+  }
   @media only screen and (min-width: 1300px) and (max-width: 1460px) {
     .pagination {
        padding-top: 10px;

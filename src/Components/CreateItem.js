@@ -447,7 +447,7 @@ const DivOne = ({onButtonClick}) => {
             </Col>
             <Col>
               <Row>
-                <Col>
+                <Col >
                   <Input
                     // required
                     controlId="text_sgst"

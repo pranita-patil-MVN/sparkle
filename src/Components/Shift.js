@@ -68,28 +68,33 @@ export default function Shift() {
       sortable: true
     },
     {
-      name: "Break 1 short",
+      name: "Shift end time",
       selector: (row) => row.short_break_1,
       sortable: true
     },
     {
-      name: "Lunch start",
+      name: "Shift duration",
       selector: (row) => row.long_break,
       sortable: true
     },
-    {
-      name: "Break 2 start",
-      selector: (row) => row.short_break_2,
-      sortable: true
-    },
+    // {
+    //   name: "Break 2 start",
+    //   selector: (row) => row.short_break_2,
+    //   sortable: true
+    // },
     {
       name: 'Update',
-      cell: (row) => <div>
+      cell: (row) => (
+      <div>
+        {" "}
         <button className='btn btn-default update' type='button'
-        onClick={() => getShiftDataForEdit(row.items)}
+        onClick={() => getShiftDataForEdit(row)}
         >
-          <img src={editImg} alt='edit' /></button> </div>
-    }
+          <img src={editImg} alt='edit' />
+          </button> 
+          </div>
+          ),
+    },
   ]
 
   // search function
@@ -101,7 +106,7 @@ export default function Shift() {
           item.shift_start_time.toLowerCase().match(data) ||
           item.short_break_1.toLowerCase().match(data) ||
           item.long_break.toLowerCase().match(data) ||
-          item.short_break_2.toLowerCase().match(data) ||
+          // item.short_break_2.toLowerCase().match(data) ||
           item.shift.match(data);
       });
       setCheckedItem(result)
@@ -112,7 +117,7 @@ export default function Shift() {
           item.shift_start_time.toLowerCase().match(data) ||
           item.short_break_1.toLowerCase().match(data) ||
           item.long_break.toLowerCase().match(data) ||
-          item.short_break_2.toLowerCase().match(data) ||
+          // item.short_break_2.toLowerCase().match(data) ||
           item.shift.match(data)
       });
       setFilteredItems(result)
@@ -181,7 +186,7 @@ export default function Shift() {
             />
           </InputGroup>
 
-          <div className="checkFilterDiv">
+          {/* <div className="checkFilterDiv">
 
             <h5 className="checkHeaderCity">Site</h5>
             <div className="checkboxDiv">
@@ -210,7 +215,7 @@ export default function Shift() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* <div className="checkFilterDiv">
             <p className='dropdown-title'>Site</p>
             <Form.Select className='site-dropdown'>
