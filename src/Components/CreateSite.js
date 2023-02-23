@@ -246,7 +246,7 @@ const[gstApplicable,setGstApplicable]=useState(false);
   const [siteData, setSiteData] = useState([]);
 
   // for fields
-  const[customer,setCustomer]=useState (
+  const[customerData,setCustomerData]=useState (
     sitesData === undefined || sitesData === null ? null : sitesData.customer 
   );
 
@@ -470,6 +470,7 @@ const[gstApplicable,setGstApplicable]=useState(false);
                 required
                 label="Customer"
                 controlId="drp_customer"
+                value={customerData}
                 options={dropdownOptionsCustomer}
                 onChangeDropDownHandler={(dropDownValue) => {
                   validateForm(
@@ -486,7 +487,7 @@ const[gstApplicable,setGstApplicable]=useState(false);
                 <></>
               )}
             </Col>
-            <Col>
+            {/* <Col>
               <RadioButton
                 controlId="rad_gstApllicable"
                 label="Is GST Applicable?   "
@@ -497,8 +498,8 @@ const[gstApplicable,setGstApplicable]=useState(false);
                   validateForm("rad_gstApllicable", inputValue);
                 }}
               />
-            </Col>
-            <Col>
+            </Col> */}
+            {/* <Col>
               <Input
                 controlId="txt_customergst"
                 label="Customer GST"
@@ -511,7 +512,7 @@ const[gstApplicable,setGstApplicable]=useState(false);
                   );
                 }}
               />
-            </Col>
+            </Col> */}
             <Col>
               <Input
                 controlId="txt_sitename"
