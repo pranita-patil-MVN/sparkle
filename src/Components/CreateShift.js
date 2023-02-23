@@ -25,11 +25,7 @@ const DivOne = ({ onButtonClick }) => {
   const location = useLocation()
 
   var shiftDetails = location.state
-  // alert(shiftDetails)
   const [shiftData,setShiftData] = useState(shiftDetails)
-  // useEffect(()=>{
-  //   alert(shiftData)
-  // })
 
   // const [itemValue, setItemValue] = useState();
   // const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
@@ -45,6 +41,10 @@ const DivOne = ({ onButtonClick }) => {
 
   const [invalidShtiftTime, setInvalidShiftTime] = useState(false)
   const [invalidShtiftTimeErrMsg, setInvalidShtiftTimeErrMsg] = useState("")
+
+  const [invalidShiftEndTime,setInvalidShiftEndTime] = useState(false)
+  const [invalidShtiftEndErrMsg,setInvalidShtiftEndErrMsg] = useState("")
+
   //   const [aadhar_number, setAadharNumber] = useState();
 
   //   const [txt_salutation_error_message, setTxtSalutationErrorMessage] =
@@ -56,21 +56,23 @@ const DivOne = ({ onButtonClick }) => {
 
   const [shift, setShift] = useState(
     shiftData === undefined || shiftData == null ? null : shiftData.shift
-  )
+  );
 
   const [shiftTime,setShiftTime] = useState(
     shiftData === undefined || shiftData == null ? null : shiftData.shift_start_time
-  )
+  );
 
   const [workingHrs,setWorkingHrs] = useState(
     shiftData === undefined || shiftData == null ? null : shiftData.working_hrs
-  )
+  );
+
+  const [shiftEndTime,setShiftEndTime] = useState(
+    shiftData === undefined || shiftData == null ? null : shiftData.shift_end_time
+  );
 
   const addFieldsValues = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
   };
-
-  
 
   const validateForm = (fieldName, value) => {
     switch (fieldName) {
@@ -82,10 +84,11 @@ const DivOne = ({ onButtonClick }) => {
         // addFieldsValues(fieldName, value);
         setInvalidShift(false)
         setShiftErrorMessage("")
-        setFormData({
-          ...formData,
-          [fieldName]: value
-        });
+        setShift(value)
+        // setFormData({
+        //   ...formData,
+        //   [fieldName]: value
+        // });
         // setValidateDivOne(true)
         // }
 
@@ -98,12 +101,22 @@ const DivOne = ({ onButtonClick }) => {
         // alert(tpick_shift_start_time)
         setInvalidShiftTime(false)
         setInvalidShtiftTimeErrMsg("")
-        setFormData({
-          ...formData,
-          [fieldName]: value
-        });
+        setShiftTime(value)
+        // setFormData({
+        //   ...formData,
+        //   [fieldName]: value
+        // });
         // setValidateDivOne(true)
         // }
+        break;
+        case "tpick_shift_end_time":
+          setInvalidShiftEndTime(false)
+          setInvalidShtiftEndErrMsg("")
+          setShiftEndTime(value)
+          // setFormData({
+          //   ...formData,
+          //   [fieldName]: value
+          // });
         break;
       case "txt_working_hours":
         // if(value === "" || value === undefined) {
@@ -112,10 +125,11 @@ const DivOne = ({ onButtonClick }) => {
         // } else {  
         setWorkingHours(false)
         setWorkingHoursErrorMessage("")
-        setFormData({
-          ...formData,
-          [fieldName]: value
-        });
+        setWorkingHrs(value)
+        // setFormData({
+        //   ...formData,
+        //   [fieldName]: value
+        // });
         // setValidateDivOne(true)
         // } 
         break;
@@ -162,15 +176,18 @@ const DivOne = ({ onButtonClick }) => {
 
   const getShiftData = () => {
     // alert(formData.txt_shift)
-    if (formData.txt_shift === undefined) {
+    if (formData.txt_shift === undefined || formData.txt_shift === "") {
       setInvalidShift(true)
-      setShiftErrorMessage("Please select a valid time.")
-    } else if (!formData.tpick_shift_start_time) {
+      setShiftErrorMessage("Please select a valid shift.")
+    } else if (formData.tpick_shift_start_time === undefined || formData.tpick_shift_start_time === "" ) {
       setInvalidShiftTime(true)
       setInvalidShtiftTimeErrMsg("Please enter a shift.")
-    } else if (formData.txt_working_hours === undefined) {
+    } else if (formData.txt_working_hours === undefined || formData.txt_working_hours === "") {
       setWorkingHours(true)
       setWorkingHoursErrorMessage("Please enter valid working hours.")
+    } else if (formData.tpick_shift_end_time === undefined || formData.tpick_shift_end_time === "") {
+      setInvalidShiftEndTime(true)
+      setInvalidShtiftEndErrMsg("Please select an end time.")
     } else {
       alert(JSON.stringify(formData))
     }
@@ -210,7 +227,7 @@ const DivOne = ({ onButtonClick }) => {
               <Input
                 required
                 controlId="tpick_shift_start_time"
-                label="Shift Start Time"
+                label="Shift start time"
                 type="time"
                 value={shiftTime}
                 onChangeInputHandler={(inputValue) => {
@@ -228,8 +245,25 @@ const DivOne = ({ onButtonClick }) => {
             <Col>
               <Input
                 required
+                controlId="tpick_shift_end_time"
+                label="Shift end time"
+                type="time"
+                value={shiftEndTime}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("tpick_shift_end_time", inputValue);
+                }}
+              />
+                {invalidShiftEndTime === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {invalidShtiftEndErrMsg}
+                </Form.Text>
+              ) : (<></>)}
+            </Col>
+            <Col>
+              <Input
+                required
                 controlId="txt_working_hours"
-                label="Working Hours"
+                label="Working hours"
                 type="text"
                 value={workingHrs}
                 onChangeInputHandler={(inputValue) => {
@@ -242,7 +276,10 @@ const DivOne = ({ onButtonClick }) => {
                 </Form.Text>
               ) : (<></>)}
             </Col>
-            <Col>
+          </Row>
+
+          <Row className="mb-3">
+          <Col>
               <Input
                 // required
                 controlId="tpick_break_1_start"
@@ -253,9 +290,6 @@ const DivOne = ({ onButtonClick }) => {
                 }}
               />
             </Col>
-          </Row>
-
-          <Row className="mb-3">
             <Col>
               <Input
                 // required
@@ -289,7 +323,11 @@ const DivOne = ({ onButtonClick }) => {
                 }}
               />
             </Col>
-            <Col>
+            
+          </Row>
+
+          <Row className="mb-3">
+          <Col>
               <Input
                 // required
                 controlId="tpick_break_2_start"
@@ -300,9 +338,6 @@ const DivOne = ({ onButtonClick }) => {
                 }}
               />
             </Col>
-          </Row>
-
-          <Row className="mb-3">
             <Col>
               <Input
                 // required
@@ -314,7 +349,6 @@ const DivOne = ({ onButtonClick }) => {
                 }}
               />
             </Col>
-            <Col></Col>
             <Col></Col>
             <Col></Col>
           </Row>

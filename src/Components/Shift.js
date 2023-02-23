@@ -170,9 +170,9 @@ export default function Shift() {
       </div>
 
       <Row className='rowTable'>
-        <Col className='filter' md={2}>
+        {/* <Col className='filter' md={2}> */}
 
-          <h5 className='colHeader'> Filters </h5>
+          {/* <h5 className='colHeader'> Filters </h5>
           <InputGroup className='searchBar'>
             <InputGroup.Text id="searchIcon">
               <CiSearch />
@@ -184,7 +184,7 @@ export default function Shift() {
               // value={search}
               onChange={(e) => onSearch(e.target.value)}
             />
-          </InputGroup>
+          </InputGroup> */}
 
           {/* <div className="checkFilterDiv">
 
@@ -235,9 +235,10 @@ export default function Shift() {
 
           </div> */}
 
-        </Col>
+        {/* </Col> */}
 
-        <Col md={10} className='colTable'>
+        {/* <Col md={10} className='colTable'> */}
+        <Col className='colTable'>
           <div className=' shift-data-table'>
 
             <TableCompo 
