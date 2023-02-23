@@ -72,6 +72,11 @@ const routes = [
               name: "Vendor",
               icon: <BiRadioCircleMarked />,
             },
+            {
+                path: "/masters/capital",
+                name: "Capital",
+                icon: <BiRadioCircleMarked />,
+              },
         ]
     },
 

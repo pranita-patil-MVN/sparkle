@@ -11,6 +11,9 @@ import {
 import MultiStepProgressBar from "../CommonComponents/MultiStepProgressBar";
 import Input from "../CommonComponents/Input";
 import _ from "underscore";
+import stateData from "../data/state.json";
+import cityData from "../data/city.json";
+import Dropdown from "../CommonComponents/Dropdown";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
 import { useNavigate, useLocation } from "react-router-dom";
 const DivOne = ({ props }) => {
@@ -19,12 +22,15 @@ const DivOne = ({ props }) => {
   var vendorDetails = location.state;
   // alert(vendorDetails);
   const [vendorData, setVendorData] = useState(vendorDetails);
-  // useEffect(()=>{
-  //   // alert(vendorData)
+  const [item, setItem] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [checkedItem, setCheckedItem] = useState([]);
+  const [state, setStateData] = useState([]);
+  const [city, setCity] = useState([]);
+  const [district, setDistrict] = useState([]);
 
-  // })
 
-  const navigate = useNavigate();
+ 
 
   // For Vendor code
   const [invalidCode, setInvalidCode] = useState(false);
@@ -49,6 +55,7 @@ const DivOne = ({ props }) => {
   const [formData, setFormData] = useState([]);
   //  alert(JSON.stringify(formData))
 
+  // For fields
   const [code, setCode] = useState(
     vendorData === undefined || vendorData === null ? null : vendorData.code
   );
@@ -93,30 +100,30 @@ const DivOne = ({ props }) => {
   );
 
   const saveVendorData = () => {
-    // alert(JSON.stringify(formData));
-    if (formData.txt_code === undefined || formData.txt_code === "") {
+    alert(JSON.stringify(vendorData));
+    if (vendorData.txt_code === undefined || vendorData.txt_code === "") {
       setInvalidCode(true);
       setTxtCodeErrorMessage("Please enter code");
-    } else if (formData.txt_name === undefined || formData.txt_name === "") {
+    } else if (vendorData.txt_name === undefined || vendorData.txt_name === "") {
       setInvalidItem(true);
       setTxtItemNameErrorMessage("Please enter name");
     } else if (
-      formData.txt_address1 === undefined ||
-      formData.txt_address1 === ""
+      vendorData.txt_address1 === undefined ||
+      vendorData.txt_address1 === ""
     ) {
       setInvalidAddress(true);
       setTxtAddressErrorMessage("Please enter Address ");
     } else if (
-      formData.txt_email1 === undefined ||
-      formData.txt_email1 === ""
+      vendorData.txt_email1 === undefined ||
+      vendorData.txt_email1 === ""
     ) {
       setInvalidEmail(true);
       setTxtEmailErrorMessage("Please enter email");
-    } else if (formData.txt_cell1 === undefined || formData.txt_cell1 === "") {
+    } else if (vendorData.txt_cell1 === undefined || vendorData.txt_cell1 === "") {
       setInvalidCell(true);
       setTxtCellErrorMessage("Please enter cell");
     } else {
-      alert(JSON.stringify(formData));
+      alert(JSON.stringify(vendorData));
     }
   };
   const onCancelButton = () => {
@@ -132,7 +139,7 @@ const DivOne = ({ props }) => {
         setVendorData({ ...vendorData, [fieldName]: value });
         // if (value !== undefined && value !== "")
         setCode(value);
-        // setFormData({ ...formData, [fieldName]: value });
+        setFormData({ ...formData, [fieldName]: value });
 
         break;
       case "txt_name":
@@ -140,6 +147,7 @@ const DivOne = ({ props }) => {
         // alert(JSON.stringify(vendorData))
         setTxtItemNameErrorMessage("");
         setCompany(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
 
@@ -147,23 +155,27 @@ const DivOne = ({ props }) => {
         // alert(fieldName)
         // alert("Person")
         setContactPerson(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
       // setFormData({ ...formData, [fieldName]: value });
       break;
       case "txt_vendor_gst":
         // alert("GST")
         // alert(fieldName)
         setVendorGst(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_address1":
         setInvalidAddress(false);
         setTxtAddressErrorMessage("");
         setPrimaryAddress(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
 
         break;
       case "txt_address2":
         setSecondaryAddress(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
 
@@ -171,30 +183,36 @@ const DivOne = ({ props }) => {
         setInvalidEmail(false);
         setTxtEmailErrorMessage("");
         setPrimaryEmail(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
 
       case "txt_email2":
         setSecondaryEmail(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_telephone1":
         setPrimaryLandLine(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_telephone2":
         setSecondaryLandLine(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_cell1":
         setInvalidCell(false);
         setTxtCellErrorMessage("");
         setPrimaryMobile(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
 
         break;
       case "txt_cell2":
         setSecondaryMobile(value);
+        setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
 
         break;
@@ -203,7 +221,124 @@ const DivOne = ({ props }) => {
         break;
     }
   };
+  var ArrDistrict=[];
+  const onChangeState = (e) => {
+    // alert(e);
+    const value = e;
+    
+    var singleState = _.findWhere(stateData.states, { state: value });
+    // alert(JSON.stringify(singleState))
+    for (let j = 0; j < singleState.districts.length; j++) {
+      var data = singleState.districts[j]
+      // ArrState.push(data);
+      ArrDistrict.push({
+        label: j,
+        value: data,
+      });
+      // console.log(data)
+    }
+    // alert(JSON.stringify(ArrCity))
+    setDistrict(ArrDistrict);
+  };
+  var ArrCity=[];
+  const onChangeDistrict = (e) => {
+    // alert(e)
+    var districtValue = e;
+    var singleDistrict = _.findWhere(cityData.city, {
+      district: districtValue,
+    });
+    for (let k = 0; k <singleDistrict.city.length; k++) {
+      var data = singleDistrict.city[k]
+      // ArrState.push(data);
+      ArrCity.push({
+        label: k,
+        value: data,
+      });
+      // console.log(data)
+    }
+    alert(JSON.stringify(ArrCity))
+    setCity(ArrCity);
+  };
+  const onSearch = (e, data) => {
+    // alert("e=>"+data)
+    var cityValue = e;
 
+    if (data == "city" && checkedItem.length == 0) {
+      // alert("by")
+      const result = item.filter((item) => {
+        return (
+          item.city.toLowerCase().match(cityValue) || item.city.match(cityValue)
+        );
+      });
+      // alert(JSON.stringify(result))
+      setFilteredItems(result);
+    } else if (data == "search" && checkedItem.length == 0) {
+      // alert("by")
+      const result = item.filter((item) => {
+        return (
+          item.company.toLowerCase().match(cityValue) ||
+          item.contact_person.toLowerCase().match(cityValue) ||
+          item.company.match(cityValue)
+        );
+      });
+      setFilteredItems(result);
+    } else if (checkedItem.length > 0) {
+      // alert("hi")
+      const result = checkedItem.filter((item) => {
+        return (
+          item.company.toLowerCase().match(cityValue) ||
+          item.company.match(cityValue)
+        );
+      });
+      setCheckedItem(result);
+    }
+  };
+  const dropdownMeasurementUnitsOptions = [
+    {
+      id: 1,
+      value: "Kg",
+    },
+    {
+      id: 2,
+      value: "Liters",
+    },
+    {
+      id: 3,
+      value: "Number",
+    },
+    {
+      id: 4,
+      value: "Packet",
+    },
+    {
+      id: 5,
+      value: "Pair",
+    },
+    {
+      id: 6,
+      value: "Set",
+    },
+  ];
+//   var ArrState=[];
+  useEffect(()=>{
+    getEmployeeList()
+    // alert("hi")
+  })
+var ArrState=[];
+  const getEmployeeList =  () => {
+    for (let i = 0; i < stateData.states.length; i++) {
+      var data = stateData.states[i]["state"];
+      // ArrState.push(data);
+      ArrState.push({
+        label: i,
+        value: data,
+      });
+      // console.log(data)
+    }
+   
+    setStateData(ArrState);
+  };
+  // alert(state)
   return (
     <>
       {" "}
@@ -281,7 +416,10 @@ const DivOne = ({ props }) => {
                 }}
               />
             </Col>
-          </Row>
+            </Row> 
+           
+          
+          
           <Row className="mb-3">
             <Col>
               <Input
@@ -302,21 +440,66 @@ const DivOne = ({ props }) => {
                 <></>
               )}
             </Col>
+            </Row>
+            <Row className="mb-3">
+           <Col>
+             
+            <Dropdown
+                required
+                label="State"
+                controlId="drp_state"
+                options={state !== undefined?state:""}
+                // options={dropdownMeasurementUnitsOptions}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  onChangeState(dropDownValue);
+                  // validateForm("drp_state", state[dropDownValue-1].value);
+                }}
+              />
+            
+            </Col> 
             <Col>
-              <Input
-                // required
-                controlId="txt_address2"
-                label="Secondary Address"
-                type="text"
-                value={secondaryAddress}
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_address2", inputValue.currentTarget.value);
+            <Dropdown
+                required
+                label="City"
+                controlId="drp_city"
+                options={district}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  onChangeDistrict(dropDownValue)
+                  // validateForm("drp_city", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                }}
+              />
+            
+            </Col>
+            <Col>
+            <Dropdown
+                required
+                label="Area"
+                controlId="drp_area"
+                options={city}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  validateForm("drp_area", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
                 }}
               />
             </Col>
+            {/* Pin code */}
             <Col>
               <Input
-                // required
+                required
+                controlId="txt_address1"
+                label="Pin Code"
+                type="text"
+                value={primaryAddress}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_address1", inputValue);
+                }}
+              />
+            
+            </Col>
+            </Row>
+            <Row className="mb-3">
+            <Col>
+              <Input
+                required
                 controlId="txt_email1"
                 label="Primary Email"
                 type="text"
@@ -336,20 +519,6 @@ const DivOne = ({ props }) => {
             <Col>
               <Input
                 // required
-                controlId="txt_email2"
-                label="Secondary Email"
-                type="text"
-                value={secondaryEmail}
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_email2", inputValue.currentTarget.value);
-                }}
-              />
-            </Col>
-          </Row>
-          <Row className="mb-3">
-            <Col>
-              <Input
-                // required
                 controlId="txt_telephone1"
                 label="Primary Landline No."
                 type="text"
@@ -357,21 +526,6 @@ const DivOne = ({ props }) => {
                 onChangeInputHandler={(inputValue) => {
                   validateForm(
                     "txt_telephone1",
-                    inputValue.currentTarget.value
-                  );
-                }}
-              />
-            </Col>
-            <Col>
-              <Input
-                // required
-                controlId="txt_telephone2"
-                label="Secondary Landline No."
-                type="text"
-                value={SecondaryLandLine}
-                onChangeInputHandler={(inputValue) => {
-                  validateForm(
-                    "txt_telephone2",
                     inputValue.currentTarget.value
                   );
                 }}
@@ -396,6 +550,107 @@ const DivOne = ({ props }) => {
                 <></>
               )}
             </Col>
+            </Row>
+            <Row className="mb-3">
+            <Col>
+              <Input
+                // required
+                controlId="txt_address2"
+                label="Secondary Address"
+                type="text"
+                value={secondaryAddress}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_address2", inputValue.currentTarget.value);
+                }}
+              />
+            </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col>
+            <Dropdown
+                required
+                label="State"
+                controlId="drp_state"
+                options={state !== undefined?state:""}
+                // options={dropdownMeasurementUnitsOptions}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  onChangeState(dropDownValue);
+                  // validateForm("drp_state", state[dropDownValue-1].value);
+                }}
+              />
+            
+            </Col> 
+            <Col>
+            <Dropdown
+                required
+                label="City"
+                controlId="drp_city"
+                options={district}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  onChangeDistrict(dropDownValue)
+                  // validateForm("drp_city", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                }}
+              />
+            
+            </Col>
+            <Col>
+            <Dropdown
+                required
+                label="Area"
+                controlId="drp_area"
+                options={city}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  validateForm("drp_area", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                }}
+              />
+            </Col>
+            {/* Pin code */}
+            <Col>
+              <Input
+                required
+                controlId="txt_address1"
+                label="Pin Code"
+                type="text"
+                value={primaryAddress}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_address1", inputValue);
+                }}
+              />
+            
+            </Col>
+            </Row>
+          <Row className="mb-3">
+          <Col>
+              <Input
+                // required
+                controlId="txt_telephone2"
+                label="Secondary Email"
+                type="text"
+                value={SecondaryLandLine}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm(
+                    "txt_telephone2",
+                    inputValue.currentTarget.value
+                  );
+                }}
+              />
+            </Col>
+            <Col>
+              <Input
+                // required
+                controlId="txt_telephone2"
+                label="Secondary Landline No."
+                type="text"
+                value={SecondaryLandLine}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm(
+                    "txt_telephone2",
+                    inputValue.currentTarget.value
+                  );
+                }}
+              />
+            </Col>
+           
             <Col>
               <Input
                 // required
@@ -404,7 +659,7 @@ const DivOne = ({ props }) => {
                 type="text"
                 value={SecondaryMobile}
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_cell2", vendorData.cell);
+                  validateForm("txt_cell2", inputValue);
                 }}
               />
             </Col>
@@ -437,6 +692,8 @@ const DivOne = ({ props }) => {
 };
 
 const CreateVendor = (props) => {
+
+  
   const navigate = useNavigate();
 
   const [div, setDiv] = useState("divOne");
