@@ -22,6 +22,7 @@ const DivOne = ({ props }) => {
   var vendorDetails = location.state;
   // alert(vendorDetails);
   const [vendorData, setVendorData] = useState(vendorDetails);
+  const [vendorCityJson, setVendorDataArray] = useState([vendorDetails.city]);
   const [item, setItem] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [checkedItem, setCheckedItem] = useState([]);
@@ -67,6 +68,24 @@ const DivOne = ({ props }) => {
       ? null
       : vendorData.contact_person
   );
+  const [stateValueFromJSon, setState] = useState(
+    vendorData === undefined || vendorData === null
+      ? null
+      : vendorData.state
+  );
+  
+  const [areaValueFromJSon, setArea] = useState(
+    vendorData === undefined || vendorData === null
+      ? null
+      : vendorData.area
+  );
+  // alert("===>"+vendorData.city )
+  const [cityValueFromJSon, setCityData] = useState(
+    vendorData === undefined || vendorData === null
+      ? null
+      : vendorData.city
+  );
+  console.log("====>"+ cityValueFromJSon)
   const [vendorGst, setVendorGst] = useState(
     vendorData === undefined || vendorData === null
       ? null
@@ -100,7 +119,7 @@ const DivOne = ({ props }) => {
   );
 
   const saveVendorData = () => {
-    alert(JSON.stringify(vendorData));
+    // alert(JSON.stringify(vendorData));
     if (vendorData.txt_code === undefined || vendorData.txt_code === "") {
       setInvalidCode(true);
       setTxtCodeErrorMessage("Please enter code");
@@ -216,49 +235,57 @@ const DivOne = ({ props }) => {
         // setFormData({ ...formData, [fieldName]: value });
 
         break;
+        // drp_area
+        case "drp_area":
+          setArea(value)
+          // setFormData({ ...formData, [fieldName]: value });
+  
+          break;
 
       default:
         break;
     }
   };
-  var ArrDistrict=[];
-  const onChangeState = (e) => {
-    // alert(e);
-    const value = e;
+ 
+  // const onChangeState = (e) => {
+  //   // alert(e);
+  //   const value = e;
+  //   setState(e)
+  //   var singleState = _.findWhere(stateData.states, { state: value });
+  //   // alert(JSON.stringify(singleState))
+  //   for (let j = 0; j < singleState.districts.length; j++) {
+  //     var data = singleState.districts[j]
+  //     // ArrState.push(data);
+  //     arrDistrict.push({
+  //       label: j,
+  //       value: data,
+  //     });
+  //     // console.log(data)
+  //   }
+  //   // alert(JSON.stringify(ArrCity))
+  //   setDistrict(arrDistrict);
     
-    var singleState = _.findWhere(stateData.states, { state: value });
-    // alert(JSON.stringify(singleState))
-    for (let j = 0; j < singleState.districts.length; j++) {
-      var data = singleState.districts[j]
-      // ArrState.push(data);
-      ArrDistrict.push({
-        label: j,
-        value: data,
-      });
-      // console.log(data)
-    }
-    // alert(JSON.stringify(ArrCity))
-    setDistrict(ArrDistrict);
-  };
-  var ArrCity=[];
-  const onChangeDistrict = (e) => {
-    // alert(e)
-    var districtValue = e;
-    var singleDistrict = _.findWhere(cityData.city, {
-      district: districtValue,
-    });
-    for (let k = 0; k <singleDistrict.city.length; k++) {
-      var data = singleDistrict.city[k]
-      // ArrState.push(data);
-      ArrCity.push({
-        label: k,
-        value: data,
-      });
-      // console.log(data)
-    }
-    alert(JSON.stringify(ArrCity))
-    setCity(ArrCity);
-  };
+  // };
+  // var arrCity=[];
+  // const onChangeDistrict = (e) => {
+  //   // alert(e)
+  //   var districtValue = e;
+  //   setCityData(e)
+  //   var singleDistrict = _.findWhere(cityData.city, {
+  //     district: districtValue,
+  //   });
+  //   for (let k = 0; k <singleDistrict.city.length; k++) {
+  //     var data = singleDistrict.city[k]
+  //     // ArrState.push(data);
+  //     arrCity.push({
+  //       label: k,
+  //       value: data,
+  //     });
+  //     // console.log(data)
+  //   }
+  //   // alert(JSON.stringify(ArrCity))
+  //   setCity(arrCity);
+  // };
   const onSearch = (e, data) => {
     // alert("e=>"+data)
     var cityValue = e;
@@ -293,39 +320,16 @@ const DivOne = ({ props }) => {
       setCheckedItem(result);
     }
   };
-  const dropdownMeasurementUnitsOptions = [
-    {
-      id: 1,
-      value: "Kg",
-    },
-    {
-      id: 2,
-      value: "Liters",
-    },
-    {
-      id: 3,
-      value: "Number",
-    },
-    {
-      id: 4,
-      value: "Packet",
-    },
-    {
-      id: 5,
-      value: "Pair",
-    },
-    {
-      id: 6,
-      value: "Set",
-    },
-  ];
+  
 //   var ArrState=[];
   useEffect(()=>{
     getEmployeeList()
     // alert("hi")
-  })
-var ArrState=[];
+  },[])
+
   const getEmployeeList =  () => {
+    var ArrState=[];
+    var arrDistrict=[];
     for (let i = 0; i < stateData.states.length; i++) {
       var data = stateData.states[i]["state"];
       // ArrState.push(data);
@@ -335,8 +339,20 @@ var ArrState=[];
       });
       // console.log(data)
     }
-   
+    for (let j = 0; j < vendorCityJson.length; j++) {
+      var data = vendorCityJson[j];
+      // ArrState.push(data);
+      arrDistrict.push({
+        label: j,
+        value: data,
+      });
+      // console.log(data)
+    }
+    alert(JSON.stringify(arrDistrict))
+    setDistrict(arrDistrict);
     setStateData(ArrState);
+    // setDistrict(vendorData.city);
+    // setCityData(vendorData.city)
   };
   // alert(state)
   return (
@@ -345,7 +361,7 @@ var ArrState=[];
       <Card>
         <Card.Header className="cardHeader">Vendor Details</Card.Header>
 
-        <Card.Body>
+      <Card.Body className="formScrollbar">
           <Row className="mb-3">
             <Col>
               <Input
@@ -354,6 +370,7 @@ var ArrState=[];
                 label="Code"
                 type="text"
                 value={code}
+                disabled={true}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_code", inputValue);
                 }}
@@ -448,12 +465,14 @@ var ArrState=[];
                 required
                 label="State"
                 controlId="drp_state"
+                value={stateValueFromJSon}
+                defaultValue={stateValueFromJSon}
                 options={state !== undefined?state:""}
                 // options={dropdownMeasurementUnitsOptions}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  onChangeState(dropDownValue);
-                  // validateForm("drp_state", state[dropDownValue-1].value);
-                }}
+                // onChangeDropDownHandler={(dropDownValue) => {
+                //   onChangeState(dropDownValue);
+                //   // validateForm("drp_state", state[dropDownValue-1].value);
+                // }}
               />
             
             </Col> 
@@ -463,10 +482,12 @@ var ArrState=[];
                 label="City"
                 controlId="drp_city"
                 options={district}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  onChangeDistrict(dropDownValue)
-                  // validateForm("drp_city", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
-                }}
+                defaultValue={cityValueFromJSon}
+                value= {cityValueFromJSon}
+                // onChangeDropDownHandler={(dropDownValue) => {
+                //   onChangeDistrict(dropDownValue)
+                //   // validateForm("drp_city", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                // }}
               />
             
             </Col>
@@ -476,9 +497,13 @@ var ArrState=[];
                 label="Area"
                 controlId="drp_area"
                 options={city}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_area", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
-                }}
+                value={areaValueFromJSon}
+                // onChangeDropDownHandler={(dropDownValue) => {
+                //   validateForm("drp_area", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                // }}
+                // onChangeDropDownHandler={(dropDownValue) => {
+                //   validateForm("drp_area", dropDownValue);
+                // }}
               />
             </Col>
             {/* Pin code */}
@@ -567,7 +592,7 @@ var ArrState=[];
             </Row>
             <Row className="mb-3">
               <Col>
-            <Dropdown
+            {/* <Dropdown
                 required
                 label="State"
                 controlId="drp_state"
@@ -577,11 +602,11 @@ var ArrState=[];
                   onChangeState(dropDownValue);
                   // validateForm("drp_state", state[dropDownValue-1].value);
                 }}
-              />
+              /> */}
             
             </Col> 
             <Col>
-            <Dropdown
+            {/* <Dropdown
                 required
                 label="City"
                 controlId="drp_city"
@@ -590,11 +615,11 @@ var ArrState=[];
                   onChangeDistrict(dropDownValue)
                   // validateForm("drp_city", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
                 }}
-              />
+              /> */}
             
             </Col>
             <Col>
-            <Dropdown
+            {/* <Dropdown
                 required
                 label="Area"
                 controlId="drp_area"
@@ -602,7 +627,7 @@ var ArrState=[];
                 onChangeDropDownHandler={(dropDownValue) => {
                   validateForm("drp_area", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
                 }}
-              />
+              /> */}
             </Col>
             {/* Pin code */}
             <Col>

@@ -29,6 +29,7 @@ const RadioButton = (configurationParameters) => {
                     value={items}
                     className="form-check-input"
                     name={configurationParameters.label}
+                    checked={configurationParameters.checked}
                     onClick={(event) => {
                       configurationParameters.onChangeInputHandler(
                         event.target.value
@@ -59,6 +60,7 @@ const RadioButton = (configurationParameters) => {
                     value={items}
                     className="form-check-input"
                     name={configurationParameters.label}
+                    checked={configurationParameters.checked}
                     onClick={(event) => {
                       configurationParameters.onChangeInputHandler(
                         event.target.value

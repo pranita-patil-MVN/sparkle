@@ -16,13 +16,14 @@ const Dropdown = (configurationParameters) => {
             configurationParameters.onChangeDropDownHandler(event.target.value);
           }}
           required
-          defaultValue=""
+          defaultValue={configurationParameters.defaultValue !== undefined ? configurationParameters.defaultValue  : ""}
+          value={configurationParameters.value !== undefined ?configurationParameters.value  : "" }
         >
           <option disabled value={""}>
            { "Select "}
           </option>
           {configurationParameters.options.map((items, key) => (
-            <option key={items.value} value={JSON.stringify(items.id)}>
+            <option key={items.value} value={JSON.stringify(items.id)} selected>
               {items.value}
             </option>
           ))}
@@ -40,7 +41,7 @@ const Dropdown = (configurationParameters) => {
             Select
           </option>
           {configurationParameters.options.map((items, key) => (
-            <option key={items.value} value={JSON.stringify(items.id)}>
+            <option key={items.value} value={JSON.stringify(items.id)} selected>
               {items.value}
             </option>
           ))}
