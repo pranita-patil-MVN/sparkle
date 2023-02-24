@@ -17,6 +17,7 @@ const Dropdown = (configurationParameters) => {
           }}
           required
           defaultValue=""
+          value= {configurationParameters.value}
         >
           <option disabled value={""}>
            { "Select "}

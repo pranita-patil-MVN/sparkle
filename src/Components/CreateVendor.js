@@ -67,6 +67,23 @@ const DivOne = ({ props }) => {
       ? null
       : vendorData.contact_person
   );
+  const [stateValueFromJSon, setState] = useState(
+    vendorData === undefined || vendorData === null
+      ? null
+      : vendorData.state
+  );
+  
+  const [areaValueFromJSon, setArea] = useState(
+    vendorData === undefined || vendorData === null
+      ? null
+      : vendorData.area
+  );
+  // alSert("===>"+areaValueFromJSon )
+  const [cityValueFromJSon, setCityData] = useState(
+    vendorData === undefined || vendorData === null
+      ? null
+      : vendorData.city
+  );
   const [vendorGst, setVendorGst] = useState(
     vendorData === undefined || vendorData === null
       ? null
@@ -216,6 +233,12 @@ const DivOne = ({ props }) => {
         // setFormData({ ...formData, [fieldName]: value });
 
         break;
+        // drp_area
+        case "drp_area":
+          setArea(value)
+          // setFormData({ ...formData, [fieldName]: value });
+  
+          break;
 
       default:
         break;
@@ -225,7 +248,7 @@ const DivOne = ({ props }) => {
   const onChangeState = (e) => {
     // alert(e);
     const value = e;
-    
+    setState(e)
     var singleState = _.findWhere(stateData.states, { state: value });
     // alert(JSON.stringify(singleState))
     for (let j = 0; j < singleState.districts.length; j++) {
@@ -244,6 +267,7 @@ const DivOne = ({ props }) => {
   const onChangeDistrict = (e) => {
     // alert(e)
     var districtValue = e;
+    setCityData(e)
     var singleDistrict = _.findWhere(cityData.city, {
       district: districtValue,
     });
@@ -354,6 +378,7 @@ var ArrState=[];
                 label="Code"
                 type="text"
                 value={code}
+                disabled={true}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_code", inputValue);
                 }}
@@ -448,6 +473,7 @@ var ArrState=[];
                 required
                 label="State"
                 controlId="drp_state"
+                value={stateValueFromJSon}
                 options={state !== undefined?state:""}
                 // options={dropdownMeasurementUnitsOptions}
                 onChangeDropDownHandler={(dropDownValue) => {
@@ -463,10 +489,11 @@ var ArrState=[];
                 label="City"
                 controlId="drp_city"
                 options={district}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  onChangeDistrict(dropDownValue)
-                  // validateForm("drp_city", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
-                }}
+                value= {cityValueFromJSon}
+                // onChangeDropDownHandler={(dropDownValue) => {
+                //   onChangeDistrict(dropDownValue)
+                //   // validateForm("drp_city", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                // }}
               />
             
             </Col>
@@ -476,9 +503,13 @@ var ArrState=[];
                 label="Area"
                 controlId="drp_area"
                 options={city}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_area", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
-                }}
+                value={areaValueFromJSon}
+                // onChangeDropDownHandler={(dropDownValue) => {
+                //   validateForm("drp_area", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                // }}
+                // onChangeDropDownHandler={(dropDownValue) => {
+                //   validateForm("drp_area", dropDownValue);
+                // }}
               />
             </Col>
             {/* Pin code */}
