@@ -16,6 +16,7 @@ import Input from "../CommonComponents/Input";
 // import TextArea from "../CommonComponents/TextArea";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
 import { useNavigate, useLocation } from "react-router-dom";
+import moment from "moment/moment";
 
 // import placeholder from "../assets/Images/Placeholder.png";
 
@@ -25,11 +26,11 @@ const DivOne = ({ onButtonClick }) => {
   const location = useLocation()
 
   var shiftDetails = location.state
-  const [shiftData,setShiftData] = useState(shiftDetails)
+  const [shiftData, setShiftData] = useState(shiftDetails)
 
   // const [itemValue, setItemValue] = useState();
   // const [itemNameErrorMessage, setTxtItemNameErrorMessage] = useState("");
-  
+
   // const [invalidItem, setInvalidItem] = useState(true);
   const [formData, setFormData] = useState([]);
 
@@ -42,10 +43,17 @@ const DivOne = ({ onButtonClick }) => {
   const [invalidShtiftTime, setInvalidShiftTime] = useState(false)
   const [invalidShtiftTimeErrMsg, setInvalidShtiftTimeErrMsg] = useState("")
 
-  const [invalidShiftEndTime,setInvalidShiftEndTime] = useState(false)
-  const [invalidShtiftEndErrMsg,setInvalidShtiftEndErrMsg] = useState("")
+  const [invalidShiftEndTime, setInvalidShiftEndTime] = useState(false)
+  const [invalidShtiftEndErrMsg, setInvalidShtiftEndErrMsg] = useState("")
 
-  //   const [aadhar_number, setAadharNumber] = useState();
+  const [invalidBreakOneStart, setInvalidBreakOneStart] = useState(false)
+  const [invalidBreakOneStartErrMsg, setInvalidBreakOneStartErrMsg] = useState("")
+
+  const [invalidBreakTwoStart, setInvalidBreakTwoStart] = useState(false)
+  const [invalidBreakTwoStartErrMsg, setInvalidBreakTwoStartErrMsg] = useState("")
+
+    const [startTime, setstartTime] = useState();
+    const [endTime, setEndTime] = useState();
 
   //   const [txt_salutation_error_message, setTxtSalutationErrorMessage] =
   //     useState("");
@@ -58,15 +66,15 @@ const DivOne = ({ onButtonClick }) => {
     shiftData === undefined || shiftData == null ? null : shiftData.shift
   );
 
-  const [shiftTime,setShiftTime] = useState(
+  const [shiftTime, setShiftTime] = useState(
     shiftData === undefined || shiftData == null ? null : shiftData.shift_start_time
   );
 
-  const [workingHrs,setWorkingHrs] = useState(
+  const [workingHrs, setWorkingHrs] = useState(
     shiftData === undefined || shiftData == null ? null : shiftData.working_hrs
   );
 
-  const [shiftEndTime,setShiftEndTime] = useState(
+  const [shiftEndTime, setShiftEndTime] = useState(
     shiftData === undefined || shiftData == null ? null : shiftData.shift_end_time
   );
 
@@ -85,10 +93,10 @@ const DivOne = ({ onButtonClick }) => {
         setInvalidShift(false)
         setShiftErrorMessage("")
         setShift(value)
-        // setFormData({
-        //   ...formData,
-        //   [fieldName]: value
-        // });
+        setFormData({
+          ...formData,
+          [fieldName]: value
+        });
         // setValidateDivOne(true)
         // }
 
@@ -102,21 +110,21 @@ const DivOne = ({ onButtonClick }) => {
         setInvalidShiftTime(false)
         setInvalidShtiftTimeErrMsg("")
         setShiftTime(value)
-        // setFormData({
-        //   ...formData,
-        //   [fieldName]: value
-        // });
+        setFormData({
+          ...formData,
+          [fieldName]: value
+        });
         // setValidateDivOne(true)
         // }
         break;
-        case "tpick_shift_end_time":
-          setInvalidShiftEndTime(false)
-          setInvalidShtiftEndErrMsg("")
-          setShiftEndTime(value)
-          // setFormData({
-          //   ...formData,
-          //   [fieldName]: value
-          // });
+      case "tpick_shift_end_time":
+        setInvalidShiftEndTime(false)
+        setInvalidShtiftEndErrMsg("")
+        setShiftEndTime(value)
+        setFormData({
+          ...formData,
+          [fieldName]: value
+        });
         break;
       case "txt_working_hours":
         // if(value === "" || value === undefined) {
@@ -126,10 +134,10 @@ const DivOne = ({ onButtonClick }) => {
         setWorkingHours(false)
         setWorkingHoursErrorMessage("")
         setWorkingHrs(value)
-        // setFormData({
-        //   ...formData,
-        //   [fieldName]: value
-        // });
+        setFormData({
+          ...formData,
+          [fieldName]: value
+        });
         // setValidateDivOne(true)
         // } 
         break;
@@ -178,22 +186,73 @@ const DivOne = ({ onButtonClick }) => {
     // alert(formData.txt_shift)
     if (formData.txt_shift === undefined || formData.txt_shift === "") {
       setInvalidShift(true)
-      setShiftErrorMessage("Please select a valid shift.")
-    } else if (formData.tpick_shift_start_time === undefined || formData.tpick_shift_start_time === "" ) {
+      setShiftErrorMessage("Shift name is required.")
+    } else if (formData.tpick_shift_start_time === undefined || formData.tpick_shift_start_time === "") {
       setInvalidShiftTime(true)
-      setInvalidShtiftTimeErrMsg("Please enter a shift.")
-    } else if (formData.txt_working_hours === undefined || formData.txt_working_hours === "") {
-      setWorkingHours(true)
-      setWorkingHoursErrorMessage("Please enter valid working hours.")
+      setInvalidShtiftTimeErrMsg("Shift start time is required.")
     } else if (formData.tpick_shift_end_time === undefined || formData.tpick_shift_end_time === "") {
       setInvalidShiftEndTime(true)
-      setInvalidShtiftEndErrMsg("Please select an end time.")
-    } else {
+      setInvalidShtiftEndErrMsg("Shift end time is required.")
+    }
+    else if (formData.txt_working_hours === undefined || formData.txt_working_hours === "") {
+      setWorkingHours(true)
+      setWorkingHoursErrorMessage("Working hours are required.")
+    }
+    else {
       alert(JSON.stringify(formData))
     }
   }
   const navigate = useNavigate();
+  
+  // const startShiftTimeValidation = moment().set({ 'hour': splitedHour, 'minute': splitedMinute })
+  // alert(startShiftTimeValidation)
+  // alert(myArray1[4])
+  // alert(startShiftTimeValidation)
 
+  // const endShiftTimeValidation = moment().set({ 'hour': 12, 'minute': 24 })
+  // var myArrString = endShiftTimeValidation.toString()
+  // const myArray = myArrString.split(" ")
+  // alert(myArray[4])
+  // alert((endShiftTimeValidation.toString()))
+
+  const onClickOfSave = () =>{
+    var startShiftTimeValidation
+    var endShiftTimeValidation
+    if (formData.tpick_shift_start_time !== undefined ){
+      var myArrString = formData.tpick_shift_start_time
+      // alert('====>'+(myArrString))
+      const myArray1 = myArrString.split(":")
+      // var split = myArray1.split(",")
+      // alert('====>123==>'+myArray1[0])
+      // var splitData = myArray1[4]
+      //  var split = splitData.split(":")
+       var splitedHour = myArray1[0]
+       var splitedMinute = myArray1[1]
+      //  alert(splitedMinute)
+       startShiftTimeValidation = moment().set({ 'hour': splitedHour, 'minute': splitedMinute })
+      // setstartTime(startShiftTimeValidation)
+      // alert(startShiftTimeValidation)
+    }
+    if (formData.tpick_shift_end_time !== undefined ){
+      var myArrString = formData.tpick_shift_end_time
+      // alert('====>'+(myArrString))
+      const myArray1 = myArrString.split(":")
+      // var split = myArray1.split(",")
+      // alert('====>123==>'+myArray1[0])
+      // var splitData = myArray1[4]
+      //  var split = splitData.split(":")
+       var splitedHour = myArray1[0]
+       var splitedMinute = myArray1[1]
+  //      alert(splitedMinute)
+       endShiftTimeValidation = moment().set({ 'hour': splitedHour, 'minute': splitedMinute })
+  // setEndTime(endShiftTimeValidation)
+      // alert(endShiftTimeValidation)
+    }
+   
+    const differenceBtwnStartAndEndTime = moment(startShiftTimeValidation).isBefore(endShiftTimeValidation)
+    alert(differenceBtwnStartAndEndTime)
+  }
+  
   // const goToBackPage = () => {
   //   navigate(-1);
   // }
@@ -253,7 +312,7 @@ const DivOne = ({ onButtonClick }) => {
                   validateForm("tpick_shift_end_time", inputValue);
                 }}
               />
-                {invalidShiftEndTime === true ? (
+              {invalidShiftEndTime === true ? (
                 <Form.Text className="position-relative mandatoryField">
                   {invalidShtiftEndErrMsg}
                 </Form.Text>
@@ -279,7 +338,7 @@ const DivOne = ({ onButtonClick }) => {
           </Row>
 
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Input
                 // required
                 controlId="tpick_break_1_start"
@@ -289,6 +348,9 @@ const DivOne = ({ onButtonClick }) => {
                   validateForm("tpick_break_1_start", inputValue.currentTarget.value);
                 }}
               />
+              {invalidBreakOneStart === true ? (
+                invalidShift << invalidBreakOneStart
+              ) : (<>{false}</>)}
             </Col>
             <Col>
               <Input
@@ -323,11 +385,11 @@ const DivOne = ({ onButtonClick }) => {
                 }}
               />
             </Col>
-            
+
           </Row>
 
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Input
                 // required
                 controlId="tpick_break_2_start"
@@ -358,9 +420,10 @@ const DivOne = ({ onButtonClick }) => {
               type="button"
               className="alignLeft mr-5"
               onClick={() => {
-                getShiftData();
+                // getShiftData();
                 // alert(getShiftData())
-              }}
+                onClickOfSave()
+                }}
             >Save</Button>
             <Button
               type="button"
