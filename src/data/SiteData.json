@@ -10,7 +10,7 @@
         "customer": "ACG",
         "Sez":"Yes",
         "Type":"huoijoi",
-        "Budget":"10000"
+        "Total_Manpower":"10"
       },
       {
         "Site": "Huf India Pvt. Ltd.",
@@ -22,7 +22,7 @@
         "customer": "B.U.Bhandari",
         "Sez":"No",
         "Type":"ESIC",
-        "Budget":"20000"
+        "Total_Manpower":"10"
       },
       {
         "Site": "Kalyani TechnoForge Ltd.",
@@ -34,7 +34,8 @@
         "customer": "B.U.Bhandari",
         "Sez":"No",
         "Type":"Non-ESIC",
-        "Budget":"30000"
+        "Total_Manpower":"10",
+        "working_days":"5"
       },
       {
         "Site": "Mubea Automotive India Pvt. Ltd.",
@@ -46,7 +47,7 @@
         "customer": "Devi Construction",
         "Sez":"Yes",
         "Type":"Non-ESIC",
-        "Budget":"80000"
+        "Total_Manpower":"10"
       },
       {
         "Site": "Tenneco Clean Air India Pvt. Ltd.",
@@ -58,7 +59,7 @@
         "customer": "Chakote Group",
         "Sez":"No",
         "Type":"Non-ESIC",
-        "Budget":"90000"
+        "Total_Manpower":"10"
       }
       
     ]

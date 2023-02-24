@@ -153,7 +153,7 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
         <>
         <Card>
             <Card.Header className='cardHeader'>Customer Details</Card.Header>
-            <Card.Body>
+            <Card.Body className='formScrollbar'>
                 <Row className='mb-3'>
                     <Col>
                     <Input

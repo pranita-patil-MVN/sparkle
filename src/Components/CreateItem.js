@@ -314,7 +314,7 @@ const DivOne = ({onButtonClick}) => {
     <>
       <Card>
         <Card.Header className="cardHeader">Item Details</Card.Header>
-        <Card.Body>
+        <Card.Body className="formScrollbar">
           <Row className="mb-3">
           <Col>
               <Input
