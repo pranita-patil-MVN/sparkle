@@ -267,13 +267,19 @@ const DivOne = ({ onButtonClick }) => {
     sitesData === undefined || sitesData === null ? null : sitesData.Status
   );
 
-  const [manpower, setManpower] = useState();
+  const [manpower, setManpower] = useState(
+    sitesData === undefined || sitesData === null ? null : sitesData.Total_Manpower
+  );
 
-  const [siteBudget, setSiteBudget] = useState();
+  const [siteBudget, setSiteBudget] = useState(
+    sitesData === undefined || sitesData === null ? null : sitesData.Site_Budget
+  );
 
   const [siteZone, setSiteZone] = useState();
 
-  const [workingDays, setWorkingDays] = useState();
+  const [workingDays, setWorkingDays] = useState(
+    salutationArr === undefined || salutationArr === null ? null : salutationArr
+  );
 
   const [salary, setSalary] = useState();
 
@@ -484,7 +490,7 @@ const DivOne = ({ onButtonClick }) => {
       {" "}
       <Card>
         <Card.Header className="cardHeader">Site Details</Card.Header>
-        <Card.Body>
+        <Card.Body className="formScrollbar">
           <Row className="mb-3">
             <Col>
               <Dropdown
@@ -618,6 +624,7 @@ const DivOne = ({ onButtonClick }) => {
                 required
                 controlId="txt_budget"
                 label="Budget"
+                value={siteBudget}
                 type="text"
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_budget", inputValue);
@@ -636,7 +643,8 @@ const DivOne = ({ onButtonClick }) => {
               <Input
                 controlId="txt_manpower"
                 label="Total Agreed Manpower"
-                type="date"
+                type="text"
+                value={manpower}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_manpower", inputValue.currentTarget.value);
                 }}
@@ -672,6 +680,7 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="rad_workingdays"
                 label="Working days in week"
                 options={salutationArr}
+                checked={true}
                 onChangeInputHandler={(value) => {
                   validateForm("rad_workingdays", value);
                 }}
@@ -689,7 +698,8 @@ const DivOne = ({ onButtonClick }) => {
                 required
                 controlId="txt_salaryProcessing"
                 label="Start Day For Salary Processing"
-                type="text"
+                type="date"
+                
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_salaryProcessing", inputValue);
                 }}
