@@ -112,7 +112,6 @@ const dropdownOptionsLocation = [
     id: 7,
     value: "Sinhgad road",
   },
- 
 ];
 const dropdownOptionsZone = [
   {
@@ -159,7 +158,7 @@ const dropdownOptionsType = [
 const dropdownOptionsCustomer = [
   {
     id: 1,
-    value: "ACG Pharma",
+    // value: "ACG Pharma",
   },
   {
     id: 2,
@@ -186,7 +185,6 @@ const noOfSteps = [1, 2];
 const DivOne = ({ onButtonClick }) => {
   const location = useLocation();
 
-  
   const site = location.state;
   const [sitesData, setSitesData] = useState(site);
 
@@ -241,107 +239,136 @@ const DivOne = ({ onButtonClick }) => {
   const [invalidSalutation, setInvalidSalutation] = useState(true);
   const [salutation, setSalutation] = useState();
 
-const[gstApplicable,setGstApplicable]=useState(false);
+  const [gstApplicable, setGstApplicable] = useState(false);
 
   const [siteData, setSiteData] = useState([]);
 
   // for fields
-  const[customerData,setCustomerData]=useState (
-    sitesData === undefined || sitesData === null ? null : sitesData.customer 
+  const [customerData, setCustomerData] = useState(
+    sitesData === undefined || sitesData === null ? null : sitesData.customer
   );
 
-  const[applicable,setApplicable]=useState();
+  const [applicable, setApplicable] = useState();
 
-  const[customerGst,setCustomerGst]=useState();
+  const [customerGst, setCustomerGst] = useState();
 
-  const[siteName,setSiteName]=useState(
+  const [siteName, setSiteName] = useState(
     sitesData === undefined || sitesData === null ? null : sitesData.Site
   );
 
-  const[sezSite,setSezSite]=useState();
+  const [sezSite, setSezSite] = useState(
+    sitesData === undefined || sitesData === null ? null : sitesData.Sez
+  );
 
-  const[type,setType]=useState();
+  const [typeData, setTypeData] = useState(
+    sitesData === undefined || sitesData === null ? null : sitesData.Type
+  );
+  const [status, setStatus] = useState(
+    sitesData === undefined || sitesData === null ? null : sitesData.Status
+  );
 
-  const[manpower,setManpower]=useState();
+  const [manpower, setManpower] = useState(
+    sitesData === undefined || sitesData === null ? null : sitesData.Total_Manpower
+  );
 
-  const[siteBudget,setSiteBudget]=useState();
+  const [siteBudget, setSiteBudget] = useState(
+    sitesData === undefined || sitesData === null ? null : sitesData.Site_Budget
+  );
 
-  const[siteZone,setSiteZone]=useState();
+  const [siteZone, setSiteZone] = useState();
 
-  const[workingDays,setWorkingDays]=useState();
+  const [workingDays, setWorkingDays] = useState(
+    salutationArr === undefined || salutationArr === null ? null : salutationArr
+  );
 
-  const[salary,setSalary]=useState();
+  const [salary, setSalary] = useState();
 
-  const[material,setMaterial]=useState();
+  const [material, setMaterial] = useState();
 
-  const[siteStatus,setSiteStatus]=useState();
+  const [siteStatus, setSiteStatus] = useState();
+  const [dropDown, setCustomerDropdown] = useState([]);
 
   useEffect(() => {
-    // alert(JSON.stringify(site));
-    setSiteData(site);
+    const customerArr = [];
+    // alert(JSON.stringify(siteJson.Data));
+    for (let i = 0; i < siteJson.Data.length; i++) {
+      var data = siteJson.Data[i]["customer"];
+      // ArrState.push(data);
+      customerArr.push({
+        label: i,
+        value: data,
+      });
+      // console.log(data)
+    }
+    // setSiteData(site);
+    setCustomerDropdown(customerArr)
+    // alert("================>"+JSON.stringify(customerArr));
   }, []);
+
 
   const validateForm = (fieldName, value) => {
     switch (fieldName) {
       case "drp_customer":
-        if (value === undefined||value=="") {
-    setValidateDivOne(false);
-    // setFormData({ ...formData, [fieldName]: value });
+        if (value === undefined || value == "") {
+          setValidateDivOne(false);
+          // setFormData({ ...formData, [fieldName]: value });
         } else {
           setFormData({ ...formData, [fieldName]: value });
+          // setCustomerData(value)
           setInvalidCustomer(false);
           setCustomerErrorMessage("");
           setValidateDivOne(true);
         }
         break;
-        case "rad_gstApllicable":
-          // alert(value)
-          if (value=="Yes"){
-            setGstApplicable(true)
-          }else{ setGstApplicable(false)}
-         
-          setFormData({ ...formData, [fieldName]: value });
-          break;
-          
+      case "rad_gstApllicable":
+        // alert(value)
+        if (value == "Yes") {
+          setGstApplicable(true);
+        } else {
+          setGstApplicable(false);
+        }
+
+        setFormData({ ...formData, [fieldName]: value });
+        break;
+
       case "txt_manpower":
         setFormData({ ...formData, [fieldName]: value });
         break;
-        case "rad_materialprovided":
-          setFormData({ ...formData, [fieldName]: value });
-          break;
+      case "rad_materialprovided":
+        setFormData({ ...formData, [fieldName]: value });
+        break;
       // case "txt_remark":
       //   setFormData({ ...formData, [fieldName]: value });
       //   break;
 
-        //  case "drp_customer":
-        //   if (value === undefined) {
-        //     setInvalidCustomer(true);
-        //     setCustomerErrorMessage("Please Select customer");
-        //   } else {
-        //     setInvalidCustomer(false);
-        //     setCustomerErrorMessage("");
-        //     setValidateDivOne(true);
-        //     setFormData({ ...formData, [fieldName]: value });
-        //   }
-  
-    
-        // break;
+      //  case "drp_customer":
+      //   if (value === undefined) {
+      //     setInvalidCustomer(true);
+      //     setCustomerErrorMessage("Please Select customer");
+      //   } else {
+      //     setInvalidCustomer(false);
+      //     setCustomerErrorMessage("");
+      //     setValidateDivOne(true);
+      //     setFormData({ ...formData, [fieldName]: value });
+      //   }
 
-        case "rad_sez":
-          if (value === undefined ||value=="") {
-            setValidateDivOne(false);
-            // setFormData({ ...formData, [fieldName]: value });
-          } else {
-            setInvalidSez(false);
-            setSezErrorMessage("");
-            setValidateDivOne(true);
-            setFormData({ ...formData, [fieldName]: value });
-          }
-          break;
-   
+      // break;
+
+      case "rad_sez":
+        if (value === undefined || value == "") {
+          setValidateDivOne(false);
+          // setFormData({ ...formData, [fieldName]: value });
+        } else {
+          setInvalidSez(false);
+          setSezErrorMessage("");
+          setValidateDivOne(true);
+          setFormData({ ...formData, [fieldName]: value });
+        }
+        break;
+
       case "drp_zone":
-        if (value === undefined || value=="") {
-          setValidateDivOne(false)
+        if (value === undefined || value == "") {
+          setValidateDivOne(false);
           // setFormData({ ...formData, [fieldName]: value });
         } else {
           setFormData({ ...formData, [fieldName]: value });
@@ -351,8 +378,8 @@ const[gstApplicable,setGstApplicable]=useState(false);
         }
         break;
       case "rad_workingdays":
-        if (value === undefined ) {
-          setValidateDivOne(false)
+        if (value === undefined) {
+          setValidateDivOne(false);
           // setFormData({ ...formData, [fieldName]: value });
         } else {
           setFormData({ ...formData, [fieldName]: value });
@@ -363,8 +390,8 @@ const[gstApplicable,setGstApplicable]=useState(false);
         break;
       case "txt_budget":
         // alert(value)
-        if (value === undefined ||value=="" || value== null) {
-          setValidateDivOne(false)
+        if (value === undefined || value == "" || value == null) {
+          setValidateDivOne(false);
           setFormData({ ...formData, [fieldName]: value });
         } else {
           setFormData({ ...formData, [fieldName]: value });
@@ -378,15 +405,15 @@ const[gstApplicable,setGstApplicable]=useState(false);
         //   setInvalidStatus(true);
         //   setStatusErrorMessage("Please Select Status");
         // } else {
-          setFormData({ ...formData, [fieldName]: value });
-          setInvalidStatus(false);
-          setStatusErrorMessage("");
-          setValidateDivOne(true);
+        setFormData({ ...formData, [fieldName]: value });
+        setInvalidStatus(false);
+        setStatusErrorMessage("");
+        setValidateDivOne(true);
         // }
         break;
       case "drp_type":
         if (value === undefined) {
-          setValidateDivOne(false)
+          setValidateDivOne(false);
           // setFormData({ ...formData, [fieldName]: value });
         } else {
           setFormData({ ...formData, [fieldName]: value });
@@ -397,7 +424,7 @@ const[gstApplicable,setGstApplicable]=useState(false);
         break;
       case "txt_salaryProcessing":
         if (value === undefined) {
-          setValidateDivOne(false)
+          setValidateDivOne(false);
           setFormData({ ...formData, [fieldName]: value });
         } else {
           setFormData({ ...formData, [fieldName]: value });
@@ -406,76 +433,76 @@ const[gstApplicable,setGstApplicable]=useState(false);
           setValidateDivOne(true);
         }
         break;
-     
-       
-        case "txt_customergst":
-          setFormData({ ...formData, [fieldName]: value });
-          break;
-          case "txt_sitename":
-            setFormData({ ...formData, [fieldName]: value });
-            break;
-  
+
+      case "txt_customergst":
+        setFormData({ ...formData, [fieldName]: value });
+        break;
+      case "txt_sitename":
+        setSiteName(value);
+        setFormData({ ...formData, [fieldName]: value });
+        break;
 
       default:
     }
   };
 
-  const onNextPage=()=>{
-    if(formData.drp_customer == undefined || formData.drp_customer == ""){
+  const onNextPage = () => {
+    if (formData.drp_customer == undefined || formData.drp_customer == "") {
       setInvalidCustomer(true);
       setCustomerErrorMessage("Please Select State");
-    }
-    else if(formData.rad_sez == undefined || formData.rad_sez == ""){
+    } else if (formData.rad_sez == undefined || formData.rad_sez == "") {
       setInvalidSez(true);
       setSezErrorMessage("Please Select SEZ");
-    }
-    else if(formData.drp_type == undefined || formData.drp_type == ""){
+    } else if (formData.drp_type == undefined || formData.drp_type == "") {
       setInvalidType(true);
       setTypeErrorMessage("Please Select Type");
-    }
-    else if(formData.txt_budget === undefined || formData.txt_budget === ""){
+    } else if (
+      formData.txt_budget === undefined ||
+      formData.txt_budget === ""
+    ) {
       setInvalidBudget(true);
       setBudgetErrorMessage("Please Select Budget");
-    }
-    else if(formData.drp_zone == undefined || formData.drp_zone == ""){
+    } else if (formData.drp_zone == undefined || formData.drp_zone == "") {
       setInvalidZone(true);
       setDropdownZoneErrorMessage("Please Select Zone");
-    }
-    else if(formData.rad_workingdays == undefined || formData.rad_workingdays == ""){
+    } else if (
+      formData.rad_workingdays == undefined ||
+      formData.rad_workingdays == ""
+    ) {
       setInvalidWorkingDays(true);
       setDropdownWorkingDaysErrorMessage("Please Select Working days");
-    }
-    else if(formData.txt_salaryProcessing == undefined || formData.txt_salaryProcessing == ""){
+    } else if (
+      formData.txt_salaryProcessing == undefined ||
+      formData.txt_salaryProcessing == ""
+    ) {
       setInvalidStartdaysalary(true);
       setStartdaysalaryErrorMessage("Please Select date");
-    }
-    else{
-      alert(JSON.stringify(formData))
+    } else {
+      alert(JSON.stringify(formData));
       onButtonClick("divTwo");
-      
-          sessionStorage.setItem("add_site", JSON.stringify(formData));
-    }
-  }
 
+      sessionStorage.setItem("add_site", JSON.stringify(formData));
+    }
+  };
 
   return (
     <>
       {" "}
       <Card>
         <Card.Header className="cardHeader">Site Details</Card.Header>
-        <Card.Body>
+        <Card.Body className="formScrollbar">
           <Row className="mb-3">
             <Col>
               <Dropdown
                 required
                 label="Customer"
                 controlId="drp_customer"
-                value={customerData}
-                options={dropdownOptionsCustomer}
+                value={customerData == null? "": customerData}
+                options={dropDown}
                 onChangeDropDownHandler={(dropDownValue) => {
                   validateForm(
                     "drp_customer",
-                    dropdownOptionsCustomer[dropDownValue - 1].value
+                    dropDown[dropDownValue - 1].value
                   );
                 }}
               />
@@ -518,22 +545,44 @@ const[gstApplicable,setGstApplicable]=useState(false);
                 controlId="txt_sitename"
                 label="Site name"
                 type="text"
-             value={siteName}
+                value={siteName}
                 onChangeInputHandler={(inputValue) => {
                   // alert(JSON.stringify(inputValue))
                   validateForm("txt_sitename", inputValue.currentTarget.value);
                 }}
-                
               />
+            </Col>
+
+            <Col>
+              <Dropdown
+                required
+                label="Type"
+                controlId="drp_type"
+                defaultValue={typeData == undefined ? "" : typeData}
+                options={dropdownOptionsType}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  validateForm(
+                    "drp_type",
+                    dropdownOptionsType[dropDownValue - 1].value
+                  );
+                }}
+              />
+              {invalidType === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {typeErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
           </Row>
           <Row className="mb-3">
-          
-          <Col>
+            <Col>
               <RadioButton
                 required
                 controlId="rad_sez"
                 label="SEZ"
+                value={sezSite}
                 options={["Non-SEZ", "SEZ"]}
                 onChangeInputHandler={(dropDownValue) => {
                   validateForm("rad_sez", dropDownValue);
@@ -551,41 +600,31 @@ const[gstApplicable,setGstApplicable]=useState(false);
             <Col>
               <Dropdown
                 required
-                label="Type"
-                controlId="drp_type"
-                options={dropdownOptionsType}
+                label="Status"
+                controlId="drp_Status"
+                defaultValue={status}
+                options={dropdownOptionsStatus}
                 onChangeDropDownHandler={(dropDownValue) => {
                   validateForm(
-                    "drp_type",
-                    dropdownOptionsType[dropDownValue - 1].value
+                    "drp_Status",
+                    dropdownOptionsStatus[dropDownValue - 1].value
                   );
                 }}
               />
-              {invalidType === true ? (
+              {invalidStatus === true ? (
                 <Form.Text className="position-relative mandatoryField">
-                  {typeErrorMessage}
+                  {statusErrorMessage}
                 </Form.Text>
               ) : (
                 <></>
               )}
-            </Col>
-          
-
-<Col>
-              <Input
-                controlId="txt_manpower"
-                label="Total Agreed Manpower"
-                type="text"
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_manpower", inputValue.currentTarget.value);
-                }}
-              />
             </Col>
             <Col>
               <Input
                 required
                 controlId="txt_budget"
                 label="Budget"
+                value={siteBudget}
                 type="text"
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_budget", inputValue);
@@ -599,12 +638,21 @@ const[gstApplicable,setGstApplicable]=useState(false);
                 <></>
               )}
             </Col>
-            
-         
+
+            <Col>
+              <Input
+                controlId="txt_manpower"
+                label="Total Agreed Manpower"
+                type="text"
+                value={manpower}
+                onChangeInputHandler={(inputValue) => {
+                  validateForm("txt_manpower", inputValue.currentTarget.value);
+                }}
+              />
+            </Col>
           </Row>
           <Row className="mb-3">
-            
-          <Col>
+            <Col>
               <Dropdown
                 required
                 label="Zone"
@@ -632,6 +680,7 @@ const[gstApplicable,setGstApplicable]=useState(false);
                 controlId="rad_workingdays"
                 label="Working days in week"
                 options={salutationArr}
+                checked={true}
                 onChangeInputHandler={(value) => {
                   validateForm("rad_workingdays", value);
                 }}
@@ -649,7 +698,8 @@ const[gstApplicable,setGstApplicable]=useState(false);
                 required
                 controlId="txt_salaryProcessing"
                 label="Start Day For Salary Processing"
-                type="text"
+                type="date"
+                
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_salaryProcessing", inputValue);
                 }}
@@ -672,9 +722,7 @@ const[gstApplicable,setGstApplicable]=useState(false);
                 }}
               />
             </Col>
-            
 
-           
             {/* <Col>
               <SingleDatePicker
                 required
@@ -683,33 +731,11 @@ const[gstApplicable,setGstApplicable]=useState(false);
                 onChangeDateHandler={(inputValue) => {}}
               />
             </Col> */}
-            
           </Row>
           <Row className="mb-3">
-          <Col>
-              <Dropdown
-                required
-                label="Status"
-                controlId="drp_Status"
-                options={dropdownOptionsStatus}
-                onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm(
-                    "drp_Status",
-                    dropdownOptionsStatus[dropDownValue - 1].value
-                  );
-                }}
-              />
-              {invalidStatus === true ? (
-                <Form.Text className="position-relative mandatoryField">
-                  {statusErrorMessage}
-                </Form.Text>
-              ) : (
-                <></>
-              )}
-            </Col>
-          <Col>
+            <Col>
               <TextArea
-                 required
+                required
                 controlId="txt_remark"
                 label="Remarks"
                 type="text"
@@ -717,11 +743,8 @@ const[gstApplicable,setGstApplicable]=useState(false);
                   validateForm("txt_remark", inputValue);
                 }}
               />
-            </Col> 
-        
-         
-           
-            <Col></Col>
+            </Col>
+
             <Col></Col>
             {/* <Col>
               <RadioButton
@@ -783,7 +806,7 @@ const[gstApplicable,setGstApplicable]=useState(false);
             type="button"
             className="alignRight"
             onClick={() => {
-            onNextPage()
+              onNextPage();
             }}
           >
             Next
@@ -797,65 +820,63 @@ const[gstApplicable,setGstApplicable]=useState(false);
 const DivTwo = ({ onButtonClick }) => {
   const [formData2, setFormData2] = useState([]);
 
- // For state dropdown
- const [dropdownStateErrorMessage, setDropdownStateErrorMessage] =
- useState("");
-const [invalidState, setInvalidState] = useState(false);
+  // For state dropdown
+  const [dropdownStateErrorMessage, setDropdownStateErrorMessage] =
+    useState("");
+  const [invalidState, setInvalidState] = useState(false);
 
-// For City Dropdown
-const [dropdownCityErrorMessage, setDropdownCityErrorMessage] = useState("");
-const [invalidCity, setInvalidCity] = useState(false);
+  // For City Dropdown
+  const [dropdownCityErrorMessage, setDropdownCityErrorMessage] = useState("");
+  const [invalidCity, setInvalidCity] = useState(false);
 
-// For Location Dropdown
-const [dropdownLocationErrorMessage, setDropdownLocationErrorMessage] = useState("");
-const [invalidLocation, setInvalidLocation] = useState(false);
-
-  
+  // For Location Dropdown
+  const [dropdownLocationErrorMessage, setDropdownLocationErrorMessage] =
+    useState("");
+  const [invalidLocation, setInvalidLocation] = useState(false);
 
   const validateForm2 = (fieldName, value) => {
     alert(value);
     switch (fieldName) {
-     
       case "drp_state":
         // if (value === undefined) {
         //   setInvalidState(true);
         //   setDropdownStateErrorMessage("Please Select State");
         // } else {
-          setFormData2({ ...formData2, [fieldName]: value });
-          setInvalidState(false);
-          setDropdownStateErrorMessage("");
-          // setValidateDivTwo(true);
+        setFormData2({ ...formData2, [fieldName]: value });
+        setInvalidState(false);
+        setDropdownStateErrorMessage("");
+      // setValidateDivTwo(true);
+      // }
+      case "drp_city":
+        // if (value === undefined) {
+        //   setInvalidCity(true);
+        //   setDropdownCityErrorMessage("Please Select City");
+        // } else {
+        setFormData2({ ...formData2, [fieldName]: value });
+        setInvalidCity(false);
+        setDropdownCityErrorMessage("");
+
         // }
-        case "drp_city":
-          // if (value === undefined) {
-          //   setInvalidCity(true);
-          //   setDropdownCityErrorMessage("Please Select City");
-          // } else {
-            setFormData2({ ...formData2, [fieldName]: value });
-            setInvalidCity(false);
-            setDropdownCityErrorMessage("");
-           
-          // }
-          break;
-          // case "drp_location":
-          //   if (value === undefined) {
-          //     setInvalidLocation(true);
-          //     setDropdownLocationErrorMessage("Please Select Location");
-          //   } else {
-           
-              setInvalidLocation(false);
-              setDropdownLocationErrorMessage("");
-              setFormData2({ ...formData2, [fieldName]: value });
-             
-            // }
-            break;
-            case "txt_address":
-              setFormData2({ ...formData2, [fieldName]: value });
-              break;
-              case "txt_gps":
+        break;
+        // case "drp_location":
+        //   if (value === undefined) {
+        //     setInvalidLocation(true);
+        //     setDropdownLocationErrorMessage("Please Select Location");
+        //   } else {
+
+        setInvalidLocation(false);
+        setDropdownLocationErrorMessage("");
+        setFormData2({ ...formData2, [fieldName]: value });
+
+        // }
+        break;
+      case "txt_address":
         setFormData2({ ...formData2, [fieldName]: value });
         break;
-     
+      case "txt_gps":
+        setFormData2({ ...formData2, [fieldName]: value });
+        break;
+
       default:
     }
   };
@@ -866,24 +887,25 @@ const [invalidLocation, setInvalidLocation] = useState(false);
     // if (formData2.drp_customer == undefined || formData2.drp_customer == "") {
     //   setInvalidCustomer(true);
     //   setCustomerErrorMessage("Please Select customer");
-    // } 
-    if(formData2.drp_state == undefined || formData2.drp_state == ""){
+    // }
+    if (formData2.drp_state == undefined || formData2.drp_state == "") {
       setInvalidState(true);
       setDropdownStateErrorMessage("Please Select State");
-    }
-    else if(formData2.drp_city == undefined || formData2.drp_city == ""){
+    } else if (formData2.drp_city == undefined || formData2.drp_city == "") {
       setInvalidCity(true);
-            setDropdownCityErrorMessage("Please Select City");
-    } else if(formData2.drp_location == undefined || formData2.drp_location == ""){
+      setDropdownCityErrorMessage("Please Select City");
+    } else if (
+      formData2.drp_location == undefined ||
+      formData2.drp_location == ""
+    ) {
       setInvalidLocation(true);
-            setDropdownLocationErrorMessage("Please Select Location");
-    } 
-    
-//  else if (formData2.rad_sez == undefined || formData2.rad_sez == "") {
-//       setInvalidSez(true);
-//       setSezErrorMessage("Please Select value");
-//     } 
+      setDropdownLocationErrorMessage("Please Select Location");
+    }
 
+    //  else if (formData2.rad_sez == undefined || formData2.rad_sez == "") {
+    //       setInvalidSez(true);
+    //       setSezErrorMessage("Please Select value");
+    //     }
     else {
       // alert(JSON.stringify(formData2))
       var sessionData = sessionStorage.getItem("add_site");
@@ -904,7 +926,7 @@ const [invalidLocation, setInvalidLocation] = useState(false);
         <Card.Header className="cardHeader">Address Details</Card.Header>
         <Card.Body>
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Dropdown
                 required
                 label="State"
@@ -978,11 +1000,9 @@ const [invalidLocation, setInvalidLocation] = useState(false);
                 }}
               />
             </Col>
-         
-
           </Row>
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Input
                 controlId="txt_gps"
                 label="GPS"

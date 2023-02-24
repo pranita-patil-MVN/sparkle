@@ -3,20 +3,22 @@
         {
             "shift":"S1",
             "shift_start_time":"07:00",
-            "short_break_1":"10:30 AM",
-            "long_break":"1:00 PM",
-            "short_break_2":"4:00 PM",
+            "short_break_1":"10:30 ",
+            "long_break":"1:00 ",
+            "short_break_2":"4:00 ",
             "site":"Audi Showroom - Goa",
-            "working_hrs":"10"
+            "working_hrs":"10",
+            "shift_end_time":"20:00"
         },
         {
             "shift":"S2",
             "shift_start_time":"08:00",
-            "short_break_1":"11:30 AM",
-            "long_break":"2:00 PM",
-            "short_break_2":"5:00 PM",
+            "short_break_1":"11:30 ",
+            "long_break":"2:00 ",
+            "short_break_2":"5:00 ",
             "site":"Garden Silk Mills Pvt. Ltd",
-            "working_hrs":"8"
+            "working_hrs":"8",
+            "shift_end_time":"21:00"
         }
         
     ]

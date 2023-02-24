@@ -51,6 +51,10 @@
         border-radius: 5px;
         outline: none;
     }
+    .formScrollbar{
+        overflow-y: scroll;
+        height:65vh
+    }
     @media only screen and (min-width: 1300px) and (max-width: 1460px) {
         .filter {
             height: 84.7vh;

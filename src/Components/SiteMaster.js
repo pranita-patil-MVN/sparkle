@@ -34,7 +34,6 @@ const SiteMaster = () => {
   const [district, setDistrict] = useState();
   const [state, setState] = useState();
   const [city, setCity] = useState();
-
   const ArrState = [];
   const getEmployeeList = async () => {
     // try {
@@ -60,7 +59,6 @@ const SiteMaster = () => {
     doc.text("hello" + data);
     doc.save("document.pdf");
   }
-
   const getSiteDataForEdit = (site) => {
     // alert(JSON.stringify(site))
     navigate("/masters/customer/SiteMaster/createSite", { state: site });

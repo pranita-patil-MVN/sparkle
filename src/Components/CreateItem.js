@@ -314,7 +314,7 @@ const DivOne = ({onButtonClick}) => {
     <>
       <Card>
         <Card.Header className="cardHeader">Item Details</Card.Header>
-        <Card.Body>
+        <Card.Body className="formScrollbar">
           <Row className="mb-3">
           <Col>
               <Input
@@ -404,7 +404,7 @@ const DivOne = ({onButtonClick}) => {
               ) : (
                 <></>
               )}
-            </Col>
+          </Col>
             <Col>
             <Row>
             <Col>
@@ -425,7 +425,7 @@ const DivOne = ({onButtonClick}) => {
                 <></>
               )}
             </Col>
-            <Col >
+            <Col>
                   <Input
                     // required
                     controlId="text_cgst"
@@ -442,7 +442,7 @@ const DivOne = ({onButtonClick}) => {
               ) : (
                 <></>
               )}
-                </Col>
+            </Col>
             </Row>
             </Col>
             <Col>
@@ -465,7 +465,7 @@ const DivOne = ({onButtonClick}) => {
                 <></>
               )}
                 </Col>
-                <Col >
+                <Col>
                   <Input
                     // required
                     controlId="text_igst"
@@ -493,11 +493,16 @@ const DivOne = ({onButtonClick}) => {
                   validateForm("text_hsn", inputValue.currentTarget.value);
                 }}
               />
-            </Col>
+                {invalidIgst === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {igstErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
+                </Col>
               </Row>
             </Col>
-
-           
             <Col>
               <RadioButton
                 controlId="rad_deduction_status"

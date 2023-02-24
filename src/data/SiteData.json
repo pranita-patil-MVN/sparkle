@@ -4,10 +4,13 @@
         "Site": "Forbes Marshall Pvt. Ltd. Kasarwadi",
         "Supervisor": "Sandesh Malap",
         "Site_Budget":"180000",
-        "Status":"Active",
+        "Status":"Inactive",
         "Location":"Pune",
         "Executive":"Nik Joshi",
-        "customer": "ACG Pharma"
+        "customer": "ACG",
+        "Sez":"Yes",
+        "Type":"huoijoi",
+        "Total_Manpower":"10"
       },
       {
         "Site": "Huf India Pvt. Ltd.",
@@ -16,7 +19,10 @@
         "Status":"Inactive",
         "Location":"Baner",
         "Executive":"Pritesh Kale",
-        "customer": "B.U.Bhandari"
+        "customer": "B.U.Bhandari",
+        "Sez":"No",
+        "Type":"ESIC",
+        "Total_Manpower":"10"
       },
       {
         "Site": "Kalyani TechnoForge Ltd.",
@@ -25,7 +31,11 @@
         "Status":"Active",
         "Location":"Mumbai",
         "Executive":"Nik Joshi",
-        "customer": "B.U.Bhandari"
+        "customer": "B.U.Bhandari",
+        "Sez":"No",
+        "Type":"Non-ESIC",
+        "Total_Manpower":"10",
+        "working_days":"5"
       },
       {
         "Site": "Mubea Automotive India Pvt. Ltd.",
@@ -34,7 +44,10 @@
         "Status":"Active",
         "Location":"Kolhapur",
         "Executive":"Suraj Kadam",
-        "customer": "Devi Construction"
+        "customer": "Devi Construction",
+        "Sez":"Yes",
+        "Type":"Non-ESIC",
+        "Total_Manpower":"10"
       },
       {
         "Site": "Tenneco Clean Air India Pvt. Ltd.",
@@ -43,7 +56,10 @@
         "Status":"Inactive",
         "Location":"Nashik",
         "Executive":"Vikas Malap",
-        "customer": "Chakote Group"
+        "customer": "Chakote Group",
+        "Sez":"No",
+        "Type":"Non-ESIC",
+        "Total_Manpower":"10"
       }
       
     ]
