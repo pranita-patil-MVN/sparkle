@@ -1,0 +1,19 @@
+{
+    "Data": 
+    [
+        {
+    "id": 1,
+    "value": "Available"
+  },
+  {
+    "id": 2,
+    "value": "End of life"
+  },
+  {
+    "id": 3,
+    "value": "Not in use"
+  },
+  {
+    "id": 4,
+    "value": "Withdrawn"
+  }]}

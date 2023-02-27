@@ -1,20 +1,22 @@
 {
     "Data": [
       {
-        "items": "Blade",
-        "category": "Consumables",
+        "items":"Blade",
+        "category":"Consumables",
         "make":"Local",
         "rate":5,
-        "status":"Available",
+        "status":"End of life",
         "code":"SH123",
-        "deduction":"No",
-        "unit":"Kg",
+        "deduction":"Yes",
+        "unit":"Liters",
         "make":"Galalio",
         "rate":10000,
         "cgst":"20",
         "sgst":"50",
         "igst":"60",
-        "hsn":"123"
+        "hsn":"123",
+        "remark":"In good condition",
+        "information":"....."
       },
       {
         "items": "Brush",
