@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Row,
   Col,
@@ -14,89 +14,24 @@ import Input from "../CommonComponents/Input";
 import RadioButton from "../CommonComponents/RadioButtons";
 import TextArea from "../CommonComponents/TextArea";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
-import {useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import placeholder from "../assets/Images/Placeholder.png";
 import itemJson from "../data/itemData.json";
+import itemDataJson from "../data/itemJson.json";
+import itemStatusJson from "../data/itemStatus.json";
+import itemUnitJsonData from "../data/itemUnit.json";
 import _ from "underscore";
 
-const dropdownStatusOptions = [
-  {
-    id: 1,
-    value: "Available",
-  },
-  {
-    id: 2,
-    value: "End of life",
-  },
-  {
-    id: 3,
-    value: "Not in use",
-  },
-  {
-    id: 4,
-    value: "Withdrawn",
-  },
-];
-const dropdownCategoryOptions = [
-  {
-    id: 1,
-    value: "Accessories",
-  },
-  {
-    id: 2,
-    value: "Chemicals",
-  },
-  {
-    id: 3,
-    value: "Consumables",
-  },
-  {
-    id: 4,
-    value: "Stationery",
-  },
-  {
-    id: 5,
-    value: "Toiletories",
-  },
-  {
-    id: 6,
-    value: "Uniform",
-  },
-];
-const dropdownMeasurementUnitsOptions = [
-  {
-    id: 1,
-    value: "Kg",
-  },
-  {
-    id: 2,
-    value: "Liters",
-  },
-  {
-    id: 3,
-    value: "Number",
-  },
-  {
-    id: 4,
-    value: "Packet",
-  },
-  {
-    id: 5,
-    value: "Pair",
-  },
-  {
-    id: 6,
-    value: "Set",
-  },
-];
-const DivOne = ({onButtonClick}) => {
-  const location= useLocation();
-  const items = location.state;
+const DivOne = ({ onButtonClick }) => {
+  const location = useLocation();
+  const itemsDetails = location.state;
+
   // var ref=useRef(items)
-    const navigate=useNavigate();
+  const navigate = useNavigate();
   const handleOnChange = (value) => {};
 
-  const [formData, setFormData] = useState([]);
+  const [itemsData, setItemsData] = useState(itemsDetails);
+  // const [itemsData, setItemsData] = useState([]);
   const [editableItemData, setEditableItemData] = useState();
   // for item name
   const [itemValue, setItemValue] = useState("");
@@ -107,7 +42,49 @@ const DivOne = ({onButtonClick}) => {
   const [categoryDropdownErrorMessage, setCategoryDropdownErrorMessage] =
     useState("");
   const [invalidCategory, setInvalidCategory] = useState(false);
+  const [categoryJson, setJsonCategory] = useState(itemDataJson.Data);
+  const [statusJson,setStatusJson]=useState(itemStatusJson.Data);
+  const [itemUnitJson,setItemUnitJson]=useState(itemUnitJsonData.Data)
+  const [category, setCategory] = useState([]);
+  const [statusArray, setStatusArray] = useState([]);
+  const [itemUnitArray, setItemUnitArray] = useState([]);
+  // alert(JSON.stringify(CategoryJson))
 
+  useEffect(() => {
+    JsonDataItem();
+  }, []);
+  const JsonDataItem = () => {
+    const itemArray = [];
+    const statusArray=[];
+    const unitArray=[];
+    for (let i = 0; i < categoryJson.length; i++) {
+      var data = categoryJson[i].value;
+      // alert(data);
+      itemArray.push({
+        label: i,
+        value: data,
+      });
+      setCategory(itemArray);
+    }
+    for(let j=0;j<statusJson.length;j++){
+      var data = statusJson[j].value;
+      // alert(data);
+      statusArray.push({
+        label: j,
+        value: data,
+      });
+      setStatusArray(statusArray);
+    }
+
+    for(let k=0;k<itemUnitJson.length;k++){
+      var data = itemUnitJson[k].value;
+      unitArray.push({
+        label: k,
+        value: data,
+      });
+      setItemUnitArray(unitArray);
+    }
+  };
   // for status dropdown
   const [statusDropdownErrorMessage, setStatusDropdownErrorMessage] =
     useState("");
@@ -125,47 +102,83 @@ const DivOne = ({onButtonClick}) => {
   const [cgstErrorMessage, setCgstErrorMessage] = useState("");
   const [invalidCgst, setInvalidCgst] = useState(false);
 
-    // for sgst%
+  // for sgst%
   const [sgstErrorMessage, setSgstErrorMessage] = useState("");
   const [invalidSgst, setInvalidSgst] = useState(false);
 
-     // for Igst%
+  // for Igst%
   const [igstErrorMessage, setIgstErrorMessage] = useState("");
   const [invalidIgst, setInvalidIgst] = useState(false);
 
-
+  const [itemName, setItemName] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.items
+  );
+  const [itemCategory, setItemCategory] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.category
+  );
+  // alert(JSON.stringify( itemsDetails.category))
+  const [itemMake, setItemMake] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.make
+  );
+  const [measurementUnit, setMeasurementUnit] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.unit
+  );
+  const [itemRate, setItemRate] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.rate
+  );
+  const [itemCgst, setItemCgst] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.cgst
+  );
+  const [itemSgst, setItemSgst] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.sgst
+  );
+  const [itemIgst, setItemIgst] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.igst
+  );
+  const [itemHsn, setItemHsn] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.hsn
+  );
+  const [itemDeduction, setItemDeduction] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.deduction
+  );
+  const [itemStatus, setItemStatus] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.status
+  );
+  const [itemRemark, setItemRemark] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.remark
+  );
+  const [itemInformation, setItemInformation] = useState(
+    itemsData === undefined || itemsData === null ? null : itemsData.information
+  );
 
  
+ 
+ 
   const validateForm = (fieldName, value) => {
-    var expression= "^[0-9]*$";
+    // alert(typeof(value))
+    var expression = "^[0-9]*$";
     switch (fieldName) {
       case "txt_item":
-          setInvalidItem(false);
-          setTxtItemNameErrorMessage("");
-          setFormData({
-            ...formData,
-            [fieldName]: value,
-          });
-          
+        setInvalidItem(false);
+        setTxtItemNameErrorMessage("");
+        setItemName(value);
+
         // }
         break;
-      case "txt_code":
-        setFormData({
-          ...formData,
-          [fieldName]: value,
-        });
-        break;
+      // case "txt_code":
+      //   setItemsData({
+      //     ...itemsData,
+      //     [fieldName]: value,
+      //   });
+      //   break;
       case "drp_category":
-        // if (value === "" || value === undefined) {
-        //   setInvalidCategory(true);
-        //   setCategoryDropdownErrorMessage("Select category");
-        // } else {
-          setInvalidCategory(false);
-          setCategoryDropdownErrorMessage("");
-          setFormData({
-            ...formData,
-            [fieldName]: value,
-          });
+        setItemCategory(value);
+        setInvalidCategory(false);
+        setCategoryDropdownErrorMessage("");
+        // setItemsData({
+        //   ...itemsData,
+        //   [fieldName]: value,
+        // });
         // }
         break;
       case "drp_status":
@@ -173,114 +186,120 @@ const DivOne = ({onButtonClick}) => {
         //   setInvalidStatus(true);
         //   setStatusDropdownErrorMessage("Select status");
         // } else {
-          setInvalidStatus(false);
-          setStatusDropdownErrorMessage("");
-          setFormData({
-            ...formData,
-            [fieldName]: value,
-          });
+          setItemStatus(value)
+        setInvalidStatus(false);
+        setStatusDropdownErrorMessage("");
+        // setItemsData({
+        //   ...itemsData,
+        //   [fieldName]: value,
+        // });
         // }
         break;
       case "rad_deduction_status":
-        setFormData({
-          ...formData,
-          [fieldName]: value,
-        });
+        setItemDeduction(value)
+        // setItemsData({
+        //   ...itemsData,
+        //   [fieldName]: (value),
+        // });
         break;
       case "drp_measurement_unit":
         // if (value === "" || value === undefined) {
         //   setInvalidUnit(true);
         //   setUnitErrorMessage("Select unit");
         // } else {
-          setInvalidUnit(false);
-          setUnitErrorMessage("");
-          setFormData({
-            ...formData,
-            [fieldName]: value,
-          });
+          setMeasurementUnit(value)
+        setInvalidUnit(false);
+        setUnitErrorMessage("");
+        setItemsData({
+          ...itemsData,
+          [fieldName]: value,
+        });
         // }
         break;
       case "txt_make":
-        setFormData({
-          ...formData,
-          [fieldName]: value,
-        });
+        setItemMake(value)
+        // setItemsData({
+        //   ...itemsData,
+        //   [fieldName]: value,
+        // });
         break;
-
       case "txt_rate":
-        if (value.match(expression)){
-          setFormData({
-            ...formData,
-            [fieldName]: value,
-          });
+        if (value.match(expression)) {
+          setItemRate(value)
+          // setItemsData({
+          //   ...itemsData,
+          //   [fieldName]: value,
+          // });
           setInvalidRate(false);
           setItemRateErrorMessage("");
-        }
-        else{
-           setInvalidRate(true);
-        setItemRateErrorMessage("Invalid rate");
+        } else {
+          setInvalidRate(true);
+          setItemRateErrorMessage("Invalid rate");
         }
         break;
 
       case "text_cgst":
-        if (value.match(expression)){
-          setFormData({
-            ...formData,
-            [fieldName]: value,
-          });
+        if (value.match(expression)) {
+          // setItemsData({
+          //   ...itemsData,
+          //   [fieldName]: value,
+          // });
+          setItemCgst(value)
           setInvalidCgst(false);
           setCgstErrorMessage("");
-        }
-        else{
-           setInvalidCgst(true);
-           setCgstErrorMessage("Invalid CGST");
+        } else {
+          setInvalidCgst(true);
+          setCgstErrorMessage("Invalid CGST");
         }
         break;
       case "text_sgst":
-        if (value.match(expression)){
-          setFormData({
-            ...formData,
-            [fieldName]: value,
-          });
+        if (value.match(expression)) {
+          // setItemsData({
+          //   ...itemsData,
+          //   [fieldName]: value,
+          // });
+          setItemSgst(value)
           setInvalidSgst(false);
           setSgstErrorMessage("");
-        }
-        else{
-           setInvalidSgst(true);
-           setSgstErrorMessage("Invalid SGST");
+        } else {
+          setInvalidSgst(true);
+          setSgstErrorMessage("Invalid SGST");
         }
         break;
       case "text_igst":
-        if (value.match(expression)){
-          setFormData({
-            ...formData,
-            [fieldName]: value,
-          });
+        if (value.match(expression)) {
+          // setItemsData({
+          //   ...itemsData,
+          //   [fieldName]: value,
+          // });
+          setItemIgst(value)
           setInvalidIgst(false);
           setIgstErrorMessage("");
-        }
-        else{
-           setInvalidIgst(true);
-           setIgstErrorMessage("Invalid IGST");
+        } else {
+          setInvalidIgst(true);
+          setIgstErrorMessage("Invalid IGST");
         }
         break;
       case "text_hsn":
-        setFormData({
-          ...formData,
-          [fieldName]: value,
-        });
+        // setItemsData({
+        //   ...itemsData,
+        //   [fieldName]: value,
+        // });
+        setItemHsn(value)
         break;
       case "txt_remark":
-        setFormData({
-          ...formData,
-          [fieldName]: value,
-        });
+        // setItemsData({
+        //   ...itemsData,
+        //   [fieldName]: value,
+        // });
+        setItemRemark(value)
         break;
       case "txt_information":
-        setFormData({
-          ...formData,
-          [fieldName]: value,
-        });
+        // setItemsData({
+        //   ...itemsData,
+        //   [fieldName]: value,
+        // });
+        setItemInformation(value)
         break;
       default:
         break;
@@ -288,26 +307,36 @@ const DivOne = ({onButtonClick}) => {
   };
 
   const getItemsData = () => {
-    if (formData.txt_item ===undefined || formData.txt_item=="") {
+    if (itemName === null ||itemName === undefined || itemName == "") {
       setInvalidItem(true);
-        setTxtItemNameErrorMessage("Please fill the item");
-    }  else if (formData.drp_category===undefined || formData.drp_category=="") {
+      setTxtItemNameErrorMessage("Please fill the item");
+    } else if (
+      itemCategory === null ||
+      itemCategory === undefined ||
+      itemCategory == ""
+    ) {
       setInvalidCategory(true);
       setCategoryDropdownErrorMessage("Please select category");
-    } 
-    else if (formData.drp_measurement_unit ===undefined || formData.drp_measurement_unit=="") {
-      setInvalidUnit(true)
+    } else if (
+      measurementUnit === null ||
+      measurementUnit === undefined ||
+      measurementUnit == ""
+    ) {
+      setInvalidUnit(true);
       setUnitErrorMessage("Please select unit");
-    }
-    else if (formData.txt_rate ===undefined || formData.txt_rate=="") {
-      setInvalidRate(true)
+    } else if (itemRate === null || itemRate === undefined || itemRate == "") {
+      setInvalidRate(true);
       setItemRateErrorMessage("Please fill rate");
-    }
-    else if (formData.drp_status ===undefined || formData.drp_status=="") {
-      setInvalidStatus(true)
+    } else if (
+      itemStatus === null ||
+      itemStatus === undefined ||
+      itemStatus == ""
+    ) {
+      setInvalidStatus(true);
       setStatusDropdownErrorMessage("Please select status");
-    }  else {
-      alert(JSON.stringify(formData));
+    } else {
+    var data=[{name:itemName},{category:itemCategory},{make:itemMake},{unit:measurementUnit},{rate:itemRate},{cgst:itemCgst},{sgst:itemSgst},{igst:itemIgst},{hsn:itemHsn},{deduction:itemDeduction},{status:itemStatus},{remark:itemRemark},{information:itemInformation}]
+      alert(JSON.stringify(data));
     }
   };
   return (
@@ -316,14 +345,14 @@ const DivOne = ({onButtonClick}) => {
         <Card.Header className="cardHeader">Item Details</Card.Header>
         <Card.Body className="formScrollbar">
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Input
                 required
                 controlId="txt_code"
                 label="Code"
                 type="text"
-                // value={formData.txt_code}
-                // defaultValue={editableItemData!=undefined?editableItemData.code:formData.txt_code}
+                // value={itemsData.txt_code}
+                // defaultValue={editableItemData!=undefined?editableItemData.code:itemsData.txt_code}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_code", inputValue.currentTarget.value);
                 }}
@@ -336,15 +365,15 @@ const DivOne = ({onButtonClick}) => {
                 controlId="txt_item"
                 label=" Item"
                 type="text"
+                value={itemName}
                 // ref={ref.current.items}
-                // defaultValue={editableItemData!=undefined?editableItemData.items:formData.txt_item}
-                // value={formData.items!=undefined?formData.items:formData.txt_item}
-                // value={ref!=undefined?ref.current.items:formData.txt_item}
+                // defaultValue={editableItemData!=undefined?editableItemData.items:itemsData.txt_item}
+                // value={itemsData.items!=undefined?itemsData.items:itemsData.txt_item}
+                // value={ref!=undefined?ref.current.items:itemsData.txt_item}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_item", inputValue);
                 }}
                 disabled={false}
-               
               />
               {invalidItem === true ? (
                 <Form.Text className="position-relative mandatoryField">
@@ -354,15 +383,17 @@ const DivOne = ({onButtonClick}) => {
                 <></>
               )}
             </Col>
-          
+
             <Col>
               <Dropdown
                 required
                 label="Category"
                 controlId="drp_category"
-                options={dropdownCategoryOptions}
+                defaultValue={itemCategory}
+                value={itemCategory}
+                options={category}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_category", [dropdownCategoryOptions[dropDownValue-1].value,dropDownValue]);
+                  validateForm("drp_category", dropDownValue);
                 }}
               />
               {invalidCategory === true ? (
@@ -379,22 +410,30 @@ const DivOne = ({onButtonClick}) => {
                 controlId="txt_make"
                 label="Make"
                 type="text"
+                value={itemMake}
+              
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_make", inputValue.currentTarget.value);
                 }}
               />
             </Col>
           </Row>
-         
+
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Dropdown
                 required
                 label="Unit of Measure"
                 controlId="drp_measurement_unit"
-                options={dropdownMeasurementUnitsOptions}
+                // value={measurementUnit}
+                defaultValue={measurementUnit}
+                value={measurementUnit}
+                options={itemUnitArray}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_measurement_unit", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                  validateForm(
+                    "drp_measurement_unit",
+                    dropDownValue
+                  );
                 }}
               />
               {invalidUnit === true ? (
@@ -404,66 +443,69 @@ const DivOne = ({onButtonClick}) => {
               ) : (
                 <></>
               )}
-          </Col>
-            <Col>
-            <Row>
-            <Col>
-              <Input
-                required
-                controlId="txt_rate"
-                label="Rate(₹)"
-                type="text"
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_rate", inputValue);
-                }}
-              />
-              {invalidRate === true ? (
-                <Form.Text className="position-relative mandatoryField">
-                  {itemRateErrorMessage}
-                </Form.Text>
-              ) : (
-                <></>
-              )}
             </Col>
             <Col>
+              <Row>
+                <Col>
+                  <Input
+                    required
+                    controlId="txt_rate"
+                    label="Rate(₹)"
+                    type="text"
+                    value={itemRate}
+                    onChangeInputHandler={(inputValue) => {
+                      validateForm("txt_rate", inputValue);
+                    }}
+                  />
+                  {invalidRate === true ? (
+                    <Form.Text className="position-relative mandatoryField">
+                      {itemRateErrorMessage}
+                    </Form.Text>
+                  ) : (
+                    <></>
+                  )}
+                </Col>
+                <Col>
                   <Input
                     // required
                     controlId="text_cgst"
                     label="CGST(%)"
                     type="text"
+                    value={itemCgst}
                     onChangeInputHandler={(inputValue) => {
                       validateForm("text_cgst", inputValue.currentTarget.value);
                     }}
                   />
                   {invalidCgst === true ? (
-                <Form.Text className="position-relative mandatoryField">
-                  {cgstErrorMessage}
-                </Form.Text>
-              ) : (
-                <></>
-              )}
-            </Col>
-            </Row>
+                    <Form.Text className="position-relative mandatoryField">
+                      {cgstErrorMessage}
+                    </Form.Text>
+                  ) : (
+                    <></>
+                  )}
+                </Col>
+              </Row>
             </Col>
             <Col>
               <Row>
-                <Col >
+                <Col>
                   <Input
                     // required
                     controlId="text_sgst"
                     label="SGST(%)"
                     type="text"
+                    value={itemSgst}
                     onChangeInputHandler={(inputValue) => {
                       validateForm("text_sgst", inputValue.currentTarget.value);
                     }}
                   />
                   {invalidSgst === true ? (
-                <Form.Text className="position-relative mandatoryField">
-                  {sgstErrorMessage}
-                </Form.Text>
-              ) : (
-                <></>
-              )}
+                    <Form.Text className="position-relative mandatoryField">
+                      {sgstErrorMessage}
+                    </Form.Text>
+                  ) : (
+                    <></>
+                  )}
                 </Col>
                 <Col>
                   <Input
@@ -471,35 +513,37 @@ const DivOne = ({onButtonClick}) => {
                     controlId="text_igst"
                     label="IGST(%)"
                     type="text"
+                    value={itemIgst}
                     onChangeInputHandler={(inputValue) => {
                       validateForm("text_igst", inputValue.currentTarget.value);
                     }}
                   />
                   {invalidIgst === true ? (
-                <Form.Text className="position-relative mandatoryField">
-                  {igstErrorMessage}
-                </Form.Text>
-              ) : (
-                <></>
-              )}
+                    <Form.Text className="position-relative mandatoryField">
+                      {igstErrorMessage}
+                    </Form.Text>
+                  ) : (
+                    <></>
+                  )}
                 </Col>
                 <Col>
-              <Input
-                // required
-                controlId="text_hsn"
-                label="HSN/SAC"
-                type="email"
-                onChangeInputHandler={(inputValue) => {
-                  validateForm("text_hsn", inputValue.currentTarget.value);
-                }}
-              />
-                {invalidIgst === true ? (
-                <Form.Text className="position-relative mandatoryField">
-                  {igstErrorMessage}
-                </Form.Text>
-              ) : (
-                <></>
-              )}
+                  <Input
+                    // required
+                    controlId="text_hsn"
+                    label="HSN/SAC"
+                    type="text"
+                    value={itemHsn}
+                    onChangeInputHandler={(inputValue) => {
+                      validateForm("text_hsn", inputValue.currentTarget.value);
+                    }}
+                  />
+                  {invalidIgst === true ? (
+                    <Form.Text className="position-relative mandatoryField">
+                      {igstErrorMessage}
+                    </Form.Text>
+                  ) : (
+                    <></>
+                  )}
                 </Col>
               </Row>
             </Col>
@@ -507,24 +551,31 @@ const DivOne = ({onButtonClick}) => {
               <RadioButton
                 controlId="rad_deduction_status"
                 label="Apply Deduction"
-                options={["Yes", "No"]}
+                options={["Yes","No"]}
+                defaultValue={itemDeduction}
+                value={itemDeduction}
+                checked={true}
                 onChangeInputHandler={(optionValue) => {
                   validateForm("rad_deduction_status", optionValue);
                 }}
               />
             </Col>
-          
           </Row>
-          
+
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Dropdown
                 required
                 label="Status"
                 controlId="drp_status"
-                options={dropdownStatusOptions}
+                defaultValue={itemStatus}
+                value={itemStatus}
+                options={statusArray}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_status", dropdownStatusOptions[dropDownValue-1].value);
+                  validateForm(
+                    "drp_status",
+                    dropDownValue
+                  );
                 }}
               />
               {invalidStatus === true ? (
@@ -541,6 +592,7 @@ const DivOne = ({onButtonClick}) => {
                 controlId="txt_remark"
                 label="Remarks"
                 type="text"
+                value={itemRemark}
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_remark", inputValue.currentTarget.value);
                 }}
@@ -552,6 +604,7 @@ const DivOne = ({onButtonClick}) => {
                 controlId="txt_information"
                 label="Information"
                 type="textArea"
+                value={itemInformation}
                 onChangeInputHandler={(inputValue) => {
                   validateForm(
                     "txt_information",
@@ -563,24 +616,23 @@ const DivOne = ({onButtonClick}) => {
             <Col></Col>
           </Row>
 
-       
-         <div className="d-flex justify-content-end formBtn">
+          <div className="d-flex justify-content-end formBtn">
             <Button
-            type="button"
-            className="alignRight mr-5"
-            onClick={() => {
-              getItemsData();
-            }}
-          >
-            Save
-          </Button>
-          <Button   
-          type="button"
-            className="alignRight"
-            onClick={()=>window.location.reload()}
+              type="button"
+              className="alignRight mr-5"
+              onClick={() => {
+                getItemsData();
+              }}
             >
-            Cancel
-          </Button>
+              Save
+            </Button>
+            <Button
+              type="button"
+              className="alignRight"
+              onClick={() => window.location.reload()}
+            >
+              Cancel
+            </Button>
           </div>
         </Card.Body>
       </Card>
@@ -589,18 +641,17 @@ const DivOne = ({onButtonClick}) => {
 };
 
 const CreateItem = () => {
-    const navigate=useNavigate();
+  const navigate = useNavigate();
   return (
     <Container>
       <div>
-        <div className="titleDiv" onClick={()=>navigate(-1)}>
+        <div className="titleDiv" onClick={() => navigate(-1)}>
           <BiChevronLeft size={20} color={"var(--purple-color"} />
           <BiUser size={20} color={"var(--purple-color"} />
           <h6 className="title">Add Item</h6>
         </div>
         <div className="step-progress-bar-div">
           <DivOne />
-           
         </div>
       </div>
     </Container>

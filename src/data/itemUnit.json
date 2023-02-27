@@ -1,0 +1,29 @@
+{
+    "Data": [
+        {
+            "id": 1,
+            "value": "Kg"
+          },
+          {
+            "id": 2,
+            "value": "Liters"
+          },
+          {
+            "id": 3,
+            "value": "Number"
+          },
+          {
+            "id": 4,
+            "value": "Packet"
+          },
+          {
+            "id": 5,
+            "value": "Pair"
+          },
+          {
+            "id": 6,
+            "value": "Set"
+          }
+
+    ]
+  }
