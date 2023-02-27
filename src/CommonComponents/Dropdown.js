@@ -18,6 +18,7 @@ const Dropdown = (configurationParameters) => {
           required
           defaultValue={configurationParameters.defaultValue !== undefined ? configurationParameters.defaultValue  : ""}
           value={configurationParameters.value !== undefined ?configurationParameters.value  : "" }
+          disabled= {configurationParameters.disabled}
         >
           <option disabled value={""}>
            { "Select "}

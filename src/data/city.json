@@ -25,6 +25,37 @@
            
            
         ]
-     }
+     },
+     {  
+      "district":"Bihar",
+      "city":[  
+          "Manipur","Bihar"
+          
+         
+         
+      ]
+   },
+   {  
+      "district":"Andhra",
+      "city":[  
+           
+          "Trimurti gym",
+          "telgana"
+         
+         
+         
+      ]
+   },
+   {  
+      "district":"telgana",
+      "city":[  
+           
+          "Trimurti gym"
+         
+         
+         
+      ]
+   }
     ]
+    
     }
