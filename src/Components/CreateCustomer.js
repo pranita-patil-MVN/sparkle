@@ -29,6 +29,111 @@ const dropdownOptions = [
       value: "Five",
     },
   ];
+  const dropdownOptionsType = [
+    {
+      id: 1,
+      value: "ESIC",
+    },
+    {
+      id: 2,
+      value: "Non-ESIC",
+    },
+  ];
+  const dropdownOptionsZone = [
+    {
+      id: 1,
+      value: "North",
+    },
+    {
+      id: 2,
+      value: "South",
+    },
+    {
+      id: 3,
+      value: "East",
+    },
+    {
+      id: 4,
+      value: "West",
+    },
+  ];
+  const dropdownOptionsState = [
+    {
+      id: 1,
+      value: "Andaman Nicobar",
+    },
+    {
+      id: 2,
+      value: "Assam",
+    },
+    {
+      id: 3,
+      value: "Bihar",
+    },
+    {
+      id: 4,
+      value: "Chandigarh",
+    },
+    {
+      id: 5,
+      value: "Delhi",
+    },
+    {
+      id: 6,
+      value: "Goa",
+    },
+    {
+      id: 7,
+      value: "Haryana",
+    },
+  ];
+  const dropdownOptionsCity = [
+    {
+      id: 1,
+      value: "Agra",
+    },
+    {
+      id: 2,
+      value: "Akola",
+    },
+    {
+      id: 3,
+      value: "Balaghat",
+    },
+    {
+      id: 4,
+      value: "Beed",
+    },
+    {
+      id: 5,
+      value: "Chennai",
+    },
+    {
+      id: 6,
+      value: "Guwahati",
+    },
+    {
+      id: 7,
+      value: "Indore",
+    },
+    {
+      id: 7,
+      value: "Pune",
+    },
+  ];
+  const dropdownStatusOptions =[
+
+    {id:1,
+    value:'Active'},
+    {
+      id: 2,
+      value:'Inactive'
+    },
+    {
+      id:3,
+      value:'Suspended'
+    }
+  ]
 const noOfSteps=[1,2]
 const DivOne = ({onButtonClick}) => {
   const handleOnChange = value =>{}
@@ -54,8 +159,10 @@ const DivOne = ({onButtonClick}) => {
 const [customerNoErrorMessage, setCustomerNoErrorMessage] = useState("")
 const [invalidCustomerNo, setInvalidCustomerNo] = useState(true)
 //for customer location field
-const [customerLocErrorMessage, setCustomerLocErrorMessage] = useState("")
-const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
+const [dropdownAreaErrorMessage, setDropdownAreaErrorMessage] = useState("")
+const [invalidCustomerArea, setInvalidCustomerArea] = useState(true)
+const [customerPinCodeErrorMessage,setCustomerPinCodeErrorMessage] = useState('')
+const[invalidCustomerPinCode, setInvalidCustomerPinCode] = useState(true)
     const addFieldsValues = (fieldName, value) => {
       setFormData({ ...formData, [fieldName]: value });
     };
@@ -100,15 +207,15 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
             }
             break;
 
-            case 'txt_customer_Location':
-          
+            case 'drp_customer_Area':
+            
             if (value === undefined) {
-              setInvalidCustomerLoc(true);
-              setCustomerLocErrorMessage("Please Enter Customer Location");
+              setInvalidCustomerArea(true);
+              setDropdownAreaErrorMessage("Please Enter Customer Area");
             } else {
               addFieldsValues(fieldName, value);
-              setInvalidCustomerLoc(false);
-              setCustomerLocErrorMessage("");
+              setInvalidCustomerArea(false);
+              setDropdownAreaErrorMessage("");
               setValidateDivOne(true);
             }
             break;
@@ -146,6 +253,18 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
             setValidateDivOne(true);
           }
           break;
+
+          case  'txt_customerPinCode':
+            if (value === undefined) {
+              setInvalidCustomerPinCode(true);
+              setCustomerPinCodeErrorMessage("Please Enter Customer Pincode");
+            } else {
+              addFieldsValues(fieldName, value);
+              setInvalidCustomerPinCode(false);
+              setCustomerPinCodeErrorMessage("");
+              setValidateDivOne(true);
+            }
+            break;
       }
     }
     const [date_of_birth, setDateOfBirth] = useState();
@@ -159,7 +278,7 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
                     <Input
                     required
                     controlId='txt_CustomerId'
-                    label='Customer Id'
+                    label='Code'
                     type='text'
                     onChangeInputHandler={(inputValue) => {
                       validateForm("txt_CustomerId", inputValue);
@@ -178,7 +297,7 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
                     <Input
                     required
                     controlId='txt_customer_name'
-                    label ='Customer Name'
+                    label ='Name'
                     type='text'
                     onChangeInputHandler={(inputValue) => {
                       validateForm("txt_Customer_name", inputValue);
@@ -196,7 +315,7 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
                     <Input
                     required
                     controlId='txt_customer_no'
-                    label='Customer Number'
+                    label='Mobile Number'
                     type='number'
                     onChangeInputHandler={(inputValue) => {
                       validateForm("txt_Customer_no", inputValue);
@@ -214,31 +333,12 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
 
                 </Row>
                 <Row className='mb-3'>
-                    <Col>
-                    <Input
-                    required
-                    controlId='txt_customer_Location'
-                    label='Location'
-                    type='text'
-                    onChangeInputHandler={(inputValue) => {
-                      validateForm("txt_Customer_Location", inputValue);
-                    }}
-                    />
-                     {invalidCustomerLoc === true ?(
-                       <Form.Text className="position-relative mandatoryField">
-                       {customerLocErrorMessage}
-                     </Form.Text>
-                   ) : (
-                     <></>
-                    )}
-                    </Col>
-
-                    <Col>
+                   <Col>
               <Dropdown
               required
                 label="State"
                 controlId="drp_state"
-                options={dropdownOptions}
+                options={dropdownOptionsState}
                 onChangeDropDownHandler={(dropDownValue) => {
                   validateForm("drp_state", dropDownValue);
                 }}
@@ -256,7 +356,7 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
               required
                 label="City"
                 controlId="drp_city"
-                options={dropdownOptions}
+                options={dropdownOptionsCity}
                 onChangeDropDownHandler={(dropDownValue) => {
                   validateForm('drp_city',dropDownValue)
                 }}
@@ -271,6 +371,25 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
               )}
             </Col>
 
+
+            <Col>
+                    <Dropdown
+                    required
+                    controlId='drp_customer_Area'
+                    label='Area'
+                    options={dropdownOptions}
+                    onChangeInputHandler={(dropDownValue) => {
+                      validateForm("drp_customer_Area", dropDownValue);
+                    }}
+                    />
+                     {invalidCustomerArea === true ?(
+                       <Form.Text className="position-relative mandatoryField">
+                       {dropdownAreaErrorMessage}
+                     </Form.Text>
+                   ) : (
+                     <></>
+                    )}
+                    </Col>
 
                 </Row>
 
@@ -291,12 +410,34 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
                 onChangeDateHandler={(inputValue) => {}}
               />
                     </Col>
-                    <Col>
+                  <Col>
+                  <Input
+                    required
+                    controlId='txt_customerPinCode'
+                    label='Pin code'
+                    type='text'
+                    onChangeInputHandler={(inputValue) => {
+                      validateForm("txt_customerPinCode", inputValue);
+                    }}
+                    
+                    />
+                    {invalidCustomerPinCode === true ?(
+                       <Form.Text className="position-relative mandatoryField">
+                       {customerPinCodeErrorMessage}
+                     </Form.Text>
+                   ) : (
+                     <></>
+                    )}
+                  </Col>
+                </Row>
+                <Row>
+                  
+                  <Col md={4}>
                     <Dropdown
               required
                 label="Status"
                 controlId="drp_status"
-                options={dropdownOptions}
+                options={dropdownStatusOptions}
                 onChangeDropDownHandler={(dropDownValue) => {
                   validateForm('drp_status',dropDownValue)
                 }}
@@ -310,6 +451,7 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
                 <></>
               )}
                     </Col>
+                  
                 </Row>
                 <Button
                 
@@ -324,8 +466,9 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
                     validateForm('txt_CustomerId',formData.txt_CustomerId)
                     validateForm('txt_customer_name',formData.txt_customer_name)
                     validateForm('txt_customer_no',formData.txt_customer_no)
-                    validateForm('txt_customer_Location',formData.txt_customer_Location)
+                    validateForm('drp_customer_Area',formData.drp_customer_Area)
                     validateForm('drp_status',formData.drp_status)
+                    validateForm('txt_customerPinCode',formData.txt_customerPinCode)
                   }
                 }}
                 
@@ -340,7 +483,7 @@ const [invalidCustomerLoc, setInvalidCustomerLoc] = useState(true)
 
 const DivTwo = ({onButtonClick}) => {
     const [date_of_birth, setDateOfBirth] = useState();
-    const handleOnChange = value =>{}
+    
     return(
         <Container>
             <Card>
@@ -389,7 +532,7 @@ const DivTwo = ({onButtonClick}) => {
                         <Input 
                         
                         controlId='txt_customerrep_email'
-                        label='Email Id'
+                        label='Email'
                         type='email'
                         />
                         </Col>
