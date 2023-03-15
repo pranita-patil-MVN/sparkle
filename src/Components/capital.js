@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import DataTable from 'react-data-table-component';
 import TableCompo from '../CommonComponents/TableCompo';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { Row,Col, Button, InputGroup, Form  } from 'react-bootstrap';
 import { BiPlus,BiUser } from "react-icons/bi";
 import editImg from '../assets/Images/editImg.png'
-
-import _ from "underscore";
+import { useNavigate } from 'react-router-dom';
+import "../css/pages.css";
+import "../css/dataTable.css";
+import "../css/commonCss.css";
 const Capital = () => {
     const [captialItem,setCapitalItem] = useState([]);
     const [filteredItems, setFilteredItems] = useState([]);
@@ -20,7 +23,7 @@ const Capital = () => {
     const toggleMenu =()=>setIsMenuOpen(!isMenuOpen)
     const getCapitalList = async() =>{
         try{
-            const response = await axios.get('https://mocki.io/v1/6ad852e5-798b-42fd-af0e-090f535d0e48')
+            const response = await axios.get('https://mocki.io/v1/0d4eb849-be23-4e7c-898e-d8fdbe0077c1')
             setCapitalItem(response.data);
             setFilteredItems(response.data);
 
@@ -29,6 +32,7 @@ const Capital = () => {
             console.log(error);
         }
     };
+    const navigate = useNavigate();
 const columns = [
     {
         name:'Sr.No.',
@@ -87,41 +91,37 @@ const columns = [
     },
     {
         name:'Update',
-        cell: (row) =>{
-            <div>
-                 {" "}
-          <button className="btn btn-default update" type="button">
-            <img src={editImg} alt="edit" />
-          </button>
-            </div>
-        }
+        cell: (row) => <div> <button className='btn btn-default update' type='button' onClick={()=>{navigate('/masters/capitalAssets/update')}}><img src={editImg} alt='edit' /></button> </div>
+          
+        
     }
 
 ]
+
 
 useEffect(()=>{
     getCapitalList();
 },[])
 
-const checkboxValue = (e, data) => {
-    // alert(e.target.checked);
-    var filteredListData;
-    var concatData;
+// const checkboxValue = (e, data) => {
+//     // alert(e.target.checked);
+//     var filteredListData;
+//     var concatData;
    
-    var filteredAreaListArr = []
-    if (e.target.checked) {
-      filteredListData = _.where(filteredItems, {
-        Executive: data,
-      });
-      concatData = filteredAreaListArr.concat(filteredListData);
-      setCheckedItem(concatData);
-    } else {
-      var removedData = filteredItems.filter((e) => {
-        return e.Executive !== data;
-      });
-      setCheckedItem(removedData);
-    }
-  };
+//     var filteredAreaListArr = []
+//     if (e.target.checked) {
+//       filteredListData = _.where(filteredItems, {
+//         Executive: data,
+//       });
+//       concatData = filteredAreaListArr.concat(filteredListData);
+//       setCheckedItem(concatData);
+//     } else {
+//       var removedData = filteredItems.filter((e) => {
+//         return e.Executive !== data;
+//       });
+//       setCheckedItem(removedData);
+//     }
+//   };
 
 
   return (

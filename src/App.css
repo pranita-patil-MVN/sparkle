@@ -33,3 +33,89 @@
     transform: rotate(360deg);
   }
 }
+/*respinsive css*/
+
+@media (min-width:1400px) {
+  .toggleSideBarOn{
+    margin-left: 15.5%;
+    position: absolute;
+
+  }
+  .toggleSideBar{
+    position: absolute;
+    margin-left: 3%;
+  }
+
+.linkText{
+  font-size: 1.3rem;
+}
+
+.menuContainer .linkText{
+  font-size: 1rem;
+}
+
+.activeMenuContainer .linkText{
+  font-size: 1.1rem;
+}
+
+.linkTextactive{
+  font-size: 1.3rem;
+}
+
+.iconRoot{
+  width: 10rem;
+}
+
+.logoSidebar{
+  width: 11rem;
+}
+
+}
+
+
+
+@media (max-width:1399px) {
+.sidebarHeader img{
+  width: 10rem;
+}
+.toggleSideBarOn{
+  margin-left: 15.2%;
+  position: absolute;
+
+}
+.toggleSideBar{
+  position: absolute;
+  margin-left: 2.8%;
+}
+
+}
+
+
+@media (max-width:1100px){
+.toggleSideBarOn{
+  margin-left: 15.2%;
+  position: absolute;
+
+}
+.toggleSideBar{
+  position: absolute;
+  margin-left: 2.8%;
+}
+
+.sidebarHeader img{
+  width: 10rem;
+}
+
+.btnTable{
+  width: auto;
+  font-size: smaller;
+}
+
+.rdt_TableRow{
+  padding: 0%;
+
+}
+.checkfilter p{
+font-size: 13px;
+}
+}

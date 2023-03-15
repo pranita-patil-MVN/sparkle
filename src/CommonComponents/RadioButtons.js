@@ -22,11 +22,10 @@ const RadioButton = (configurationParameters) => {
             className="position-relative "
           >
             <div className="radio ">
-              {configurationParameters.options.map((items, key) => (
-                <label className="form-check-label mx-2">
+            <label className="form-check-label mx-2">
                   <input
                     type="radio"
-                    value={items}
+                    value={configurationParameters.options}
                     className="form-check-input"
                     name={configurationParameters.label}
                     checked={configurationParameters.checked}
@@ -36,9 +35,8 @@ const RadioButton = (configurationParameters) => {
                       );
                     }}
                   />
-                  &nbsp;{items}
+                  &nbsp;{configurationParameters.options}
                 </label>
-              ))}
             </div>
           </InputGroup>
         </>
@@ -53,11 +51,10 @@ const RadioButton = (configurationParameters) => {
             className="position-relative "
           >
             <div className="radio ">
-              {configurationParameters.options.map((items, key) => (
-                <label className="form-check-label mx-2">
+            <label className="form-check-label mx-2">
                   <input
                     type="radio"
-                    value={items}
+                    value={configurationParameters.options}
                     className="form-check-input"
                     name={configurationParameters.label}
                     checked={configurationParameters.checked}
@@ -67,9 +64,8 @@ const RadioButton = (configurationParameters) => {
                       );
                     }}
                   />
-                  &nbsp;{items}
+                  &nbsp;{configurationParameters.options}
                 </label>
-              ))}
             </div>
           </InputGroup>
         </>

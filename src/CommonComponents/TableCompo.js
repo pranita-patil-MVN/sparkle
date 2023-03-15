@@ -203,8 +203,11 @@ export default function TableCompo(props) {
       navigate("/masters/vendor/createVendor");
     else if (value === "Shift") {
       navigate("/masters/shift/createShift");
-    } else if (value === "customer") {
-      navigate("/masters/customer/createCustomer");
+    }  else if(value==='customer'){
+      navigate('/masters/customer/CreateCustomer')
+    }
+    else if(value==='capitalAssets'){
+      navigate('/masters/capitalAssets/CreateCapitalAssets')
     }
   };
    // Search functionality

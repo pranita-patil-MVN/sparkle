@@ -136,7 +136,7 @@ const dropdownOptions = [
   ]
 const noOfSteps=[1,2]
 const DivOne = ({onButtonClick}) => {
-  const handleOnChange = value =>{}
+  const handleOnChange = (value) => {};
   const [formData, setFormData] = useState([]);
     const [validateDivOne, setValidateDivOne] = useState(false);
     //for state dropdown
@@ -272,7 +272,7 @@ const[invalidCustomerPinCode, setInvalidCustomerPinCode] = useState(true)
         <>
         <Card>
             <Card.Header className='cardHeader'>Customer Details</Card.Header>
-            <Card.Body className='formScrollbar'>
+            <Card.Body>
                 <Row className='mb-3'>
                     <Col>
                     <Input
@@ -483,7 +483,7 @@ const[invalidCustomerPinCode, setInvalidCustomerPinCode] = useState(true)
 
 const DivTwo = ({onButtonClick}) => {
     const [date_of_birth, setDateOfBirth] = useState();
-    
+    const handleOnChange = (value) => {};
     return(
         <Container>
             <Card>
@@ -514,7 +514,7 @@ const DivTwo = ({onButtonClick}) => {
                 controlId="drp_department"
                 options={dropdownOptions}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  handleOnChange(dropDownValue);
+                  handleOnChange(dropDownValue)
                 }}
               />
                         </Col>

@@ -10,7 +10,8 @@
         "customer": "ACG",
         "Sez":"Yes",
         "Type":"huoijoi",
-        "Total_Manpower":"10"
+        "Total_Manpower":"10",
+        "working_days":"7"
       },
       {
         "Site": "Huf India Pvt. Ltd.",
@@ -22,7 +23,8 @@
         "customer": "B.U.Bhandari",
         "Sez":"No",
         "Type":"ESIC",
-        "Total_Manpower":"10"
+        "Total_Manpower":"10",
+        "working_days":"6"
       },
       {
         "Site": "Kalyani TechnoForge Ltd.",
@@ -47,7 +49,8 @@
         "customer": "Devi Construction",
         "Sez":"Yes",
         "Type":"Non-ESIC",
-        "Total_Manpower":"10"
+        "Total_Manpower":"10",
+        "working_days":"6"
       },
       {
         "Site": "Tenneco Clean Air India Pvt. Ltd.",
@@ -59,7 +62,8 @@
         "customer": "Chakote Group",
         "Sez":"No",
         "Type":"Non-ESIC",
-        "Total_Manpower":"10"
+        "Total_Manpower":"10",
+        "working_days":"7"
       }
       
     ]

@@ -40,14 +40,21 @@
 }
 
 .topSection{
+    margin-top: 10%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+  
     /* padding: 4px 8px; */
 }
 .topSection h1{
     display: flex;
+    position: fixed;
+    background-color: white;
     /* padding: 4px 7px; */
+}
+.routes{
+    margin-top: 17%;
 }
 .link{
     color:var(--text-gray);
@@ -144,14 +151,14 @@ main{
     width: 10rem;
     
 }
-/* .toggleSideBarOn{
+.toggleSideBarOn{
     position: absolute;
     z-index: 1;
-    right: 82.8%;
+    /* right: 82.8%; */
     display: flex;
     color: #8C8FFF;
     width: 10rem;
-} */
+}
 .logoSidebar{
     width: 11rem;
 }

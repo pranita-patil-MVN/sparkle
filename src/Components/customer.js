@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
@@ -15,6 +16,7 @@ import '../css/dataTable.css'
 import '../css/commonCss.css'
 import TableCompo from '../CommonComponents/TableCompo';
 import { useNavigate } from 'react-router-dom';
+import SingleDatePicker from '../CommonComponents/DatePicker';
 
 const Customer = () => {
   const navigate = useNavigate();
@@ -67,7 +69,7 @@ const Customer = () => {
         },
         {
             name: 'Update',
-            cell: (row) => <div> <button className='btn btn-default update' type='button'><img src={editImg} alt='edit' /></button> </div>
+            cell: (row) => <div> <button className='btn btn-default update' type='button' onClick={()=>{navigate('/masters/customer/update')}}><img src={editImg} alt='edit' /></button> </div>
         }
       ]
     
@@ -327,20 +329,7 @@ const Customer = () => {
         <Col className='filter' md={2}>
 
           <h5 className='colHeader'> Filters </h5>
-          <InputGroup className='searchBar'>
-            <InputGroup.Text id="searchIcon"><CiSearch /></InputGroup.Text>
-            <Form.Control
-
-              placeholder='search'
-              aria-label="Username"
-              aria-describedby="basic-addon1"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-
-
-            />
-
-          </InputGroup>
+        
 
           <div className='checkFilterDiv'>
             <h5 className='checkHeader'>Location</h5>
@@ -450,14 +439,23 @@ const Customer = () => {
               </div>
                 <div>
                 <input type='date'
-                className='dateBox'
+                className='form-control md-3'
                 value={date}
                 onChange={(e)=>datePicker(e)}
                 
                 />
+
+               
                 </div>
             </div>
+
+            
+
           </div>
+
+          
+          
+
              </Col>
         <Col md={10} className='colTable'>
           <div className='divTable'>
@@ -494,9 +492,14 @@ const Customer = () => {
           </div>
         </Col>
       </Row>
+
+
+
+
+
     </div>
 
   )
 }
 
-export default Customer;
+export default Customer

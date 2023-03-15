@@ -18,7 +18,6 @@ import { BiChevronLeft, BiUser } from "react-icons/bi";
 import TextArea from "../CommonComponents/TextArea";
 import siteJson from "../data/SiteData.json";
 import placeholder from "../assets/Images/Placeholder.png";
-
 const dropdownOptionsState = [
   {
     id: 1,
@@ -181,6 +180,7 @@ const dropdownOptionsCustomer = [
     value: "GTT Communication",
   },
 ];
+
 const noOfSteps = [1, 2];
 const DivOne = ({ onButtonClick }) => {
   const location = useLocation();
@@ -268,7 +268,9 @@ const DivOne = ({ onButtonClick }) => {
   );
 
   const [manpower, setManpower] = useState(
-    sitesData === undefined || sitesData === null ? null : sitesData.Total_Manpower
+    sitesData === undefined || sitesData === null
+      ? null
+      : sitesData.Total_Manpower
   );
 
   const [siteBudget, setSiteBudget] = useState(
@@ -278,15 +280,28 @@ const DivOne = ({ onButtonClick }) => {
   const [siteZone, setSiteZone] = useState();
 
   const [workingDays, setWorkingDays] = useState(
-    salutationArr === undefined || salutationArr === null ? null : salutationArr
+    sitesData === undefined || sitesData === null
+      ? null
+      : sitesData.working_days == "5"
+      ? setCheckedValue5(true)
+      : sitesData.working_days == "6"
+      ? setCheckedValue6(true)
+      : setCheckedValue7(true)
   );
-
+  const [checkedValue5, setCheckedValue5] = useState(false);
+  const [checkedValue6, setCheckedValue6] = useState(false);
+  const [checkedValue7, setCheckedValue7] = useState(false);
   const [salary, setSalary] = useState();
 
   const [material, setMaterial] = useState();
 
   const [siteStatus, setSiteStatus] = useState();
   const [dropDown, setCustomerDropdown] = useState([]);
+
+  const [surajSiteDetails, setSurajSiteDetails] = useState({
+    field1: "",
+    field2: "",
+  });
 
   useEffect(() => {
     const customerArr = [];
@@ -301,10 +316,9 @@ const DivOne = ({ onButtonClick }) => {
       // console.log(data)
     }
     // setSiteData(site);
-    setCustomerDropdown(customerArr)
+    setCustomerDropdown(customerArr);
     // alert("================>"+JSON.stringify(customerArr));
   }, []);
-
 
   const validateForm = (fieldName, value) => {
     switch (fieldName) {
@@ -485,6 +499,7 @@ const DivOne = ({ onButtonClick }) => {
     }
   };
 
+  console.log("surajSiteDetails", surajSiteDetails);
   return (
     <>
       {" "}
@@ -497,7 +512,7 @@ const DivOne = ({ onButtonClick }) => {
                 required
                 label="Customer"
                 controlId="drp_customer"
-                value={customerData == null? "": customerData}
+                value={customerData == null ? "" : customerData}
                 options={dropDown}
                 onChangeDropDownHandler={(dropDownValue) => {
                   validateForm(
@@ -553,6 +568,26 @@ const DivOne = ({ onButtonClick }) => {
               />
             </Col>
 
+            {/* <Col>
+              <Input
+                type="text"
+                label="Site Details"
+                placeholder="Enter Site Details"
+                onChangeInputHandler={(e) => {
+                  surajSiteDetails.field1 = e.target.value;
+                  setSurajSiteDetails({ ...surajSiteDetails });
+                }}
+              />
+              <Input
+                type="text"
+                label="2nd Site Details"
+                placeholder="Enter 2ndSite Details"
+                onChangeInputHandler={(e) => {
+                  surajSiteDetails.field2 = e.target.value;
+                  setSurajSiteDetails({ ...surajSiteDetails });
+                }}
+              />
+            </Col> */}
             <Col>
               <Dropdown
                 required
@@ -679,8 +714,31 @@ const DivOne = ({ onButtonClick }) => {
                 required
                 controlId="rad_workingdays"
                 label="Working days in week"
-                options={salutationArr}
-                checked={true}
+                options="5"
+                value="5"
+                checked={checkedValue5}
+                onChangeInputHandler={(value) => {
+                  validateForm("rad_workingdays", value);
+                }}
+              />
+              <RadioButton
+                required
+                controlId="rad_workingdays"
+                label="Working days in week"
+                options="6"
+                value="6"
+                checked={checkedValue6}
+                onChangeInputHandler={(value) => {
+                  validateForm("rad_workingdays", value);
+                }}
+              />
+              <RadioButton
+                required
+                controlId="rad_workingdays"
+                label="Working days in week"
+                options="7"
+                value="7"
+                checked={checkedValue7}
                 onChangeInputHandler={(value) => {
                   validateForm("rad_workingdays", value);
                 }}
@@ -699,7 +757,6 @@ const DivOne = ({ onButtonClick }) => {
                 controlId="txt_salaryProcessing"
                 label="Start Day For Salary Processing"
                 type="date"
-                
                 onChangeInputHandler={(inputValue) => {
                   validateForm("txt_salaryProcessing", inputValue);
                 }}
