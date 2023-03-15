@@ -13,16 +13,22 @@ import Input from "../CommonComponents/Input";
 import _ from "underscore";
 import stateData from "../data/state.json";
 import cityData from "../data/city.json";
+import areaJson from "../data/area.json";
 import Dropdown from "../CommonComponents/Dropdown";
+import vendorJson from "../data/vendorData.json";
 import { BiChevronLeft, BiUser } from "react-icons/bi";
 import { useNavigate, useLocation } from "react-router-dom";
 const DivOne = ({ props }) => {
   const location = useLocation();
 
   var vendorDetails = location.state;
-  // alert(vendorDetails);
+  // alert(JSON.stringify(vendorDetails));
   const [vendorData, setVendorData] = useState(vendorDetails);
-  const [vendorCityJson, setVendorDataArray] = useState([vendorDetails.city]);
+  const [formData, setFormData] = useState(vendorDetails);
+  // const [vendorCityJson, setVendorDataArray] = useState(
+  //   vendorData === undefined || vendorData === null
+  //   ? cityData.city
+  //   : vendorDetails);
   const [item, setItem] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [checkedItem, setCheckedItem] = useState([]);
@@ -30,8 +36,7 @@ const DivOne = ({ props }) => {
   const [city, setCity] = useState([]);
   const [district, setDistrict] = useState([]);
 
-
- 
+  // alert(JSON.stringify(vendorCityJson))
 
   // For Vendor code
   const [invalidCode, setInvalidCode] = useState(false);
@@ -53,8 +58,20 @@ const DivOne = ({ props }) => {
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [emailErrorMessage, setTxtEmailErrorMessage] = useState("");
 
-  const [formData, setFormData] = useState([]);
-  //  alert(JSON.stringify(formData))
+  //For state dropdown
+  const [invalidState, setInvalidState] = useState(false);
+  const [stateErrorMessage, setStateErrorMessage] = useState("");
+
+  //For city dropdown
+  const [invalidCity, setInvalidCity] = useState(false);
+  const [cityErrorMessage, setCityErrorMessage] = useState("");
+  //For area dropdown
+  const [invalidArea, setInvalidArea] = useState(false);
+  const [areaErrorMessage, setAreaErrorMessage] = useState("");
+
+  //For pinCode
+  const [invalidPin, setInvalidPin] = useState(false);
+  const [pinErrorMessage, setPinErrorMessage] = useState("");
 
   // For fields
   const [code, setCode] = useState(
@@ -69,23 +86,17 @@ const DivOne = ({ props }) => {
       : vendorData.contact_person
   );
   const [stateValueFromJSon, setState] = useState(
-    vendorData === undefined || vendorData === null
-      ? null
-      : vendorData.state
+    vendorData === undefined || vendorData === null ? null : vendorData.state
   );
-  
+
   const [areaValueFromJSon, setArea] = useState(
-    vendorData === undefined || vendorData === null
-      ? null
-      : vendorData.area
+    vendorData === undefined || vendorData === null ? null : vendorData.area
   );
-  // alert("===>"+vendorData.city )
+
   const [cityValueFromJSon, setCityData] = useState(
-    vendorData === undefined || vendorData === null
-      ? null
-      : vendorData.city
+    vendorData === undefined || vendorData === null ? null : vendorData.city
   );
-  console.log("====>"+ cityValueFromJSon)
+
   const [vendorGst, setVendorGst] = useState(
     vendorData === undefined || vendorData === null
       ? null
@@ -98,6 +109,9 @@ const DivOne = ({ props }) => {
     vendorData === undefined || vendorData === null
       ? null
       : vendorData.addressSecond
+  );
+  const [primaryPin, setPrimaryPin] = useState(
+    vendorData === undefined || vendorData === null ? null : vendorData.pinCode
   );
   const [primaryEmail, setPrimaryEmail] = useState(
     vendorData === undefined || vendorData === null ? null : vendorData.email
@@ -117,36 +131,63 @@ const DivOne = ({ props }) => {
   const [SecondaryMobile, setSecondaryMobile] = useState(
     vendorData === undefined || vendorData === null ? null : vendorData.cell
   );
+  const [areaDataFromJson, setAreaDataFromJson] = useState([]);
 
   const saveVendorData = () => {
     // alert(JSON.stringify(vendorData));
-    if (vendorData.txt_code === undefined || vendorData.txt_code === "") {
-      setInvalidCode(true);
-      setTxtCodeErrorMessage("Please enter code");
-    } else if (vendorData.txt_name === undefined || vendorData.txt_name === "") {
+    if (company === undefined || company === null || company === "") {
       setInvalidItem(true);
       setTxtItemNameErrorMessage("Please enter name");
     } else if (
-      vendorData.txt_address1 === undefined ||
-      vendorData.txt_address1 === ""
+      primaryAddress === undefined ||
+      primaryAddress === "" ||
+      primaryAddress === null
     ) {
       setInvalidAddress(true);
-      setTxtAddressErrorMessage("Please enter Address ");
+      setTxtAddressErrorMessage("Please enter address ");
     } else if (
-      vendorData.txt_email1 === undefined ||
-      vendorData.txt_email1 === ""
+      stateValueFromJSon === undefined ||
+      stateValueFromJSon === "" ||
+      stateValueFromJSon === null
     ) {
-      setInvalidEmail(true);
-      setTxtEmailErrorMessage("Please enter email");
-    } else if (vendorData.txt_cell1 === undefined || vendorData.txt_cell1 === "") {
-      setInvalidCell(true);
-      setTxtCellErrorMessage("Please enter cell");
+      setInvalidState(true);
+      setStateErrorMessage("Please select state");
+    } else if (
+      cityValueFromJSon === undefined ||
+      cityValueFromJSon === "" ||
+      cityValueFromJSon === null
+    ) {
+      setInvalidCity(true);
+      setCityErrorMessage("Please select city");
+    } else if (
+      areaValueFromJSon === undefined ||
+      areaValueFromJSon === "" ||
+      areaValueFromJSon === null
+    ) {
+      setInvalidArea(true);
+      setAreaErrorMessage("Please select area");
+    } else if (
+      primaryPin === undefined ||
+      primaryPin === "" ||
+      primaryPin === null
+    ) {
+      setInvalidPin(true);
+      setPinErrorMessage("Please enter pin code");
     } else {
-      alert(JSON.stringify(vendorData));
+      var vendorDetailsData = [
+        { name: company },
+        { address: primaryAddress },
+        { state: stateValueFromJSon },
+        { city: cityValueFromJSon },
+        { area: areaValueFromJSon },
+        { pin_code: primaryPin },
+      ];
+      alert(JSON.stringify(vendorDetailsData));
     }
   };
   const onCancelButton = () => {
     window.location.reload();
+    // alert(JSON.stringify(stateValueFromJSon) + "==>" +JSON.stringify(cityValueFromJSon) + "==>" +"====>" +JSON.stringify(areaValueFromJSon) )
   };
 
   const validateForm = (fieldName, value) => {
@@ -155,7 +196,7 @@ const DivOne = ({ props }) => {
         setInvalidCode(false);
         setTxtCodeErrorMessage("");
         // alert(JSON.stringify(value))
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // if (value !== undefined && value !== "")
         setCode(value);
         setFormData({ ...formData, [fieldName]: value });
@@ -166,7 +207,7 @@ const DivOne = ({ props }) => {
         // alert(JSON.stringify(vendorData))
         setTxtItemNameErrorMessage("");
         setCompany(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
 
@@ -174,27 +215,56 @@ const DivOne = ({ props }) => {
         // alert(fieldName)
         // alert("Person")
         setContactPerson(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
-      // setFormData({ ...formData, [fieldName]: value });
-      break;
+        // setVendorData({ ...vendorData, [fieldName]: value });
+        // setFormData({ ...formData, [fieldName]: value });
+        break;
       case "txt_vendor_gst":
         // alert("GST")
         // alert(fieldName)
         setVendorGst(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_address1":
         setInvalidAddress(false);
         setTxtAddressErrorMessage("");
         setPrimaryAddress(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
 
         break;
       case "txt_address2":
         setSecondaryAddress(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
+        // setFormData({ ...formData, [fieldName]: value });
+        break;
+      case "drp_state":
+        onChangeState(value);
+        setInvalidState(false);
+        setStateErrorMessage("");
+        // setState(value);
+        // setVendorData({ ...vendorData, [fieldName]: value });
+        // setFormData({ ...formData, [fieldName]: value });
+        break;
+      case "drp_city":
+        onChangeDistrict(value);
+
+        // setVendorData({ ...vendorData, [fieldName]: value });
+        // setFormData({ ...formData, [fieldName]: value });
+        break;
+      case "txt_pin":
+        setPrimaryPin(value);
+        setInvalidPin(false);
+        setPinErrorMessage("");
+        // setVendorData({ ...vendorData, [fieldName]: value });
+        // setFormData({ ...formData, [fieldName]: value });
+        break;
+      case "drp_area":
+        // alert(typeof(value))
+        setArea(value);
+        setInvalidArea(false);
+        setAreaErrorMessage("");
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
 
@@ -202,90 +272,94 @@ const DivOne = ({ props }) => {
         setInvalidEmail(false);
         setTxtEmailErrorMessage("");
         setPrimaryEmail(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
 
       case "txt_email2":
         setSecondaryEmail(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_telephone1":
         setPrimaryLandLine(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_telephone2":
         setSecondaryLandLine(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
         break;
       case "txt_cell1":
         setInvalidCell(false);
         setTxtCellErrorMessage("");
         setPrimaryMobile(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
 
         break;
       case "txt_cell2":
         setSecondaryMobile(value);
-        setVendorData({ ...vendorData, [fieldName]: value });
+        // setVendorData({ ...vendorData, [fieldName]: value });
         // setFormData({ ...formData, [fieldName]: value });
 
         break;
-        // drp_area
-        case "drp_area":
-          setArea(value)
-          // setFormData({ ...formData, [fieldName]: value });
-  
-          break;
+      // drp_area
+      // case "drp_area":
+      //   setArea(value)
+      //   // setFormData({ ...formData, [fieldName]: value });
+
+      //   break;
 
       default:
         break;
     }
   };
- 
-  // const onChangeState = (e) => {
-  //   // alert(e);
-  //   const value = e;
-  //   setState(e)
-  //   var singleState = _.findWhere(stateData.states, { state: value });
-  //   // alert(JSON.stringify(singleState))
-  //   for (let j = 0; j < singleState.districts.length; j++) {
-  //     var data = singleState.districts[j]
-  //     // ArrState.push(data);
-  //     arrDistrict.push({
-  //       label: j,
-  //       value: data,
-  //     });
-  //     // console.log(data)
-  //   }
-  //   // alert(JSON.stringify(ArrCity))
-  //   setDistrict(arrDistrict);
-    
-  // };
-  // var arrCity=[];
-  // const onChangeDistrict = (e) => {
-  //   // alert(e)
-  //   var districtValue = e;
-  //   setCityData(e)
-  //   var singleDistrict = _.findWhere(cityData.city, {
-  //     district: districtValue,
-  //   });
-  //   for (let k = 0; k <singleDistrict.city.length; k++) {
-  //     var data = singleDistrict.city[k]
-  //     // ArrState.push(data);
-  //     arrCity.push({
-  //       label: k,
-  //       value: data,
-  //     });
-  //     // console.log(data)
-  //   }
-  //   // alert(JSON.stringify(ArrCity))
-  //   setCity(arrCity);
-  // };
+  var ArrState = [];
+  var arrDistrict = [];
+  const onChangeState = (e) => {
+    // alert(e);
+    const value = e;
+    setState(value);
+    var singleState = _.findWhere(stateData.states, { state: value });
+    // alert(JSON.stringify(singleState))
+    for (let j = 0; j < singleState.districts.length; j++) {
+      var data = singleState.districts[j];
+      // ArrState.push(data);
+      arrDistrict.push({
+        label: j,
+        value: data,
+      });
+      // console.log(data)
+    }
+    // alert(JSON.stringify(ArrCity))
+    setDistrict(arrDistrict);
+  };
+
+  const onChangeDistrict = (e) => {
+    var arrCity = [];
+    // alert(e)
+    var districtValue = e;
+    setCityData(districtValue);
+    setInvalidCity(false);
+    setCityErrorMessage("");
+    var singleDistrict = _.findWhere(cityData.city, {
+      district: districtValue,
+    });
+    for (let k = 0; k < singleDistrict.city.length; k++) {
+      var data = singleDistrict.city[k];
+      // ArrState.push(data);
+      arrCity.push({
+        label: k,
+        value: data,
+      });
+      // console.log(data)
+    }
+
+    // alert("City"+JSON.stringify(arrCity))
+    setCity(arrCity);
+  };
   const onSearch = (e, data) => {
     // alert("e=>"+data)
     var cityValue = e;
@@ -320,16 +394,18 @@ const DivOne = ({ props }) => {
       setCheckedItem(result);
     }
   };
-  
-//   var ArrState=[];
-  useEffect(()=>{
-    getEmployeeList()
-    // alert("hi")
-  },[])
 
-  const getEmployeeList =  () => {
-    var ArrState=[];
-    var arrDistrict=[];
+  //   var ArrState=[];
+  useEffect(() => {
+    getVendorList();
+    // alert("hi")
+  }, []);
+
+  const getVendorList = () => {
+    var ArrState = [];
+    var arrCity = [];
+    var arrArea = [];
+    var area = [];
     for (let i = 0; i < stateData.states.length; i++) {
       var data = stateData.states[i]["state"];
       // ArrState.push(data);
@@ -339,21 +415,30 @@ const DivOne = ({ props }) => {
       });
       // console.log(data)
     }
-    for (let j = 0; j < vendorCityJson.length; j++) {
-      var data = vendorCityJson[j];
-      // ArrState.push(data);
-      arrDistrict.push({
-        label: j,
-        value: data,
-      });
-      // console.log(data)
-    }
-    alert(JSON.stringify(arrDistrict))
-    setDistrict(arrDistrict);
     setStateData(ArrState);
-    // setDistrict(vendorData.city);
-    // setCityData(vendorData.city)
+    // if (vendorData !== undefined && vendorData !== null ) {
+    for (let j = 0; j < cityData.city.length; j++) {
+      // alert(cityData.city[j])
+      var data = cityData.city[j].city;
+      for (var i = 0; i < data.length; i++) {
+        arrCity.push({
+          label: i,
+          value: data[i],
+        });
+      }
+    }
+    setDistrict(arrCity);
+    setCity(arrArea);
+
+    for (let i = 0; i < areaJson.area.length; i++) {
+      area.push({
+        label: i,
+        value: areaJson.area[i].value,
+      });
+    }
+    setAreaDataFromJson(area);
   };
+
   // alert(state)
   return (
     <>
@@ -361,7 +446,7 @@ const DivOne = ({ props }) => {
       <Card>
         <Card.Header className="cardHeader">Vendor Details</Card.Header>
 
-      <Card.Body className="formScrollbar">
+        <Card.Body className="formScrollbar">
           <Row className="mb-3">
             <Col>
               <Input
@@ -433,10 +518,8 @@ const DivOne = ({ props }) => {
                 }}
               />
             </Col>
-            </Row> 
-           
-          
-          
+          </Row>
+
           <Row className="mb-3">
             <Col>
               <Input
@@ -457,71 +540,109 @@ const DivOne = ({ props }) => {
                 <></>
               )}
             </Col>
-            </Row>
-            <Row className="mb-3">
-           <Col>
-             
-            <Dropdown
+          </Row>
+          <Row className="mb-3">
+            <Col>
+              <Dropdown
                 required
                 label="State"
                 controlId="drp_state"
-                value={stateValueFromJSon}
+                value={stateValueFromJSon !== null ? stateValueFromJSon : ""}
                 defaultValue={stateValueFromJSon}
-                options={state !== undefined?state:""}
+                options={state !== undefined ? state : ""}
+                disabled={
+                  vendorData !== undefined && vendorData !== null ? true : false
+                }
+                // disabled={true}
                 // options={dropdownMeasurementUnitsOptions}
-                // onChangeDropDownHandler={(dropDownValue) => {
-                //   onChangeState(dropDownValue);
-                //   // validateForm("drp_state", state[dropDownValue-1].value);
-                // }}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  validateForm("drp_state", dropDownValue);
+                  // validateForm("drp_state", state[dropDownValue-1].value);
+                }}
               />
-            
-            </Col> 
+              {invalidState === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {stateErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
+            </Col>
             <Col>
-            <Dropdown
+              <Dropdown
                 required
                 label="City"
                 controlId="drp_city"
                 options={district}
                 defaultValue={cityValueFromJSon}
-                value= {cityValueFromJSon}
-                // onChangeDropDownHandler={(dropDownValue) => {
-                //   onChangeDistrict(dropDownValue)
-                //   // validateForm("drp_city", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
-                // }}
+                value={cityValueFromJSon !== null ? cityValueFromJSon : ""}
+                disabled={
+                  vendorData !== undefined && vendorData !== null ? true : false
+                }
+                onChangeDropDownHandler={(dropDownValue) => {
+                  validateForm("drp_city", dropDownValue);
+                  // validateForm("drp_city", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                }}
               />
-            
+              {invalidCity === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {cityErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
             <Col>
-            <Dropdown
+              <Dropdown
                 required
                 label="Area"
                 controlId="drp_area"
-                options={city}
-                value={areaValueFromJSon}
+                options={areaDataFromJson}
+                defaultValue={areaValueFromJSon}
+                value={areaValueFromJSon !== null ? areaValueFromJSon : ""}
+                disabled={
+                  vendorData !== undefined && vendorData !== null ? true : false
+                }
                 // onChangeDropDownHandler={(dropDownValue) => {
                 //   validateForm("drp_area", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
                 // }}
-                // onChangeDropDownHandler={(dropDownValue) => {
-                //   validateForm("drp_area", dropDownValue);
-                // }}
+                onChangeDropDownHandler={(dropDownValue) => {
+                  validateForm("drp_area", dropDownValue);
+                }}
               />
+              {invalidArea === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {areaErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
             {/* Pin code */}
             <Col>
               <Input
                 required
-                controlId="txt_address1"
+                controlId="txt_pin"
                 label="Pin Code"
                 type="text"
-                value={primaryAddress}
+                value={primaryPin}
+                disabled={
+                  vendorData !== undefined && vendorData !== null ? true : false
+                }
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_address1", inputValue);
+                  validateForm("txt_pin", inputValue);
                 }}
               />
-            
+              {invalidPin === true ? (
+                <Form.Text className="position-relative mandatoryField">
+                  {pinErrorMessage}
+                </Form.Text>
+              ) : (
+                <></>
+              )}
             </Col>
-            </Row>
-            <Row className="mb-3">
+          </Row>
+          <Row className="mb-3">
             <Col>
               <Input
                 required
@@ -575,8 +696,8 @@ const DivOne = ({ props }) => {
                 <></>
               )}
             </Col>
-            </Row>
-            <Row className="mb-3">
+          </Row>
+          <Row className="mb-3">
             <Col>
               <Input
                 // required
@@ -589,63 +710,82 @@ const DivOne = ({ props }) => {
                 }}
               />
             </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col>
-            {/* <Dropdown
+          </Row>
+          <Row className="mb-3">
+            <Col>
+              <Dropdown
                 required
                 label="State"
                 controlId="drp_state"
-                options={state !== undefined?state:""}
+                value={stateValueFromJSon !== null ? stateValueFromJSon : ""}
+                defaultValue={stateValueFromJSon}
+                options={state !== undefined ? state : ""}
+                disabled={
+                  vendorData !== undefined && vendorData !== null ? true : false
+                }
+                // disabled={true}
                 // options={dropdownMeasurementUnitsOptions}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  onChangeState(dropDownValue);
+                  validateForm("drp_state", dropDownValue);
                   // validateForm("drp_state", state[dropDownValue-1].value);
                 }}
-              /> */}
-            
-            </Col> 
+              />
+            </Col>
             <Col>
-            {/* <Dropdown
+              <Dropdown
                 required
                 label="City"
                 controlId="drp_city"
                 options={district}
+                defaultValue={cityValueFromJSon}
+                value={cityValueFromJSon !== null ? cityValueFromJSon : ""}
+                disabled={
+                  vendorData !== undefined && vendorData !== null ? true : false
+                }
                 onChangeDropDownHandler={(dropDownValue) => {
-                  onChangeDistrict(dropDownValue)
+                  validateForm("drp_city", dropDownValue);
                   // validateForm("drp_city", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
                 }}
-              /> */}
-            
+              />
             </Col>
             <Col>
-            {/* <Dropdown
+              <Dropdown
                 required
                 label="Area"
                 controlId="drp_area"
-                options={city}
+                options={areaDataFromJson}
+                defaultValue={areaValueFromJSon}
+                value={areaValueFromJSon !== null ? areaValueFromJSon : ""}
+                disabled={
+                  vendorData !== undefined && vendorData !== null ? true : false
+                }
+                // onChangeDropDownHandler={(dropDownValue) => {
+                //   validateForm("drp_area", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                // }}
                 onChangeDropDownHandler={(dropDownValue) => {
-                  validateForm("drp_area", dropdownMeasurementUnitsOptions[dropDownValue-1].value);
+                  validateForm("drp_area", dropDownValue);
                 }}
-              /> */}
+              />
             </Col>
             {/* Pin code */}
             <Col>
               <Input
                 required
-                controlId="txt_address1"
+                controlId="txt_pin"
                 label="Pin Code"
                 type="text"
-                value={primaryAddress}
+                value={primaryPin}
+                disabled={
+                  vendorData !== undefined && vendorData !== null ? true : false
+                }
                 onChangeInputHandler={(inputValue) => {
-                  validateForm("txt_address1", inputValue);
+                  validateForm("txt_pin", inputValue);
                 }}
               />
-            
             </Col>
-            </Row>
+          </Row>
           <Row className="mb-3">
-          <Col>
+            <Col>
               <Input
                 // required
                 controlId="txt_telephone2"
@@ -675,7 +815,7 @@ const DivOne = ({ props }) => {
                 }}
               />
             </Col>
-           
+
             <Col>
               <Input
                 // required
@@ -717,8 +857,6 @@ const DivOne = ({ props }) => {
 };
 
 const CreateVendor = (props) => {
-
-  
   const navigate = useNavigate();
 
   const [div, setDiv] = useState("divOne");

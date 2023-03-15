@@ -1,0 +1,21 @@
+{  
+   "area":[  
+    {
+        "id": 1,
+        "value": "Trimurti gym"
+      },
+      {
+        "id": 2,
+        "value": "Malgaon"
+      },
+      {
+        "id": 3,
+        "value": "Vishrambag"
+      },
+      {
+        "id": 4,
+        "value": "Abhishek hotel"
+      }
+    ]
+    
+    }

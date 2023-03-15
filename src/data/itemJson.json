@@ -1,0 +1,31 @@
+{
+    "Data": [
+  
+        {
+            "id": 1,
+            "value": "Accessories"
+          },
+          {
+            "id": 2,
+            "value": "Chemicals"
+          },
+          {
+            "id": 3,
+            "value": "Consumables"
+          },
+          {
+            "id": 4,
+            "value": "Stationery"
+          },
+          {
+            "id": 5,
+            "value": "Toiletories"
+          },
+          {
+            "id": 6,
+            "value": "Uniform"
+          }
+    
+
+    ]
+  }
